@@ -1,0 +1,150 @@
+  title: boiler
+  icon: mdi:shower-head
+  path: Boiler
+  cards:
+    - type: vertical-stack
+      cards:
+        - type: "custom:button-card"
+          color_type: label-card
+          color: rgb(255, 255, 255)
+          name: -לוח זמנים לבוילר-
+          styles:
+            card:
+                  - height: 20px
+                  - text-transform: none
+                  - color: black
+                  - background-color: rgb(211,211,211,0.6)
+                  - font-size: 20px
+                  - font-weight: bold
+    - type: vertical-stack
+      cards:
+        - type: entities
+          show_header_toggle: false
+          entities:
+          #- switch.broadlink_switch
+          - automation.boiler_on
+          - entity: input_datetime.boiler_start_time
+            secondary_info: last-changed
+          - automation.boiler_off
+          - entity: input_datetime.boiler_end_time
+            secondary_info: last-changed
+        - type: vertical-stack
+          cards:
+            - type: "custom:button-card"
+              color_type: label-card
+              color: rgb(255, 255, 255)
+              name: -מידע על הדוד-
+              styles:
+                card:
+                      - height: 20px
+                      - text-transform: none
+                      - color: black
+                      - background-color: rgb(211,211,211,0.6)
+                      - font-size: 20px
+                      - font-weight: bold
+        - type: vertical-stack
+          cards:
+            - type: entities
+              show_header_toggle: false
+              entities:
+              #- automation.timer_boiler1_off
+              #- automation.boiler_with_timer
+              #- input_number.slider_boiler
+              - sensor.switcher_webapi_state
+              - sensor.switcher_webapi_power_consumption
+              - sensor.switcher_webapi_electric_current
+              - sensor.switcher_webapi_time_left
+    - type: vertical-stack
+      cards:
+        - type: "custom:button-card"
+          color_type: label-card
+          color: rgb(255, 255, 255)
+          name: -טיימרים קבועים מראש לדוד-
+          styles:
+            card:
+                  - height: 20px
+                  - text-transform: none
+                  - color: black
+                  - background-color: rgb(211,211,211,0.6)
+                  - font-size: 20px
+                  - font-weight: bold
+        - type: horizontal-stack
+          cards:
+            - type: "custom:button-card"
+              entity: script.switcher_turn_on_timer_script_30
+              name: "טיימר 30 דק"
+              icon: mdi:shower-head
+              #color: rgb(0, 255, 0)
+              #color_off: rgb(255, 0, 0, 0)
+              show_state: true
+              size: 80%
+              styles:
+                card:
+                  - height: 80px
+                  - text-transform: none
+                  #- color: black
+                  - background-color: rgb(0 255, 0, 0.5)
+                  - font-size: 14px
+            - type: "custom:button-card"
+              entity: script.switcher_turn_on_timer_script_45
+              name: "טיימר 45 דק"
+              icon: mdi:shower-head
+              #color: rgb(0, 255, 0)
+              #color_off: rgb(255, 0, 0, 0)
+              show_state: true
+              size: 80%
+              styles:
+                card:
+                  - height: 80px
+                  - text-transform: none
+                  #- color: black
+                  - background-color: rgb(0 255, 0, 0.5)
+                  - font-size: 14px
+            - type: "custom:button-card"
+              entity: script.switcher_turn_on_timer_script_60
+              name: "טיימר 60 דק"
+              icon: mdi:shower-head
+              #color: rgb(0, 255, 0)
+              #color_off: rgb(255, 0, 0, 0)
+              show_state: true
+              size: 80%
+              styles:
+                card:
+                  - height: 80px
+                  - text-transform: none
+                  #- color: black
+                  - background-color: rgb(0 255, 0, 0.5)
+                  - font-size: 14px
+                  
+        - type: vertical-stack
+          cards:
+            - type: "custom:button-card"
+              color_type: label-card
+              color: rgb(255, 255, 255)
+              name: -הפעלה \ כיבוי בוילר-
+              styles:
+                card:
+                      - height: 20px
+                      - text-transform: none
+                      - color: black
+                      - background-color: rgb(211,211,211,0.6)
+                      - font-size: 20px
+                      - font-weight: bold
+            - type: horizontal-stack
+              cards:
+                - type: custom:decluttering-card
+                  template: boiler
+                  variables:
+                    - image: /local/shower.jpg
+                    - entity: switcher_webapi
+                    - top: 12%
+                    - left: 50%
+                    - top1: 60%
+                    - left1: 50%
+                    - direction: rtl
+                    - icon: shower-head
+                    - text_size: 20
+                    - icon_size: 40
+                    - text_color: white
+                    - icon_color: white
+                    - name: boiler

@@ -1,0 +1,29 @@
+ icon: mdi:home
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - show_name: false
+                type: picture-entity
+                entity: device_tracker.saar
+                state_image:
+                  not_home: /local/saar-away.jpg
+                  home: /local/saar-home1.png
+              - image: 
+                tap_action:
+                  action: more-info
+                entity: device_tracker.michael
+                state_image:
+                  not_home: /local/michael-away.jpg
+                  home: https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/49897468_2534522093257065_3427003149062242304_n.jpg?_nc_cat=103&_nc_oc=AQkpt1PPMhIukzs-f0MPWBbWljNGXiN3euj4NG71N_BMjAIZjTC20OqzUuc2TgtWW6I&_nc_ht=scontent.fsdv2-1.fna&oh=48cfe34be9b8f24b1228d4d2f7f15c94&oe=5E3AA443
+                show_name: false
+                type: picture-entity
+              - show_name: false
+                type: picture-entity
+                entity: device_tracker.galaxy_s9_plus
+                tap_action:
+                  action: more-info
+                state_image:
+                  not_home: /local/rachel.jpg
+                  home: https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/527110_443693365673292_1076062856_n.jpg?_nc_cat=107&_nc_oc=AQlWMTgR_3IuX_5M75ahtn9h5lnl5ERzIY9KVIBbjUj6UyzVdacweHym5oHrwVcMxRs&_nc_ht=scontent.fsdv2-1.fna&oh=995c969e80fb1e417ce2d01ca763d5e4&oe=5E324483

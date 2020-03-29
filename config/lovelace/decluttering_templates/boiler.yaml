@@ -1,0 +1,47 @@
+
+default:
+- text_color: var(--picture-elements-text-color)
+- entity: switch.[[entity]]
+- icon: mdi:[[icon]]
+card:
+  type: picture-elements
+  style: |
+    ha-card {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }          
+  aspect_ratio: 20.5%  
+  image: '[[image]]'
+  icon: mdi:[[icon]]
+  elements:
+    - type: image
+      entity: switch.[[entity]]
+      icon: mdi:[[icon]]
+      image: '[[image]]'
+      tap_action:
+        action: toggle
+      style:
+        top: 50%
+        left: 50%
+        width: 100%
+    - type: state-label
+      entity: sensor.[[entity]]_state
+      prefix: 'מצב הבוילר: '
+      style:
+        top: '[[top]]'
+        left: '[[left]]'
+        direction: '[[direction]]'
+        font-size: '[[font_size1]]px'
+        color: '[[text_color]]'
+        font-family: tahoma
+        font-weight: bold
+    - type: state-icon
+      entity: switch.[[entity]]
+      style:
+        top: '[[top1]]'
+        left: '[[left1]]'
+        direction: '[[direction]]'
+        --iron-icon-height: '[[icon_size]]px'
+        --iron-icon-width: '[[icon_size]]px'
+        --paper-item-icon-color: '[[text_color]]'
+

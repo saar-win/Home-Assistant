@@ -1,0 +1,63 @@
+
+title: Speed Test/
+icon: mdi:home-automation
+path: speedtest
+cards:
+    - type: entities
+      title: Internet
+      show_header_toggle: false
+      entities:
+        - sensor.speedtest_download
+        - sensor.speedtest_upload
+        - sensor.speedtest_ping
+    - type: horizontal-stack
+      cards:
+        - type: gauge
+          name: Mbit/s Download
+          unit: ' '
+          min: 0
+          max: 50
+          severity:
+            red: 0
+            yellow: 30
+            green: 40
+          entity: sensor.speedtest_download
+        - type: gauge
+          name: Mbit/s Upload
+          unit: ' '
+          min: 0
+          max: 20
+          severity:
+            red: 0
+            yellow: 9
+            green: 13
+          entity: sensor.speedtest_upload
+    
+    - type: custom:mini-graph-card
+      hours_to_show: 24
+      points_per_hour: 2
+      entities:
+        - sensor.speedtest_download
+      show:
+        labels: true
+      color_thresholds:
+        - value: 0
+          color: "#ff0000"        #red
+        - value: 30
+          color: "#ffa500"        #orange
+        - value: 40
+          color: "#00ff00"        #green
+    - type: custom:mini-graph-card
+      hours_to_show: 24
+      points_per_hour: 2
+      entities:
+        - sensor.speedtest_upload
+      show:
+        labels: true
+      color_thresholds:
+        - value: 0
+          color: "#ff0000"        #red
+        - value: 7
+          color: "#ffa500"        #orange
+        - value: 13
+          color: "#00ff00"        #green 

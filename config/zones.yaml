@@ -1,0 +1,23 @@
+################################################################################
+#
+#ZONE
+#
+#################################################################################
+# This will override the default home zone
+- name: Home
+  radius: 20
+  icon: mdi:home-heart
+  latitude: !secret homelatitude
+  longitude: !secret homelongitude
+  
+- name: IDF
+  radius: 300
+  latitude: !secret idflatitude
+  longitude: !secret idflongitude
+  #icon: mdi:school
+
+- name: hospital
+  radius: 300
+  latitude: !secret hospitallatitude
+  longitude: !secret hospitallongitude
+  #icon: mdi:school

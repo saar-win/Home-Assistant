@@ -1,0 +1,100 @@
+title: Smart Sensor
+icon: mdi:shield-home-outline
+path: Xiaomi
+cards:
+  - type: vertical-stack
+    cards:
+      - type: "custom:button-card"
+        #color_type: label-card
+        color: rgb(255, 255, 255)
+        name: שליטה בכל התאורה
+        styles:
+          card:
+                - height: 20px
+                - text-transform: none
+                - color: black
+                - background-color: rgb(211,211,211, 0.6)
+                - font-size: 20px
+                - font-weight: bold
+      - type: horizontal-stack
+        cards:
+          - type: custom:decluttering-card
+            template: all_the_light
+            variables:
+              - direction1: right
+              - entity: group.homelight
+              - font_size: 18
+              - text_color: white
+              - tap_action: more_info
+
+      - type: vertical-stack
+        cards:
+          - type: entities
+            show_header_toggle: false
+            entities:
+              - switch.sonoff_1000ad249f_1
+              - switch.sonoff_1000ad249f_2
+              - switch.sonoff_1000ad249f_3
+              - switch.sonoff_1000a3c51a_1
+              - switch.sonoff_1000a3c51a_2
+              - switch.sonoff_1000a3c51a_3
+  - type: vertical-stack
+    cards:
+        - type: "custom:button-card"
+          #color_type: label-card
+          color: rgb(255, 255, 255)
+          name: מנורת מטבח
+          styles:
+            card:
+                  - height: 20px
+                  - text-transform: none
+                  - color: black
+                  - background-color: rgb(211,211,211, 0.6)
+                  - font-size: 20px
+                  - font-weight: bold
+        - type: entities
+          show_header_toggle: false
+          entities: 
+            - type: custom:slider-entity-row
+              entity: light.gateway_light_04cf8cf40276
+            - automation.xiaomi_light_start
+            - entity: input_datetime.xiaomi_light_timer_on
+            - automation.xiaomi_light_end
+            - entity: input_datetime.xiaomi_light_timer_off
+  - type: vertical-stack
+    cards:
+      - type: "custom:button-card"
+        color: rgb(255, 255, 255)
+        name: מצב סוללות
+        styles:
+          card:
+                - height: 20px
+                - text-transform: none
+                - color: black
+                - background-color: rgb(211,211,211, 0.6)
+                - font-size: 20px
+                - font-weight: bold
+      - type: entities
+        entities:
+          - sensor.door_battery_sensor
+          - sensor.smart_battery_sensor
+          - sensor.switch_battery_sensor
+          - sensor.motion_battery_sensor
+      - type: "custom:button-card"
+        #color_type: label-card
+        color: rgb(255, 255, 255)
+        name: סטטוס חיישנים
+        styles:
+          card:
+                - height: 20px
+                - text-transform: none
+                - color: black
+                - background-color: rgb(211,211,211, 0.6)
+                - font-size: 20px
+                - font-weight: bold
+      - type: entities
+        entities:
+          - sensor.door_status_state
+          - sensor.switch_status_state
+          - sensor.motion_status_state
+          - sensor.getway_hub_lm

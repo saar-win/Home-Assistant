@@ -1,0 +1,21 @@
+
+  # - platform: onvif
+  #   name: Home CCTV2
+  #   host: 192.168.1.88
+  #   port: 8080
+  #   username: !secret camera_user
+  #   password: !secret camera_pass
+
+  # - platform: generic
+  #   name: generic
+  #   stream_source: !secret stream
+  #   still_image_url: !secret image
+  #   #verify_ssl: no
+
+  - platform: generic
+    name: weather
+    stream_source: https://www.yr.no/place/Israel/North_Israel/afula/meteogram.png
+    still_image_url: https://www.yr.no/place/Israel/North_Israel/afula/meteogram.png
+    verify_ssl: no
+
+    

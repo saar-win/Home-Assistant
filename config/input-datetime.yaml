@@ -1,0 +1,63 @@
+boiler_start_time:
+    name: שעת הדלקת בוילר
+    has_date: false
+    has_time: true
+boiler_end_time:
+    
+    name: שעת כיבוי בוילר
+    has_date: false
+    has_time: true
+sonoff3_start_time:
+
+    name: Timer for turn on sonoff3
+    has_date: false
+    has_time: true
+sonoff3_end_time:
+
+    name: Timer for turn off sonoff3
+    has_date: false
+    has_time: true
+sonoff2_start_time:
+
+    name: Timer for turn on sonoff2
+    has_date: false
+    has_time: true
+sonoff2_end_time:
+
+    name: Timer for turn off sonoff2
+    has_date: false
+    has_time: true
+sonoff5_start_time:
+
+    name: CO2 שעת הדלקה
+    has_date: false
+    has_time: true
+
+sonoff5_end_time:
+    name: CO2 שעת כיבוי 
+    has_date: false
+    has_time: true
+
+sonoff6_start_time:
+    name: שעת הדלקת תאורה
+    has_date: false
+    has_time: true
+
+sonoff6_end_time:
+    name: שעת כיבוי תאורה 
+    has_date: false
+    has_time: true
+vacuum_timer_on:
+    name: שעת הדלקת שואב 
+    has_date: false
+    has_time: true
+
+xiaomi_light_timer_on:
+    name: שעת הדלקת תאורת מטבח
+    has_date: false
+    has_time: true   
+
+xiaomi_light_timer_off:
+    name: שעת כיבוי תאורת מטבח
+    has_date: false
+    has_time: true

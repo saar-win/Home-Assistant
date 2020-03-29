@@ -1,0 +1,1 @@
+app_list: "{'YouTube': '111299001912/9Ur5IzDKqV.TizenYouTube', 'Internet': 'org.tizen.browser', 'Netflix': '11101200001/org.tizen.netflix-app', 'e-Manual': '20192100003', 'Prime Video': '3201512006785/org.tizen.ignition', 'Gallery': '3201710015037', 'Apple TV': '3201807016597', 'PrivacyChoices': '3201909019271'}"

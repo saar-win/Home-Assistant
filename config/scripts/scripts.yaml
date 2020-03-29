@@ -1,0 +1,267 @@
+#########################################################################
+#                                                                       #
+#                          Weather  Telegream                           #
+#                                                                       #
+######################################################################## 
+telegram_weather:
+  alias: 'weather_telegram'
+  sequence:
+  - data:
+      data:
+        photo:
+          caption: מזג אוויר בעפולה
+          url: https://www.yr.no/place/Israel/North_Israel/afula/meteogram.png
+      message: Campainha
+      title: Home Assistant
+    service: notify.telegram
+#########################################################################
+#                                                                       #
+#                          TIMER-ON Telegream                           #
+#                                                                       #
+########################################################################       
+backup_to_hardisk:
+   alias: 'Backup Home Assitant img'
+   sequence:
+     - service: shell_command.backup_to_hardisk
+#########################################################################
+#                                                                       #
+#                          TIMER-ON Telegream                           #
+#                                                                       #
+########################################################################
+turn_on_boiler:
+    alias: 'turn_on_air'
+    sequence:
+      - service: notify.telegram
+        data:
+          #title: turn_on_boiler
+          message: 'הופעל לוח זמנים לבוילר'
+#########################################################################
+#                                                                       #
+#                          TIMER-OFF Telegream                          #
+#                                                                       #
+########################################################################
+turn_off_boiler:
+    alias: 'turn_off_boiler'
+    sequence:
+      - service: notify.telegram
+        data:
+          #title: turn_off_boiler
+          message: 'כובה לוח זמנים לבוילר'
+#########################################################################
+#                                                                       #
+#                             Now in home                               #
+#                                                                       #
+########################################################################
+check_saarhome_version:
+   sequence:
+      - service: mqtt.publish
+        data_template:
+         topic: "cmnd/saarhome/status"
+         payload: 2
+#########################################################################
+#                                                                       #
+#                             Temp TO oFF/ ON                           #
+#                                                                       #
+########################################################################
+turn_on_air:
+    alias: 'הדלקת מאוורר עליון לטלגרם'
+    sequence:
+      - service: notify.telegram
+        data:
+          title: '*Home Assistant*'
+          message: "מצב מתג מאורר עליון השתנה ל *{{ states('switch.sonoff4')}}* 
+
+
+                    טמפרטורה השתנתה ל *{{ states('sensor.sonoff4')}}*"
+
+turn_off_air:
+    alias: 'כיבוי מאוורר עליון לטלגרם'
+    sequence:
+      - service: notify.telegram
+        data:
+          title: '*Home Assistant*'
+          message: "מצב מתג מאורר עליון השתנה ל *{{ states('switch.sonoff4')}}* 
+
+
+                    טמפרטורה השתנתה ל *{{ states('sensor.sonoff4')}}*"
+
+
+alexa_tts_temp_state:
+    alias: Alexa air switch state
+    sequence:
+      - service: media_player.alexa_tts
+        data_template:
+          entity_id: media_player.saar_s_echo_dot
+          message: '
+            The Aquarium temp is {{ states("sensor.sonoff4") }} , The air Switch goes to {{ states("switch.sonoff4") }}'
+
+
+vacuum_saar:
+    alias: "חדר סער"
+    sequence:
+      - service: vacuum.send_command
+        data:
+          entity_id: vacuum.xiaomi_vacuum
+          command: app_zoned_clean
+          params: [[12481,26064,18381,30864,1]]
+vacuum_perents_room:
+    alias: "חדר הורים"
+    sequence:
+      - service: vacuum.send_command
+        data:
+          entity_id: vacuum.xiaomi_vacuum
+          command: app_zoned_clean
+          params: [[32373,24463,36073,28063,1],[31710,22687,33810,27087,1],[30199,21634,31699,25784,1],[29071,22019,30871,24919,1]]
+vacuum_kitchen:
+    alias: "מטבח"
+    sequence:
+      - service: vacuum.send_command
+        data:
+          entity_id: vacuum.xiaomi_vacuum
+          command: app_zoned_clean
+          params: [[30368,26449,33068,29799,1],[28800,24986,31150,28286,1]]
+vacuum_saloon:
+    alias: "סלון"
+    sequence:
+      - service: vacuum.send_command
+        data:
+          entity_id: vacuum.xiaomi_vacuum
+          command: app_zoned_clean
+          params: [[23115,22741,28165,26341,1],[25720,25339,34520,27739,1],[32541,21166,36191,26266,1]]
+vacuum_rachel:
+    alias: "חדר רחל"
+    sequence:
+      - service: vacuum.send_command
+        data:
+         entity_id: vacuum.xiaomi_vacuum
+         command: app_zoned_clean
+         params: [[16109,22957,20609,26607,1]]
+vacuum_bathroom:
+    alias: "חדר אמבטיה"
+    sequence:
+      - service: vacuum.send_command
+        data:
+         entity_id: vacuum.xiaomi_vacuum
+         command: app_zoned_clean
+         params: [[18197,19425,21447,22925,1],[20411,22195,22611,24195,1]]
+vacuum_halway:
+    alias: "מסדרון"
+    sequence:
+      - service: vacuum.send_command
+        data:
+         entity_id: vacuum.xiaomi_vacuum
+         command: app_zoned_clean
+         params: [[22797,18175,24497,19575,1],[23779,19404,25629,20754,1],[24817,20431,27217,22081,1],[25439,21995,28039,23695,1]]
+vacuum_allhome:
+    alias: "שאיבת כל הבית"
+    sequence:
+      - service: vacuum.send_command
+        data:
+         entity_id: vacuum.xiaomi_vacuum
+         command: app_zoned_clean
+         params: [[9595,17430,24795,33530,1],[24833,19542,29733,26242,1],[24854,31197,30604,35097,1]]
+#####################################################################################################################
+living_room_shutter_open:
+    alias: "Living room shutter open"
+    sequence:
+      - alias: "Shutter open"
+        service: cover.open_cover
+        data:
+          entity_id: cover.livingroom_cover
+#####################################################################################################################
+living_room_shutter_close:
+    alias: "Living room shutter close"
+    sequence:
+      - alias: "Shutter close"
+        service: cover.close_cover
+        data:
+          entity_id: cover.livingroom_cover
+#####################################################################################################################
+living_room_shutter_stop:
+    alias: "Living room shutter stop"
+    sequence:
+      - alias: "Shutter stop"
+        service: cover.stop_cover
+        data:
+          entity_id: cover.livingroom_cover
+
+
+
+
+# switcher_turn_on_timer_script:
+#     alias: On with Timer
+#     sequence:
+#         - delay:
+#             milliseconds: 100
+#         - service: script.turn_on
+#           data:
+#             entity_id: switcher_aio.turn_on_timer_script
+
+
+############################################################################
+#                                                                          #
+#                          Turn ON Switcher with timer                     #
+#                                                                          #
+############################################################################
+
+switcher_turn_on_timer_script_15:
+  alias: 15 min On with Timer
+  sequence:
+      - delay:
+          milliseconds: 100
+      - service: rest_command.switcher_turn_on
+        data_template:
+          minutes: 15 #'{{ states.input_select.switcher_timer_minutes_input_select.state }}'
+      - service: homeassistant.update_entity
+        entity_id: sensor.switcher_webapi
+switcher_turn_on_timer_script_30:
+  alias: 30 min On with Timer
+  sequence:
+      - delay:
+          milliseconds: 100
+      - service: rest_command.switcher_turn_on
+        data_template:
+          minutes: 30 #'{{ states.input_select.switcher_timer_minutes_input_select.state }}'
+      - service: homeassistant.update_entity
+        entity_id: sensor.switcher_webapi
+switcher_turn_on_timer_script_45:
+  alias: 45 min On with Timer
+  sequence:
+      - delay:
+          milliseconds: 100
+      - service: rest_command.switcher_turn_on
+        data_template:
+          minutes: 45 #'{{ states.input_select.switcher_timer_minutes_input_select.state }}'
+      - service: homeassistant.update_entity
+        entity_id: sensor.switcher_webapi
+
+switcher_turn_on_timer_script_60:
+  alias: 60 On with Timer
+  sequence:
+      - delay:
+          milliseconds: 100
+      - service: rest_command.switcher_turn_on
+        data_template:
+          minutes: 60 #'{{ states.input_select.switcher_timer_minutes_input_select.state }}'
+      - service: homeassistant.update_entity
+        entity_id: sensor.switcher_webapi
+
+############################################################################
+#                                                                          #
+#   Turn ON and OFF without timer for the Switch                           #
+#                                                                          #
+############################################################################
+
+switcher_turn_on:
+  alias: Turn On
+  sequence:
+      - service: rest_command.switcher_turn_on
+      - service: homeassistant.update_entity
+        entity_id: sensor.switcher_webapi
+
+switcher_turn_off:
+  alias: Turn Off
+  sequence:
+      - service: rest_command.switcher_turn_off
+      - service: homeassistant.update_entity
+        entity_id: sensor.switcher_webapi

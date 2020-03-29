@@ -1,0 +1,199 @@
+#########################################################################
+#                                                                       #
+#                       Telegram State switches                         #
+#                                                                       #
+#########################################################################
+- id: 'telegram_switch_state1'
+  alias: 'telegram_switch_state'
+  trigger:
+  - entity_id: switch.sonoff1 , switch.sonoff2 , switch.sonoff3 , switch.sonoff4 , switch.sonoff5 , switch.sonoff6 , switch.sonoff7
+    platform: state
+  condition: []
+  action:
+  - service: notify.telegram
+    data_template: 
+      title: '*Home Assistant*'
+      message: '*{{ trigger.to_state.attributes.friendly_name }}* השתנה מ-מצב {{ trigger.from_state.state }} למצב {{ trigger.to_state.state }}'
+#########################################################################
+#                                                                       #
+#                       Telegram State/Temp Commands                    #
+#                                                                       #
+#########################################################################
+- id: 'Telegram_temperature'
+  alias: 'Telegram_temperature_sonoff4'
+  trigger:
+    platform: event
+    event_type: telegram_command
+    event_data: 
+      command: '/temp'
+  action:
+    - service: notify.telegram
+      data:
+        message: "טמפרטורה אקווריום עליון היא *{{ states('sensor.sonoff4')}}*
+                  טמפרטורה אקווריום תחתון היא *{{ states('sensor.sonoff1')}}*"
+#########################################################################
+#                                                                       #
+#                       Waether To telegram                             #
+#                                                                       #
+#########################################################################
+- id: 'Telegram_weather1'
+  alias: 'Telegram_weather1'
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: '/weather1'
+  action:
+  - service: homeassistant.turn_on
+    data:
+      entity_id:
+        - script.telegram_weather
+#########################################################################
+#                                                                       #
+#                        Telegram Weather Commands                      #
+#                                                                       #
+#########################################################################
+- id: 'Telegram_temperature'
+  alias: 'Telegram_darksky'
+  trigger:
+    platform: event
+    event_type: telegram_command
+    event_data: 
+      command: '/weather'
+  action:
+    - service: notify.telegram
+      data:
+        message: 'תחזית להיום
+                   {{ states.sensor.dark_sky_summary_0d.state }}
+                 עם טמפרטורות של
+                   {{ states.sensor.dark_sky_temperature.state }}° 
+                 מהירות רוח של
+                  {{ states.sensor.dark_sky_wind_speed.state }} Km/h'
+#########################################################################
+#                                                                       #
+#                          Automation start boot                        #
+#                                                                       #
+#########################################################################
+- id: 'telegramboot'
+  alias: 'Telegram start boot'
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+  - service: notify.telegram
+    data:
+      message: המכשיר עלה מחדש
+#########################################################################
+#                                                                       #
+#                        Saar Automation not home                       #
+#                                                                       #
+########################################################################
+- id: 'telegramawayelectronics'
+  alias: 'telegram_saar_not_home'
+  trigger:
+  - entity_id: device_tracker.galaxy_s8
+    from: home
+    platform: state
+    to: not_home
+  action:
+  - data:
+      message: סער יצא מהבית
+    service: notify.telegram
+#########################################################################
+#                                                                       #
+#                        Saar Automation at home                        #
+#                                                                       #
+########################################################################
+- id: 'telegramawayelectronics'
+  alias: 'Telegram_saar_home'
+  trigger:
+  - entity_id: device_tracker.galaxy_s8
+    from: not_home
+    platform: state
+    to: home
+  action:
+  - data:
+      message: סער הגיע לבית
+    service: notify.telegram
+#########################################################################
+#                                                                       #
+#                        miki Automation not home                       #
+#                                                                       #
+########################################################################
+- id: 'telegramawayelectronics'
+  alias: 'Telegram miki home'
+  trigger:
+  - entity_id: device_tracker.galaxy_note_8
+    from: home
+    platform: state
+    to: not_home
+  action:
+  - data:
+      message: מיקי יצא מהבית
+    service: notify.telegram
+#########################################################################
+#                                                                       #
+#                        miki Automation at home                        #
+#                                                                       #
+########################################################################
+- id: 'telegramawayelectronics'
+  alias: 'Telegram miki not in home'
+  trigger:
+  - entity_id: device_tracker.galaxy_note_8
+    from: not_home
+    platform: state
+    to: home
+  action:
+  - data:
+      message: מיקי הגיעה לבית
+    service: notify.telegram
+#########################################################################
+#                                                                       #
+#                        rachel Automation not home                     #
+#                                                                       #
+########################################################################
+- id: 'telegramawayelectronics'
+  alias: 'Telegram rachel home'
+  trigger:
+  - entity_id: device_tracker.galaxy_s9_plus
+    from: home
+    platform: state
+    to: not_home
+  action:
+  - data:
+      message: רחל יצאה מהבית
+    service: notify.telegram
+#########################################################################
+#                                                                       #
+#                        rachel Automation at home                      #
+#                                                                       #
+########################################################################
+- id: 'telegramawayelectronics'
+  alias: 'Telegram rachel not in home'
+  trigger:
+  - entity_id: device_tracker.galaxy_s9_plus
+    from: not_home
+    platform: state
+    to: home
+  action:
+  - data:
+      message: רחל הגיעה לבית
+    service: notify.telegram
+#########################################################################
+#                                                                       #
+#                        littel Aqua light on                           #
+#                                                                       #
+#########################################################################
+- id: 'cam_pic'
+  alias: 'cam picture notification'
+  trigger:
+    platform: event
+    event_type: telegram_command
+    event_data: 
+      command: '/pic'
+  action:
+    - service: camera.snapshot
+      data:
+        entity_id: camera.home_cctv2
+        filename: '/home/homeassistant/.homeassistant/www/snapshot/{{ now ().hour }}_{{ now ().minute }}.jpg'

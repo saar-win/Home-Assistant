@@ -1,0 +1,48 @@
+  project_id: g_project_id
+  api_key: !secret g_api_key
+  exposed_domains:
+    - switch
+    - script
+    - cover
+    - automation
+    - climate
+    - scene
+    - input-datetime
+    - input-number
+    - sensor
+
+#  entity_config:
+#  ####Sensors#####
+#    sensor.sonoff4:
+#      name: Big Aquarium Temprature
+#      room: home
+#    sensor.sonoff1:
+#      name: little Aquarium Temprature
+#      room: home
+#    sensor.temp1:
+#      name: Saar Temprature
+#      room: Saar room
+#    sensor.temp2:
+#      name: Miki Temprature
+#      room: Miki room
+#    sensor.temp3:
+#      name: Salon Temprature
+#      room: Salon
+#    sensor.temp4:
+#      name: Maamaad Temprature
+#      room: Maamaad room
+#    sensor.temp5:
+#      name: Rachel Temprature
+#      room: Rachel room
+  
+####Switchs#####
+
+#    switch.sonoff1:
+#      name: Aquarium thermostat 
+#      room: home
+#    switch.sonoff3:
+#      name: Aquarium air pump
+#      room: home
+#    switch.broadlink_switch:
+#      name: Boiler
+#      room: corridor

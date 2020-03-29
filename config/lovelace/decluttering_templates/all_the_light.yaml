@@ -1,0 +1,36 @@
+
+show_entity_picture: true
+default:
+  type: entities
+  # style: |
+  #   ha-card {
+  #     border: solid 1px var(--dark-primary-color);
+  #     border-radius: 12px;
+  #     overflow: hidden;
+  #     width: 97%;
+  #     margin: 0 auto;
+  #     padding-top: 0px;
+  #   }
+card:
+  type: custom:hui-image-element
+  image: '/local/images/light/salon.jpg'
+  aspect_ratio: 20%
+  entity: '[[entity]]'
+  prefix: 'מצב התאורה: '
+  name: '[[name]]'
+  show_name: true
+  title: asdasd
+  icon: mdi:[[icon]]
+  tap_action:
+    action: toggle
+  style:
+    direction: '[[direction]]'
+    top: '[[top]]'
+    right: '[[right]]'
+    # pointer-events: none
+    font-size: '[[font_size1]]px'
+    font-weight: bold
+    color: '[[text_color]]'
+    font-family: tahoma
+    border-radius: 10px
+    border: solid 1px rgba(100,100,100,0.3)

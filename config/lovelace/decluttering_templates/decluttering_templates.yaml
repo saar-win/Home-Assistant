@@ -1,0 +1,15 @@
+person_elements: !include person_template.yaml
+
+welcome_banner: !include welcome_banner.yaml
+
+all_the_light: !include all_the_light.yaml
+
+boiler: !include boiler.yaml
+
+container: !include container.yaml
+
+menu_button: !include menu_button_template.yaml
+
+button: !include button_template.yaml
+
+shoulder_blank_card: !include shoulder_blank_template.yaml

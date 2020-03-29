@@ -1,0 +1,17 @@
+*.json
+alexa_*
+._*.yaml
+home-assistant.*
+.storage/*
+.storage
+secrets.yaml
+.google.token
+.sonoff.json
+homeassistant.*
+._.sonoff.json
+._*
+._*.log
+home-assistant*
+.DS_Store
+homassistant.sh
+update.sh

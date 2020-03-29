@@ -1,0 +1,307 @@
+
+sonoff4_4433:
+  hide_if_away: true
+  icon:
+  mac: 80:7D:3A:32:91:51
+  name: Sonoff4-4433
+  picture:
+  track: true
+
+sonoff1_3375:
+  hide_if_away: true
+  icon:
+  mac: 80:7D:3A:32:ED:2F
+  name: Sonoff1-3375
+  picture:
+  track: true
+
+esp_681cef:
+  hide_if_away: true
+  icon:
+  mac: 80:7D:3A:68:1C:EF
+  name: ESP_681CEF
+  picture:
+  track: true
+
+sonoff3_0934:
+  hide_if_away: true
+  icon:
+  mac: 84:F3:EB:3C:C3:A6
+  name: Sonoff3-0934
+  picture:
+  track: true
+
+sonoff5_2768:
+  hide_if_away: true
+  icon:
+  mac: CC:50:E3:1C:4A:D0
+  name: Sonoff5-2768
+  picture:
+  track: true
+
+sonoff2_5125:
+  hide_if_away: true
+  icon:
+  mac: CC:50:E3:1B:14:05
+  name: Sonoff2-5125
+  picture:
+  track: true
+
+hpe53464:
+  hide_if_away: true
+  icon:
+  mac: FC:3F:DB:E5:34:64
+  name: HPE53464
+  picture:
+  track: true
+
+esp_bcd7f2:
+  hide_if_away: true
+  icon:
+  mac: EC:FA:BC:BC:D7:F2
+  name: ESP_BCD7F2
+  picture:
+  track: true
+
+esp_e1528c:
+  hide_if_away: true
+  icon:
+  mac: 60:01:94:E1:52:8C
+  name: ESP_E1528C
+  picture:
+  track: true
+
+esp_826109:
+  hide_if_away: true
+  icon:
+  mac: D8:F1:5B:82:61:09
+  name: ESP_826109
+  picture:
+  track: true
+
+lumi_gateway_v3_miio259261141:
+  hide_if_away: true
+  icon:
+  mac: 04:CF:8C:F4:02:76
+  name: lumi-gateway-v3_miio259261141
+  picture:
+  track: true
+
+shellyswitch25_ba878a:
+  hide_if_away: true
+  icon:
+  mac: A4:CF:12:BA:87:8A
+  name: shellyswitch25-BA878A
+  picture:
+  track: true
+
+localhost:
+  hide_if_away: true
+  icon:
+  mac: CC:6E:A4:CE:D0:FE
+  name: localhost
+  picture:
+  track: true
+
+amazon_543b2123b:
+  hide_if_away: true
+  icon:
+  mac: 7C:61:66:49:A9:FE
+  name: amazon-543b2123b
+  picture:
+  track: true
+
+tizen:
+  hide_if_away: true
+  icon:
+  mac: 8C:79:F5:06:D3:A2
+  name: TIZEN
+  picture:
+  track: true
+
+server:
+  hide_if_away: true
+  icon:
+  mac: 08:00:27:01:02:5A
+  name: SERVER
+  picture:
+  track: true
+
+temp1_4387:
+  hide_if_away: true
+  icon:
+  mac: 24:62:AB:0B:91:23
+  name: temp1-4387
+  picture:
+  track: true
+
+galaxy_note10:
+  hide_if_away: true
+  icon:
+  mac: 8C:B8:4A:41:A9:C4
+  name: Galaxy-Note10
+  picture:
+  track: true
+
+pi:
+  hide_if_away: true
+  icon:
+  mac: B8:27:EB:D3:92:72
+  name: PI
+  picture:
+  track: true
+
+iclouds_mbp:
+  hide_if_away: true
+  icon:
+  mac: A4:83:E7:A7:2F:D7
+  name: iClouds-MBP
+  picture:
+  track: true
+
+84_f3_eb_ee_28_d0:
+  hide_if_away: true
+  icon:
+  mac: 84:F3:EB:EE:28:D0
+  name: 84:F3:EB:EE:28:D0
+  picture:
+  track: true
+
+temp3_2136:
+  hide_if_away: true
+  icon:
+  mac: 84:F3:EB:EE:28:58
+  name: temp3-2136
+  picture:
+  track: true
+
+temp4_4089:
+  hide_if_away: true
+  icon:
+  mac: 24:62:AB:0B:8F:F9
+  name: temp4-4089
+  picture:
+  track: true
+
+galaxy_s9:
+  hide_if_away: true
+  icon:
+  mac: 08:C5:E1:87:7D:1D
+  name: Galaxy-S9
+  picture:
+  track: true
+
+'68_63_59_78_04_21':
+  hide_if_away: true
+  icon:
+  mac: 68:63:59:78:04:21
+  name: 68:63:59:78:04:21
+  picture:
+  track: true
+
+desktop_0oj9gma:
+  hide_if_away: true
+  icon:
+  mac: D4:BE:D9:3E:24:40
+  name: DESKTOP-0OJ9GMA
+  picture:
+  track: true
+
+saar_wintrov:
+  hide_if_away: true
+  icon:
+  mac: 80:BE:05:D3:7E:36
+  name: Saar-wintrov
+  picture:
+  track: true
+
+desktop_0oj9gma_2:
+  hide_if_away: true
+  icon:
+  mac: C0:18:85:8F:C4:01
+  name: DESKTOP-0OJ9GMA
+  picture:
+  track: true
+
+mi9tpro_saar_sphone:
+  hide_if_away: true
+  icon:
+  mac: E0:DC:FF:F4:92:2D
+  name: Mi9TPro-Saar'sphone
+  picture:
+  track: true
+
+miki:
+  hide_if_away: true
+  icon:
+  mac: 00:24:1D:D3:65:E5
+  name: Miki
+  picture:
+  track: true
+
+saar_laptop:
+  hide_if_away: true
+  icon:
+  mac: 42:3A:D6:00:67:00
+  name: Saar-Laptop
+  picture:
+  track: true
+
+gears3_d70a:
+  hide_if_away: true
+  icon:
+  mac: DC:66:72:67:77:0B
+  name: GearS3-D70A
+  picture:
+  track: true
+
+rockrobo:
+  hide_if_away: true
+  icon:
+  mac: 34:CE:00:E8:7D:DF
+  name: rockrobo
+  picture:
+  track: true
+
+34_8a_7b_a6_fe_58:
+  hide_if_away: true
+  icon:
+  mac: 34:8A:7B:A6:FE:58
+  name: 34:8A:7B:A6:FE:58
+  picture:
+  track: true
+
+temp5_6229:
+  icon:
+  mac: 24:62:AB:0B:98:55
+  name: temp5-6229
+  picture:
+  track: true
+
+iclouds_mbp_2:
+  icon:
+  mac: EE:08:6B:A7:2F:D7
+  name: iClouds-MBP
+  picture:
+  track: true
+
+android_50929c0e337dde37:
+  icon:
+  mac: F0:72:8C:E7:0B:09
+  name: android-50929c0e337dde37
+  picture:
+  track: true
+
+ee_08_6b_f4_92_2d:
+  icon:
+  mac: EE:08:6B:F4:92:2D
+  name: EE:08:6B:F4:92:2D
+  picture:
+  track: true
+
+ec_08_6b_4b_36_e5:
+  icon:
+  mac: EC:08:6B:4B:36:E5
+  name: EC:08:6B:4B:36:E5
+  picture:
+  track: true

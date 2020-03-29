@@ -1,0 +1,89 @@
+- id: אוטומציית התראה אם דלת כניסה פתוחה
+  alias: 'over 1 min home door - message'
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d00039d8d54
+    from: 'off'
+    to: 'on'
+    for:
+      minutes: 1
+  action:
+    service: notify.notify
+    data:
+      title: 'חישן הדלת'  #Front Door sensor
+      message: 'דלת הבית נפתחה ליותר מדקה' #front door is open more then 1 min
+      data:
+        push:
+          sound: "US-EN-Morgan-Freeman-Front-Door-Opened.wav"
+        attachment: 
+          url: https://i.imgur.com/O0BOOFA.gif
+
+- id: test
+  alias: 'Dod on for 15min'
+  initial_state: 'on'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.door_window_sensor_158d00039d8d54
+    to: 'on'
+  action:
+    - service: switch.turn_on
+      data:  
+        entity_id: switch.mqtt
+    - delay: 00:15:00
+    - service: switch.turn_on
+      data:  
+        entity_id: switch.mqtt
+#########################################################################
+  #                                                                       #
+  #                      OFF-TIMER Xiaomi Hub light                       #
+  #                                                                       #
+  ########################################################################
+- id: אוטומציית כיבוי תאורת מטבח
+  alias: 'xiaomi_light_end'
+  initial_state: 'on'
+  trigger:
+  - value_template: '{{states(''sensor.time'') == (states.input_datetime.xiaomi_light_timer_off.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}}'
+    platform: template
+  action:
+  - service: light.turn_off
+    entity_id: light.gateway_light_04cf8cf40276
+#########################################################################
+#                                                                       #
+#                          ON-TIMER Xiaomi Hub light                     #
+#                                                                       #
+########################################################################
+- id: אוטומיית הדלקת תאורת מטבח
+  alias: 'xiaomi_light_start'
+  initial_state: 'on'
+  trigger:
+  - value_template: '{{states(''sensor.time'') == (states.input_datetime.xiaomi_light_timer_on.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}} '
+    platform: template
+  action:
+  - service: light.turn_on
+    entity_id: light.gateway_light_04cf8cf40276
+#########################################################################
+#                                                                       #
+#                          ON-TIMER Xiaomi Hub light                     #
+#                                                                       #
+########################################################################
+- id: אוטומציית הודעה בפתיחת דלת
+  alias: "when home door open - message"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d00039d8d54
+    from: 'off'
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: group.family
+      state: 'not_home'
+  action:
+    - service: notify.notify
+      data:
+        message: 'דלת הכניסה לבית נפתחה'
+#########################################################################
+#                                                                       #
+#                          Xioami Singel switch                         #
+#                                                                       #
+########################################################################

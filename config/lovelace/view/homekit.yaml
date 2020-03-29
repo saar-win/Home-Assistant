@@ -1,0 +1,100 @@
+title: homekit
+panel: true
+theme: ios-dark-mode
+icon: mdi:home-lightbulb-outline
+path: homekit
+cards:
+  - type: vertical-stack
+    cards:
+      - type: "custom:homekit-card"
+        home: false
+        useBrightness: true
+        useTemperature: true
+        titleColor: "#FFFF"
+        enableColumns: true
+        style: |
+          :host {
+            --tile-background: rgba(0, 0, 0, 0.3);
+            --tile-font-family: tahoma;
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            --tile-name-text-color: rgba(255, 255, 255, 0.7);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            --tile-state-text-color: rgba(255, 255, 255, 0.4);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-state-changed-text-color: rgb(134, 134, 134);
+            --tile-unavailable-state-text-color: rgba(255, 255, 255, 0,5);
+            --tile-value-text-color: rgba(255, 0, 0, 1);
+            --tile-icon-color: rgba(255, 255, 255, 1);
+            --tile-on-icon-color: #f7d959;
+
+          }  
+          .button-inner .icon {
+                width:60px;  #Default = 50px
+                height:60px; #Default = 50px
+              }
+              .button-inner .icon ha-icon {
+                width: 50px; #Default = 30px
+                height:50px; #Default = 30px
+              }
+        statePositionTop: true
+        tileHoldAnimation: true
+        rows:
+          - row: 1
+            columns:
+              - column: 1
+                tileOnRow: 3
+                entities:
+                  - title: Living Room Lights
+                    entities: 
+                      - entity: switch.sonoff_1000ad249f_1
+                      - entity: switch.sonoff_1000ad249f_2
+                      - entity: switch.sonoff_1000ad249f_3
+              - column: 2  
+                tileOnRow: 4
+                entities:
+                  - title: Living Room Lights
+                    entities:
+                      - entity: switch.sonoff_1000a3c51a_1
+                      - entity: switch.sonoff_1000a3c51a_2
+                      - entity: switch.sonoff_1000a3c51a_3
+
+              - columns: 3
+                tileOnRow: 3
+                entities:
+                  - title: Boiler
+                    entities:
+                      - entity: switch.switcher_webapi
+
+          - row: 3
+            columns:
+              - column: 1
+                entities:
+                  - title: Cover
+                    entities:
+                      - entity: cover.livingroom_cover
+                        name: העלאה
+                        tap_action:
+                          service: script.living_room_shutter_open
+                          action: call-service
+                          
+                      - entity: cover.livingroom_cover
+                        name: עצירה
+                        tap_action:
+                          service: script.living_room_shutter_stop
+                          action: call-service
+                      - entity: cover.livingroom_cover
+                        name: הורדה
+                        tap_action:
+                          service: script.living_room_shutter_close
+                          action: call-service
+
+          - row: 3
+            columns:
+              - column: 1
+                entities:
+                  - title: Saar Room
+                    entities:
+                      - entity: switch.wemos_d1_mini

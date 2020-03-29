@@ -1,0 +1,126 @@
+'background': center / cover no-repeat url("/local/image/wallpaper03.jpg") fixed
+decluttering_templates: !include config/lovelace/decluttering_templates/decluttering_templates.yaml
+
+
+title: Wintrov Home
+views:
+  - id: home
+    panel: true
+    theme: ios-dark-mode
+    icon: mdi:home-lightbulb-outline
+    path: homekit
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: "custom:homekit-card"
+            home: false
+            rules: |
+              {% if "Vandaag" in states('sensor.blink_gft') %} <li>Vandaag groenebak aan de straat</li> {% endif %}
+              {% if "Vandaag" in states('sensor.blink_papier') %} <li>Vandaag oudpapier aan de straat</li> {% endif %}
+              {% if "Vandaag" in states('sensor.blink_pmd') %} <li>Vandaag plastic aan de straat</li> {% endif %}
+              {% if "Vandaag" in states('sensor.blink_restafval') %} <li>Vandaag grijzebak aan de straat</li> {% endif %}
+              {% if states('sensor.current_lights_on') | float > 0 %} <li>{{states('sensor.current_lights_on')}} lampen aan</li> {% endif %}
+              {% if states('sensor.current_media_players_on') | float > 0 %} <li>{{states('sensor.current_media_players_on')}} speakers aan</li> {% endif %}
+            useBrightness: true
+            useTemperature: true
+            titleColor: "#FFFF"
+            enableColumns: true
+            style: |
+              :host {
+                --tile-background: rgba(0, 0, 0, 0.3);
+                --tile-font-family: tahoma;
+                --tile-border-radius: 12px;
+                --tile-width: 100px;
+                --tile-height: 100px;
+                --tile-on-background: rgba(255, 255, 255, 1);
+                --tile-name-text-color: rgba(255, 255, 255, 0.7);
+                --tile-on-name-text-color: rgba(0, 0, 0, 1);
+                --tile-state-text-color: rgba(255, 255, 255, 0.4);
+                --tile-on-state-text-color: rgba(0, 0, 0, 1);
+                --tile-state-changed-text-color: rgb(134, 134, 134);
+                --tile-unavailable-state-text-color: rgba(255, 255, 255, 0,5);
+                --tile-value-text-color: rgba(255, 0, 0, 1);
+                --tile-icon-color: rgba(255, 255, 255, 1);
+                --tile-on-icon-color: #f7d959;
+
+              }  
+              .button-inner .icon {
+                    width:60px;  #Default = 50px
+                    height:60px; #Default = 50px
+                  }
+                  .button-inner .icon ha-icon {
+                    width: 50px; #Default = 30px
+                    height:50px; #Default = 30px
+                  }
+            statePositionTop: true
+            tileHoldAnimation: true
+            rows:
+              - row: 1
+                columns:
+                  - column: 1
+                    tileOnRow: 5
+                    entities:
+                      - title:
+                        entities: 
+                          - entity: switch.sonoff_1000ad249f_1
+                          - entity: switch.sonoff_1000ad249f_2
+                          - entity: switch.sonoff_1000ad249f_3
+                          - entity: switch.sonoff_1000a3c51a_1
+                          - entity: switch.sonoff_1000a3c51a_2
+
+                  - columns: 1
+                    tileOnRow: 1
+                    entities:
+                      - title:
+                        entities:
+                          - entity: switch.switcher_webapi
+                          
+              # - row: 2
+              #   columns:    
+              #     - column: 1
+              #       tileOnRow: 7
+              #       entities:
+              #         - title:
+              #           entities:
+                            
+                  - columns: 2
+                    tileOnRow: 7
+                    entities:
+                      - title:
+                        entities:
+                          - entity: sensor.time
+                          - entity: cover.livingroom_cover
+                            name: העלאה
+                            tap_action:
+                              service: script.living_room_shutter_open
+                              action: call-service
+                              
+                          - entity: cover.livingroom_cover
+                            name: עצירה
+                            tap_action:
+                              service: script.living_room_shutter_stop
+                              action: call-service
+                          - entity: cover.livingroom_cover
+                            name: הורדה
+                            tap_action:
+                              service: script.living_room_shutter_close
+                              action: call-service
+                  # - columns: 3
+                  #   tileOnRow: 4
+                  #   entities:
+                        # - title: How Home?
+                        #   entities:
+                          - entity: person.saar
+                            name: סער
+                          - entity: person.michael
+                            name: מיכאל
+                          - entity: person.rachel
+                            name: רחל
+
+              - row: 4
+                columns:
+                  - column: 1
+                    entities:
+                      - title: Saar Room
+                        entities:
+                          - entity: switch.wemos_d1_mini

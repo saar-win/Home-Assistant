@@ -1,0 +1,387 @@
+
+
+- alias: 'Send notification upon failed login attempt'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: persistent_notification.http_login
+  condition:
+    - condition: template
+      value_template: "{{ trigger.to_state.state != 'None' }}"
+  action:
+    - service: notify.mobile_app_mi_9t_pro
+      data_template:
+        title: 'בוצע נסיון כניסה שנכשל!'   #Failed login attempt!
+        message: "{{ state_attr('persistent_notification.http_login', 'message') }}"
+        #iOS only
+        data:
+          url: http://extreme-ip-lookup.com/{{ states.persistent_notification.http_login.attributes.message.split("from ") [1]}}
+############################################################
+#
+# send notification upon IP BAN
+# if there was a IP BAN , send Notification with URL and IP of the hacker ;)
+############################################################
+- alias: 'Send notification upon IP BAN'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: persistent_notification.ip_ban
+  condition:
+    - condition: template
+      value_template: "{{ trigger.to_state.state != 'None' }}"
+  action:
+    - service: notify.mobile_app_mi_9t_pro
+      data_template:
+        title: 'אייפיי נחסם!'   #Failed login attempt!
+        message: "{{ state_attr('persistent_notification.ip_ban', 'message') }}"      
+        #iOS only
+        data:
+          url: http://extreme-ip-lookup.com/{{ states.persistent_notification.ip_ban.attributes.message.split("from ") [1]}}
+
+#########################################################################
+#                                                                       #
+#                          Shutter controlling                          #
+#                                                                       #
+########################################################################
+- id: ssias
+  alias: Shelly Status Info at Start
+  trigger:
+  - event: start
+    platform: homeassistant
+  action:
+  - data:
+      payload: update
+      topic: shellies/command
+    service: mqtt.publish
+  - data:
+      payload: update
+      topic: tele/command
+    service: mqtt.publish
+#########################################################################
+#                                                                       #
+#                          ON-TIMER boiler_on_timer                     #
+#                                                                       #
+########################################################################
+- id: boiler_on_timer
+  alias: 'boiler_on'
+  initial_state: 'on'
+  trigger:
+  - value_template: '{{states(''sensor.time'') == (states.input_datetime.boiler_start_time.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}}'
+    platform: template
+  action:
+  - service: switch.turn_on
+    entity_id: switch.switcher_touch_d7f2
+
+#########################################################################
+#                                                                       #
+#                      OFF-TIMER boiler_off_timer                       #
+#                                                                       #
+########################################################################
+- id: boiler_off_timer
+  alias: 'boiler_off'
+  initial_state: 'on'
+  trigger:
+  - value_template: '{{states(''sensor.time'') == (states.input_datetime.boiler_end_time.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}}'
+    platform: template
+  action:
+  - service: switch.turn_off
+    entity_id: switch.switcher_touch_d7f2
+  #- service: script.turn_off_boiler
+#########################################################################
+#                                                                       #
+#                          ON-TIMER sonoff3                             #
+#                                                                       #
+#########################################################################
+- id: sonoff3_on_timer
+  alias: 'sonoff3_on'
+  initial_state: 'on'
+  trigger:
+  - value_template: '{{states(''sensor.time'') == (states.input_datetime.sonoff3_start_time.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}}'
+    platform: template
+  action:
+  - service: switch.turn_on
+    entity_id: switch.sonoff3
+ # - service: script.turn_on_boiler
+#########################################################################
+#                                                                       #
+#                          OFF-TIMER sonoff3                            #
+#                                                                       #
+#########################################################################
+- id: sonoff3_off_timer
+  alias: 'sonoff3_off'
+  initial_state: 'on'
+  trigger:
+  - value_template: '{{states(''sensor.time'') == (states.input_datetime.sonoff3_end_time.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}}'
+    platform: template
+  action:
+  - service: switch.turn_off
+    entity_id: switch.sonoff3
+ # - service: script.turn_off_boiler
+#########################################################################
+#                                                                       #
+#                          ON-TIMER sonoff2                             #
+#                                                                       #
+#########################################################################
+- id: sonoff2_on_timer
+  alias: 'sonoff2_on'
+  initial_state: 'on'
+  trigger:
+  - value_template: '{{states(''sensor.time'') == (states.input_datetime.sonoff2_start_time.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}}'
+    platform: template
+  action:
+  - service: switch.turn_on
+    entity_id: switch.sonoff2
+ # - service: script.turn_on_boiler
+#########################################################################
+#                                                                       #
+#                          OFF-TIMER sonoff2                            #
+#                                                                       #
+#########################################################################
+- id: sonoff2_off_timer
+  alias: 'sonoff2_off'
+  initial_state: 'on'
+  trigger:
+  - value_template: '{{states(''sensor.time'') == (states.input_datetime.sonoff2_end_time.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}}'
+    platform: template
+  action:
+  - service: switch.turn_off
+    entity_id: switch.sonoff2
+ # - service: script.turn_off_boiler
+ #########################################################################
+#                                                                       #
+#                          ON-TIMER sonoff5                             #
+#                                                                       #
+#########################################################################
+- id: sonoff5_on_timer
+  alias: 'sonoff5_on'
+  initial_state: 'on'
+  trigger:
+  - value_template: '{{states(''sensor.time'') == (states.input_datetime.sonoff5_start_time.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}}'
+    platform: template
+  action:
+  - service: switch.turn_on
+    entity_id: switch.sonoff5
+ # - service: script.turn_on_boiler
+#########################################################################
+#                                                                       #
+#                          OFF-TIMER sonoff5                            #
+#                                                                       #
+#########################################################################
+- id: sonoff5_off_timer
+  alias: 'sonoff5_off'
+  initial_state: 'on'
+  trigger:
+  - value_template: '{{states(''sensor.time'') == (states.input_datetime.sonoff5_end_time.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}}'
+    platform: template
+  action:
+  - service: switch.turn_off
+    entity_id: switch.sonoff5
+ # - service: script.turn_off_boiler
+ #########################################################################
+#                                                                       #
+#                          ON-TIMER sonoff6                             #
+#                                                                       #
+#########################################################################
+- id: sonoff6_on_timer
+  alias: 'sonoff6_on'
+  initial_state: 'on'
+  trigger:
+  - value_template: '{{states(''sensor.time'') == (states.input_datetime.sonoff6_start_time.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}}'
+    platform: template
+  action:
+  - service: switch.turn_on
+    entity_id: switch.sonoff_10006f9483
+ # - service: script.turn_on_boiler
+#########################################################################
+#                                                                       #
+#                          OFF-TIMER sonoff6                            #
+#                                                                       #
+#########################################################################
+- id: sonoff6_off_timer
+  alias: 'sonoff6_off'
+  initial_state: 'on'
+  trigger:
+  - value_template: '{{states(''sensor.time'') == (states.input_datetime.sonoff6_end_time.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}}'
+    platform: template
+  action:
+  - service: switch.turn_off
+    entity_id: switch.sonoff_10006f9483
+ # - service: script.turn_off_boiler
+#########################################################################
+#                                                                       #
+#                                                                       #
+#                                                                       #
+########################################################################
+- alias: "Power state on HA start-up"
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+       - service: mqtt.publish
+         data:
+           topic: "cmnd/saarhome/status"
+           payload: "2"
+       - service: mqtt.publish
+         data:
+           topic: "cmnd/saarhome/Status2"
+           payload: "2"
+#########################################################################
+#                                                                       #
+#                                                                       #
+#                                                                       #
+#########################################################################
+- id: "sonoff_Status"
+  alias: sonoff Status Info at Start
+  initial_state: 'on'
+  trigger:
+  - platform: homeassistant
+    event: start
+  action:
+  - service: mqtt.publish
+    data:
+      topic: cmnd/saarhome/power1
+      payload: ""
+  - service: mqtt.publish
+    data:
+      topic: cmnd/saarhome/power2
+      payload: ""  
+  - service: mqtt.publish
+    data:
+      topic: cmnd/saarhome/power3
+      payload: ""
+  - service: mqtt.publish
+    data:
+      topic: cmnd/saarhome/power4
+      payload: ""
+  - service: mqtt.publish
+    data:
+      topic: tele/Sonoff4/SENSOR
+      payload: ""
+#########################################################################
+#                                                                       #
+#                       Turn on the air Temp                            #
+#                                                                       #
+#########################################################################
+- id: 'אוטומצית  הדלקת מאורר'
+  alias: 'sonoff4_temp_on'
+  trigger:
+  - platform: template
+    value_template: '{{ (states.input_number.temp_on.state | float) <= (states.sensor.sonoff4.state | float) }}'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.sonoff4
+#########################################################################
+#                                                                       #
+#                       Turn off the air Temp                           #
+#                                                                       #
+#########################################################################
+- id: 'אוטומציית כיבוי מאורר'
+  alias: 'sonoff4_temp_off'
+  trigger:
+  - platform: template
+    value_template: '{{ (states.input_number.temp_off.state | float) >= (states.sensor.sonoff4.state | float) }}'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.sonoff4
+#########################################################################
+#                                                                       #
+#                       Turn on the littel Thrmostat                    #
+#                                                                       #
+#########################################################################
+- id: 'אוטומצית  הדלקת גוף חימום קטן'
+  alias: 'sonoff1_temp_on'
+  trigger:
+  - platform: template
+    value_template: '{{ (states.input_number.littel_temp_on.state | float) >= (states.sensor.sonoff1.state | float) }}'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.sonoff1
+#########################################################################
+#                                                                       #
+#                       Turn off the littel Thrmostat                   #
+#                                                                       #
+#########################################################################
+- id: 'אוטומציית כיבוי גוף חימום קטן'
+  alias: 'sonoff1_temp_off'
+  trigger:
+  - platform: template
+    value_template: '{{ (states.input_number.littel_temp_off.state | float) <= (states.sensor.sonoff1.state | float) }}'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.sonoff1
+########################################################################
+- alias: Shutter Open
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.switch_158d000394b306
+      click_type: single
+  action:
+    service: cover.open_cover
+    entity_id: cover.livingroom_cover
+########################################################################
+- alias: Shutter Close
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.switch_158d000394b306
+      click_type: double
+  action:
+    service: cover.stop_cover
+    entity_id: cover.livingroom_cover
+########################################################################
+- alias: Shutter Stop
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.switch_158d000394b306
+      click_type: long_click_press
+  action:
+    service: cover.close_cover
+    entity_id: cover.livingroom_cover
+########################################################################
+
+- alias: 'Auto Backup'
+  trigger:
+    platform: time
+    at: '08:00:00'
+  action:
+    service: homeassistant.turn_on
+    entity_id: script.backup_to_hardisk
+
+########################################################################
+ 
+- alias: Alert when a critical container goes offline
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: switch.nginx, switch.home_assistant, switch.mqtt
+      to: 'off'
+      for:
+        seconds: 10
+  condition:
+    condition: and
+    conditions:
+      # Only send this once per hour
+      - condition: template
+        value_template: >
+          {% if states.automation.alert_when_a_critical_container_goes_offline.last_triggered is not none %}
+            {% if as_timestamp(now()) | int   -  as_timestamp(states.automation.alert_when_a_critical_container_goes_offline.attributes.last_triggered) | int > 3600 %} true {% else %} false
+            {% endif %}
+          {% else %}
+          false
+          {% endif %}
+  action:
+    - service: notify.mobile_app_mi_9t_pro
+      data_template:
+        message: 'Docker container for {{ trigger.to_state.name }} is not running. Down Before 10 seconds'
+        title: Container Alert
+    - service: persistent_notification.create
+      data_template:
+        notification_id: offline_container
+        title: Container Offline
+        message: >
+          Docker container for {{ trigger.to_state.name }} is not running. Down Before 10 seconds'

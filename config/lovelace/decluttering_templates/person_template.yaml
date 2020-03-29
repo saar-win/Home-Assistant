@@ -1,0 +1,88 @@
+
+default:
+  - text_color: var(--picture-elements-text-color)
+  - icon_color: var(--picture-elements-icon-color)
+  - font_weight: var(--picture-elements-text-weight)
+  - tap_action:
+      action: more-info
+  - hold_action:
+      action: none
+card:
+  type: picture-elements
+  style: |
+    ha-card {
+      border-radius: var(--border-radius);
+      font_weight: bold;
+      overflow: hidden;
+      }
+  image: '[[image_away]]'
+  elements:
+    - type: image
+      entity: device_tracker.[[name]]
+      image: '[[image_away]]'
+      state_image:
+        "home": '[[image_home]]'     
+      tap_action: '[[tap_action]]'
+      hold_action: '[[hold_action]]'
+      style:
+        left: 50%
+        top: 50%
+        width: 100%
+        heigth: 100%
+
+    - type: state-label
+      entity: device_tracker.[[name]]
+      style:
+        left: 0
+        bottom: 0
+        # pointer-events: none
+        font-size: 13px
+        font-weight: bold
+        line-height: 17px
+        color: '[[text_color]]'
+        background-color: rgba(0, 0, 0, 0.5)
+        width: 100%
+        transform: initial
+        padding: 0px 5px
+        font-family: tahoma
+
+    - type: state-label
+      entity: sensor.[[battery]]
+      style:
+        right: 0
+        bottom: 0
+        direction: '[[direction]]' 
+        # pointer-events: none
+        transform: initial
+        font-size: 13px
+        font-weight: bold
+        color: '[[text_color]]'
+        line-height: 17px
+        padding: 0px 20px
+        font-family: tahoma
+
+    - type: state-icon
+      entity: sensor.[[icon]]
+      style:
+        bottom: '[[bottom]]'
+        right: '[[right]]'
+        direction: '[[direction]]'
+        # pointer-events: none
+        --iron-icon-width: '[[icon_size]]px'
+        --paper-item-icon-color: '[[text_color]]'
+
+
+    - type: state-label
+      entity: person.[[person]]
+      prefix: 'לפי מיקום: '
+      style:
+        top: 6%
+        left: 50%
+        direction: '[[direction2]]'
+        # pointer-events: none
+        # transform: initial
+        font-size: 10px
+        color: '[[text_color]]'
+        background-color: rgba(0, 0, 0, 0.5)
+        line-height: 10px
+        font-family: tahoma

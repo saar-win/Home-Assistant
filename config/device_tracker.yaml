@@ -1,0 +1,15 @@
+- platform: netgear
+  host: 192.168.1.1
+  username: !secret netgear_username
+  password: !secret netgear_password
+  interval_seconds: 10
+  consider_home: 10
+   #verify_ssl: False
+   #detection_time: 60
+  #new_device_defaults:
+  #  track_new_devices: true
+
+- platform: nmap_tracker
+  hosts: 192.168.1.45
+  home_interval: 10
+  exclude: 192.168.1.22
