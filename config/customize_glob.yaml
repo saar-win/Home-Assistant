@@ -1,0 +1,17 @@
+sensor.state_*:
+  templates:
+          icon_color: >
+            if (state === 'on') return '#ffcc00';
+            return '#808080';
+
+switch.*:
+  templates:
+          icon_color: >
+            if (state === 'on') return '#ffcc00';
+            return '#808080';
+
+sensor.switcher_webapi_state:
+  templates:
+          icon_color: >
+            if (state === 'on') return '#ffcc00';
+            return '#808080';

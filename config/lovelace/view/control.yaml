@@ -1,0 +1,270 @@
+title: Sonoff Version
+icon: mdi:information-outline
+path: version
+cards:
+  - type: vertical-stack
+    cards:
+      
+      - type: custom:card-modder
+        card:
+          type: picture-elements
+          image: /local/sonoff_latest_version.jpg
+          elements:
+            - type: state-label
+              prefix: 'בצע בדיקת סונוף '
+              entity: script.check_saarhome_version
+              tap_action:
+                action: call-service
+              style: {color: white, left: 24%, top: 8%, font-size: 115%, font-weight: bold, direction: rtl}
+
+            - type: state-icon
+              entity: sensor.sonoff_latest_release
+              style: {color: white, left: 60%, top: 7%}
+
+            - type: state-label
+              prefix: 'גרסה אחרונה: '
+              entity: sensor.sonoff_latest_release
+              style: {color: white, left: 84%, top: 8%, font-size: 115%, font-weight: bold, direction: rtl}
+
+            - type: state-icon
+              entity: switch.sonoff3
+              icon: mdi:numeric-3-box-outline
+              style: {color: white, left: 60%, top: 85%}
+
+            - type: state-label
+              entity: sensor.sonoff_3_version
+              style: {color: white, left: 60%, top: 95%, font-size: 115%, font-weight: bold}
+
+            - type: state-icon
+              entity: switch.sonoff2
+              icon: mdi:numeric-2-box-outline
+              style: {color: white, left: 76%, top: 85%}
+
+            - type: state-label
+              entity: sensor.sonoff_2_version
+              style: {color: white, left: 76%, top: 95%, font-size: 115%, font-weight: bold}
+
+            - type: state-icon
+              entity: switch.sonoff1
+              icon: mdi:numeric-1-box-outline
+              style: {color: white, left: 91%, top: 85%}
+
+            - type: state-label
+              entity: sensor.sonoff_1_version
+              style: {color: white, left: 91%, top: 95%, font-size: 115%, font-weight: bold}
+              
+            - type: state-icon
+              entity: switch.sonoff4
+              icon: mdi:numeric-4-box-outline
+              style: {color: white, left: 46%, top: 85%}
+
+            - type: state-label
+              entity: sensor.sonoff_4_version
+              style: {color: white, left: 46%, top: 95%, font-size: 115%, font-weight: bold}   
+              
+            - type: state-icon
+              entity: switch.sonoff5
+              icon: mdi:numeric-5-box-outline
+              style: {color: white, left: 31%, top: 85%}
+
+            - type: state-label
+              entity: sensor.sonoff_5_version
+              style: {color: white, left: 31%, top: 95%, font-size: 115%, font-weight: bold}  
+              
+            - type: state-icon
+              entity: switch.sonoff6
+              icon: mdi:numeric-6-box-outline
+              style: {color: white, left: 12%, top: 85%}
+
+            - type: state-label
+              entity: sensor.sonoff_6_version
+              style: {color: white, left: 12%, top: 95%, font-size: 115%, font-weight: bold}                  
+          style:
+            background-image: url("/local/image/cardbackk.png")
+            background-repeat: no-repeat
+            background-color: rgba(50,50,50,0.3)
+            background-size: 100% 68px
+            border-radius: 10px
+            border: solid 1px rgba(100,100,100,0.3)
+            box-shadow: 3px 3px rgba(0,0,0,0.4)
+            overflow: hidden
+  - type: vertical-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:decluttering-card
+            template: title
+            variables:
+              - name: גיבויים אחרונים
+      - type: vertical-stack
+        cards:
+          - type: entities
+            show_header_toggle: false
+            entities:
+              - sensor.latest_backup
+              - sensor.2_backup
+              - sensor.3_backup
+              - sensor.old_backup
+  - type: vertical-stack
+    cards:    
+      - type: vertical-stack
+        cards:
+          - type: custom:decluttering-card
+            template: title
+            variables:
+              - name: מצב מערכת
+      - type: vertical-stack
+        cards:
+          - type: custom:mod-card
+            style:
+              --paper-card-background-color: rgba(50, 50, 50, 0.4)
+              --paper-item-icon-color: black
+              border-radius: 5px
+              color: white
+              height: 260px
+              font-family: tahoma
+            card:
+              type: glance
+              tap_action:
+                action: none
+              entities:
+                  - sensor.disk_use_percent_config
+                  - sensor.last_boot
+                  - sensor.load_1m
+                  - sensor.memory_use_percent
+                  - sensor.network_in_eth0
+                  - sensor.network_out_eth0
+                  - sensor.processor_use
+                  - sensor.backup_storage_use
+                  - sensor.backup_storage_giga_used
+                  - sensor.backup_storage_avil
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: Container Control
+
+      - type: vertical-stack
+        cards:
+          - type: entities
+            show_header_toggle: false
+            entities:
+              - switch.mqtt
+              - switch.home_assistant
+              - switch.switcher
+
+
+
+  - type: vertical-stack
+    cards:  
+    
+    - type: custom:decluttering-card
+      template: title
+      variables:
+        - name: Check Version
+
+
+
+  - type: horizontal-stack
+    cards:           
+      - type: custom:button-card
+        template: shoulder_blank_card 
+
+      - type: custom:decluttering-card
+        template: menu_button
+        variables:
+          - entity: group.homelight
+          - name: סלון
+          - icon: mdi:sofa
+          - font-family: tahoma
+          - icon: mdi:light
+          - tap_action: none
+          - hold_action: none
+          - corner_2_field: "[[[
+                  if (states['sensor.temp2'].state == 'unavailable') 
+                  return `<span></span>`;
+                  else return `<span><span style='text-transform: capitalize'>${states['sensor.temp2'].state}°C</span></span>`;                               
+                  ]]]"
+          - corner_2_text_color: "[[[
+                  if (states['sensor.temp2'].state >= 30) return '#bf4040';
+                  if (states['sensor.temp2'].state >= 26 && states['sensor.temp2'].state < 30) return '#bf9540';
+                  if (states['sensor.temp2'].state >= 18 && states['sensor.temp2'].state < 26) return 'rgba(117,189,111,1.0)';
+                  if (states['sensor.temp2'].state < 18) return 'rgb(43, 154, 249)';
+                  ]]]"
+          - cust_1_field: "[[[
+                  return ` <span><span>${states['binary_sensor.samsungtv_salon'].state}</span></span>
+                  <ha-icon icon='mdi:television' style='width: 12px; height: 12px; color: var(--icon-color-sensor);'></ha-icon>
+                  <span>`;
+                  ]]]"
+          - cust_1_icon_color: "[[[
+                  if (states['switch.mqtt'].state == 'Off') return 'var(--paper-item-icon-color)';
+                  else return 'var(--paper-item-icon-active-color)';
+                  ]]]"
+
+      - type: custom:decluttering-card
+        template: menu_button
+        variables:
+          - entity: switch.mqtt
+          - name: חדר הורים
+          - icon: mdi:sofa
+          - corner_2_field: "[[[
+                  if (states['sensor.temp4'].state == 'unavailable') 
+                  return `<span></span>`;
+                  else return `<span><span style='text-transform: capitalize'>${states['sensor.temp4'].state}°C</span></span>`;                               
+                  ]]]"
+          - corner_2_text_color: "[[[
+                  if (states['sensor.temp4'].state >= 30) return '#bf4040';
+                  if (states['sensor.temp4'].state >= 26 && states['sensor.temp4'].state < 30) return '#bf9540';
+                  if (states['sensor.temp4'].state >= 18 && states['sensor.temp4'].state < 26) return 'rgba(117,189,111,1.0)';
+                  if (states['sensor.temp4'].state < 18) return 'rgb(43, 154, 249)';
+                  ]]]"
+          - cust_1_field: "[[[
+                  return ` <span><span>${states['binary_sensor.samsungtv_salon'].state}</span></span>
+                  <ha-icon icon='mdi:television' style='width: 12px; height: 12px; color: var(--icon-color-sensor);'></ha-icon>
+                  <span>`;
+                  ]]]"
+          - cust_1_icon_color: "[[[
+                  if (states['switch.mqtt'].state == 'Off') return 'var(--paper-item-icon-color)';
+                  else return 'var(--paper-item-icon-active-color)';
+                  ]]]"
+
+      - type: custom:decluttering-card
+        template: menu_button
+        variables:
+              - entity: switch.mqtt
+              - name: חדר סער
+              - icon: mdi:sofa
+              - color: black
+              - background_color: 
+              - corner_field: "[[[
+                      if (states['switch.mqtt'].state == 'unavailable') 
+                      return `<span></span>`;
+                      else return `<span><span style='text-transform: capitalize'>${states['switch.mqtt'].state}°C</span></span>`;                               
+                      ]]]"
+              - corner_2_field: "[[[
+                      if (states['switch.mqtt'].state == 'unavailable') 
+                      return `<span></span>`;
+                      else return `<span><span style='text-transform: capitalize'>${states['switch.mqtt'].state}°C</span></span>`;                               
+                      ]]]"
+              - corner_2_text_color: "[[[
+                      if (states['switch.mqtt'].state >= 30) return '#bf4040';
+                      if (states['switch.mqtt'].state >= 26 && states['switch.mqtt'].state < 30) return '#bf9540';
+                      if (states['switch.mqtt'].state >= 18 && states['switch.mqtt'].state < 26) return 'rgba(117,189,111,1.0)';
+                      if (states['switch.mqtt'].state < 18) return 'rgb(43, 154, 249)';
+                      ]]]"
+              - cust_1_field: "[[[
+                      return ` <span><span>${states['binary_sensor.samsungtv_salon'].state}</span></span>
+                      <ha-icon icon='mdi:television' style='width: 12px; height: 12px; color: var(--icon-color-sensor);'></ha-icon>
+                      <span>`;
+                      ]]]"
+              - cust_1_icon_color: "[[[
+                  if (states['switch.mqtt'].state == 'Off') return 'var(--paper-item-icon-color)';
+                  else return 'var(--paper-item-icon-active-color)';
+                  ]]]"
+
+      - type: custom:button-card
+        template: shoulder_blank_card       
+        
+  - type: vertical-stack
+    cards: 

@@ -1,0 +1,77 @@
+title: Smart Sensor
+icon: mdi:shield-home-outline
+path: Xiaomi
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: שליטה בכל התאורה
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: shoulder_blank_card   
+          - type: custom:decluttering-card
+            template: all_the_light
+            variables:
+              - direction1: right
+              - entity: group.homelight
+              - font_size: 18
+              - text_color: white
+              - tap_action: more_info
+          - type: custom:button-card
+            template: shoulder_blank_card   
+      - type: vertical-stack
+        cards:
+          - type: entities
+            show_header_toggle: false
+            entities:
+              - switch.sonoff_1000ad249f_1
+              - switch.sonoff_1000ad249f_2
+              - switch.sonoff_1000ad249f_3
+              - switch.sonoff_1000a3c51a_1
+              - switch.sonoff_1000a3c51a_2
+              - switch.sonoff_1000a3c51a_3
+  - type: vertical-stack
+    cards:
+        - type: custom:decluttering-card
+          template: title
+          variables:
+            - name: מנורת מטבח
+          
+        - type: entities
+          show_header_toggle: false
+          entities: 
+            - type: custom:slider-entity-row
+              entity: light.gateway_light_04cf8cf40276
+            - automation.xiaomi_light_start
+            - entity: input_datetime.xiaomi_light_timer_on
+            - automation.xiaomi_light_end
+            - entity: input_datetime.xiaomi_light_timer_off
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: מצב סוללות
+
+      - type: entities
+        entities:
+          - sensor.door_battery_sensor
+          - sensor.smart_battery_sensor
+          - sensor.switch_battery_sensor
+          - sensor.motion_battery_sensor
+
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: לוח זמנים לתאורה אק. תחתון
+
+      - type: entities
+        entities:
+          - sensor.door_status_state
+          - sensor.switch_status_state
+          - sensor.motion_status_state
+          - sensor.getway_hub_lm

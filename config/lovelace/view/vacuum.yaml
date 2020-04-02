@@ -1,0 +1,80 @@
+title: Xioami Vacuum
+icon: mdi:robot-vacuum
+path: Vacuum
+cards:
+  - type: custom:layout-card
+    layout: horizontal
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: פאנל שואב אבק רובוטי
+
+  - type: custom:layout-card
+    layout: horizontal
+    cards:
+      - type: entities
+        show_header_toggle: false
+        entities:
+         - entity: input_datetime.vacuum_timer_on
+           secondary_info: last-changed
+         - entity: automation.vacuum_all_days
+
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: שאיבה לפי אזורים
+
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            tap_action:
+              action: call-service
+            entity: script.vacuum_bathroom
+            name: אמבטיה
+            icon: mdi:robot-vacuum
+          - type: "custom:button-card"
+            tap_action:
+              action: call-service
+            entity: script.vacuum_allhome
+            name: כל הבית
+            icon: mdi:robot-vacuum
+          - type: "custom:button-card"
+            tap_action:
+              action: call-service
+            entity: script.vacuum_rachel
+            name: חדר רחל
+            icon: mdi:robot-vacuum
+          - type: "custom:button-card"
+            tap_action:
+              action: call-service
+            entity: script.vacuum_halway
+            name: מסדרון
+            icon: mdi:robot-vacuum
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            tap_action:
+              action: call-service
+            entity: script.vacuum_perents_room
+            name: חדר הורים
+            icon: mdi:robot-vacuum
+          - type: "custom:button-card"
+            tap_action:
+              action: call-service
+            entity: script.vacuum_saloon
+            name: סלון
+            icon: mdi:robot-vacuum
+          - type: "custom:button-card"
+            tap_action:
+              action: call-service
+            entity: script.vacuum_kitchen
+            name: מטבח
+            icon: mdi:robot-vacuum
+          - type: "custom:button-card"
+            tap_action:
+              action: call-service
+            entity: script.vacuum_saar
+            name: חדר סער
+            icon: mdi:robot-vacuum

@@ -1,0 +1,265 @@
+group.homelight:
+  friendly_name: כל תאורת הסלון
+  icon: mdi:ceiling-light
+switch.sonoff_1000a3c51a_1:
+  friendly_name: אקווריום
+  icon: mdi:ceiling-light
+switch.sonoff_1000a3c51a_2:
+  friendly_name: סלון
+  icon: mdi:ceiling-light
+switch.sonoff_1000a3c51a_3:
+  friendly_name: לא פעיל
+  icon: mdi:ceiling-light
+switch.sonoff_1000ad249f_1:
+  friendly_name: כניסה לבית
+  icon: mdi:ceiling-light
+switch.sonoff_1000ad249f_2:
+  friendly_name: מזנון
+  icon: mdi:ceiling-light
+switch.sonoff_1000ad249f_3:
+  friendly_name: פינת אוכל
+  icon: mdi:ceiling-light
+########################################################
+automation.xiaomi_light_hub_start_time:
+  friendly_name: אוטומציית הדלקת תאורת מטבח
+automation.xiaomi_light_hub_end_time_3:
+  friendly_name: אוטומציית כיבוי תאורת מטבח
+light.gateway_light_04cf8cf40276:
+  friendly_name: תאורת שקע במטבח
+cover.livingroom_cover:
+  friendly_name: תריס בסלון
+sensor.temp1:
+  friendly_name: בחדר של סער
+sensor.temp2:
+  friendly_name: בחדר הורים
+sensor.temp3:
+  friendly_name: בסלון בבית
+sensor.temp4:
+  friendly_name: בחדר ממ"ד
+sensor.temp5:
+  friendly_name: בחדר של רחל
+sensor.temp1_1:
+  friendly_name: בחדר של סער
+sensor.temp2_2:
+  friendly_name: בחדר הורים
+sensor.temp3_3:
+  friendly_name: בסלון בבית
+sensor.temp4_4:
+  friendly_name: בחדר ממ"ד
+sensor.temp5_5:
+  friendly_name: בחדר של רחל
+automation.timer_boiler1_off:
+  friendly_name: אוטומציה לטיימר לבוילר
+automation.sonoff1_temp_on:
+  friendly_name: אוטומציה להדלקת חימום קטן
+automation.sonoff1_temp_off:
+  friendly_name: אוטומציה לכיבוי חימום קטן 
+switch.switcher_touch_d7f2:
+  friendly_name: בוילר
+  icon: mdi:power
+sensor.current_power_w:
+   friendly_name: הספק הבוילר
+sensor.electric_current_a:
+  friendly_name: צריכת זרם הבוילר
+switch.sonoff1:
+  friendly_name: גוף חימום אקווריום קטן
+automation.vacuum_all_days:
+  friendly_name: שאיבה בכל השבוע
+sensor.state_sonoff1:
+  friendly_name: מצב גוף חימום אק' קטן
+  icon: mdi:power
+switch.sonoff2:
+  friendly_name: תאורה אקווריום קטן
+  icon: mdi:power
+switch.sonoff3:
+  friendly_name: משאבת אוויר
+  icon: mdi:power
+switch.sonoff4:
+  friendly_name: מאורר אקווריום גדול
+  icon: mdi:fan
+switch.sonoff5:
+  friendly_name: CO2 מונה בועות
+  icon: mdi:mouse-variant
+switch.sonoff_10006f9483:
+  friendly_name: תאורה אק' עליון
+  icon: mdi:power
+sensor.sonoff1:
+  friendly_name: טמפ' אקווריום קטן
+sensor.state_sonoff3:
+  friendly_name: מצב משאבת אוויר
+sensor.sonoff4:
+  friendly_name: טמפ' אקווריום גדול
+sensor.input_datatime_on:
+  friendly_name: שעת הדלקת בוילר
+  icon: mdi:clock
+sensor.input_datatime_off:
+  friendly_name: שעת כיבוי בוילר
+  icon: mdi:clock
+sensor.input_sonoff2_on:
+  friendly_name: שעת הדלקת תאורה
+  icon: mdi:clock
+sensor.input_sonoff2_off:
+  friendly_name: שעת כיבוי תאורה
+  icon: mdi:clock
+sensor.input_sonoff6_on:
+  friendly_name: שעת הדלקת תאורה עליונה
+  icon: mdi:clock
+sensor.input_sonoff6_off:
+  friendly_name: שעת כיבוי תאורה עליונה
+  icon: mdi:clock
+sensor.state_sonoff2:
+  icon: mdi:lightbulb-on
+  friendly_name: מצב תאורה תחתונה כרגע
+sensor.state_sonoff6:
+  icon: mdi:lightbulb-outline
+  friendly_name: מצב תאורה עליונה כרגע
+sensor.state_sonoff4: 
+  icon: mdi:fan
+  friendly_name: מצב מאוורר אק עליון
+sensor.state_sonoff5:
+  icon: mdi:power
+  friendly_name: CO2 מצב מונה בועות
+sensor.dollar_usd:
+  friendly_name: דולר
+  icon: mdi:currency-usd
+  unit_of_measurement: ₪
+sensor.euro_eur:
+  friendly_name: יורו
+  icon: mdi:currency-eur
+  unit_of_measurement: ₪
+sensor.pound_gbp:
+  friendly_name: פאונד בריטי
+  icon: mdi:currency-gbp
+  unit_of_measurement: ₪
+sensor.exchange_date:
+  friendly_name: תאריך עדכון
+sensor.sonoff_latest_release:
+  friendly_name: גירסא אחרונה
+  icon: mdi:new-box
+sensor.sonoff_01_version:
+  friendly_name: 1בדיקה
+sensor.sonoff_02_version:
+  friendly_name: 2בדיקה
+sensor.sonoff_03_version:
+  friendly_name: 3בדיקה
+sensor.sonoff_04_version:
+  friendly_name: 4בדיקה
+sensor.sonoff_05_version:
+  friendly_name: 5בדיקה
+sensor.sonoff_06_version:
+  friendly_name: 6בדיקה
+sensor.state_switcher_touch_d7f2:
+  friendly_name: מצב הבוילר כרגע
+  icon: mdi:shower
+input_datetime.boiler_start_time:
+  friendly_name: הגדר שעת הדלקת בוילר
+input_datetime.boiler_end_time:
+  friendly_name: הגדר שעת כיבוי בוילר
+input_datetime.sonoff2_start_time:
+  friendly_name: הגדר שעת הדלקת תאורה
+input_datetime.sonoff2_end_time:
+  friendly_name: הגדר שעת כיבוי תאורה
+input_datetime.sonoff6_start_time:
+  friendly_name: הגדר שעת הדלקת תאורה
+input_datetime.sonoff6_end_time:
+  friendly_name: הגדר שעת כיבוי תאורה
+input_datetime.sonoff3_start_time:
+  friendly_name: הגדר שעת הדלקת משאבת אוויר
+input_datetime.sonoff3_end_time:
+  friendly_name: הגדר שעת כיבוי משאבת אוויר
+input_datetime.input_sonoff3_on:
+  friendly_name: שעת הדלקת משאבת אוויר
+input_datetime.input_sonoff3_off:
+  friendly_name: שעת כיבוי משאבת אוויר
+input_datetime.input_sonoff5_on:
+  friendly_name: CO2 שעת הדלקת מונה
+input_datetime.input_sonoff5_off:
+  friendly_name: CO2 שעת כיבוי מונה
+input_datetime.input_sonoff6_on:
+  friendly_name: שעת הדלקת תאורה
+input_datetime.input_sonoff6_off:
+  friendly_name: שעת כיבוי תאורה
+script.turn_off_boiler:
+  friendly_name: כיבוי בוילר לטלגרם
+script.turn_on_boiler:
+  friendly_name: הפעלת בוילר לטלגרם
+automation.sonoff4_temp_on:
+  friendly_name: אוטומציית הדלקת מאורר
+automation.sonoff4_temp_off:
+  friendly_name: אוטומציית כיבוי מאורר
+automation.sonoff4_on:
+  friendly_name: אוטומציית הדלקת תאורה
+automation.sonoff4_off:
+  friendly_name: אוטומציית כיבוי תאורה
+automation.sonoff2_on:
+  friendly_name: אוטומציית הדלקת תאורה
+automation.sonoff2_off:
+  friendly_name: אוטומציית כיבוי תאורה
+automation.sonoff3_on:
+  friendly_name: אוטומציית הדלקת משאבת אוויר
+automation.sonoff3_off:
+  friendly_name: אוטומציית כיבוי משאבת אוויר
+automation.sonoff5_on:
+  friendly_name: CO2 אוטומצית הדלקת
+automation.sonoff5_off:
+  friendly_name: CO2 אוטומצית כיבוי
+automation.sonoff6_on:
+  friendly_name: אוטומציית הדלקת תאורה
+automation.sonoff6_off:
+  friendly_name: אוטומציית כיבוי תאורה
+automation.boiler_on:
+  friendly_name: אוטומציית הדלקת בוילר
+automation.boiler_off:
+  friendly_name: אוטומציית כיבוי בוילר
+weather.darksky_forecast:
+  friendly_name: תחזית מזג אוויר
+group.rates:
+  friendly_name: שערי המרה
+binary_sensor.HP_Printer:
+  icon: mdi:printer
+  friendly_name: מדפסת ביתית
+binary_sensor.sonoff_big:
+  friendly_name: חיישן טמפ' אקווריום גדול
+binary_sensor.sonoff_littel:
+  friendly_name: חיישן טמפ' אקווריום קטן
+binary_sensor.sp_mini:
+  friendly_name: בוילר
+binary_sensor.sonoff5:
+  friendly_name: CO2 מונה בועות
+binary_sensor.samsungtv:
+  friendly_name: טלויזיה בסלון
+binary_sensor.pingsonoff6:
+  friendly_name: משאבת אוויר
+binary_sensor.pingsonoff8:
+  friendly_name: עוד לא הוגדר
+binary_sensor.pingsonoff9:
+  friendly_name: תאורה אקווריום קטן
+binary_sensor.pingsonoffunkwon:
+  friendly_name: עוד לא הוגדר
+script.check_saarhome_version:
+  friendly_name: דרוש מצב גירסאות
+  icon: mdi:history
+group.Sonoffs_Info:
+  friendly_name: מצב גירסאות סונוף
+script.vacuum_all_days:
+  friendly_name: שאיבת אבק כל השבוע
+sensor.darksky_cloud_coverage:
+  friendly_name: "Cloud Coverage"
+sensor.darksky_daytime_high_temperature:
+  friendly_name: "גובהה"
+sensor.darksky_humidity:
+  friendly_name: "לחות"
+sensor.darksky_overnight_low_temperature:
+  friendly_name: "נמוכה"
+sensor.darksky_pressure:
+  friendly_name: "לחץ אוויר"
+sensor.darksky_temperature:
+  friendly_name: "טמפרטורה"
+input_number.slider_boiler:
+  friendly_name: זמן להדלקה
+  icon: mdi:timer
+  unit_of_measurement: 'דקות'
+script.timer_off_boiler:
+  icon: mdi:timer-sand
+media_player.living_room_tv:
+  friendly_name: טלויזיה בסלון

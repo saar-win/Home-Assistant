@@ -1,0 +1,609 @@
+############################################################################
+#                                                                          # 
+#                           Time Date sensor:                              #    
+#                                                                          #
+############################################################################
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+
+############################################################################
+#                                                                          # 
+#                           Dollar to SHekel                               #    
+#                                                                          #
+############################################################################
+  - platform: command_line
+    name: Exchange Date
+    command: "curl get https://www.boi.org.il/currency.xml?curr=27 2>&1 | grep LAST_UPDATE | grep -o '[0-9]*-[0-9]*-[0-9]*' "
+    scan_interval: 43200 #12 Hours
+
+  - platform: command_line
+    name: Dollar(USD)
+    command: "curl get https://www.boi.org.il/currency.xml?curr=01 2>&1 | grep RATE | grep -o '[0-9].*[0-9]' "
+    scan_interval: 43200 #12 Hours
+
+  - platform: command_line
+    name: Euro(EUR)
+    command: "curl get https://www.boi.org.il/currency.xml?curr=27 2>&1 | grep RATE | grep -o '[0-9].*[0-9]' "
+    scan_interval: 43200 #12 Hours
+
+  - platform: command_line
+    name: Pound(GBP)
+    command: "curl get https://www.boi.org.il/currency.xml?curr=02 2>&1 | grep RATE | grep -o '[0-9].*[0-9]' "
+    scan_interval: 43200 #12 Hours
+############################################################################
+#                                                                          # 
+#                               Sensors State:                             #    
+#                                                                          #
+############################################################################
+  - platform: template
+    sensors:
+     input_datatime_on:
+       value_template: "{{ states('input_datetime.boiler_start_time')}}"
+     input_datatime_off:
+       value_template: "{{ states('input_datetime.boiler_end_time')}}"
+     input_sonoff2_on:
+       value_template: "{{ states('input_datetime.sonoff2_start_time')}}"
+     input_sonoff2_off:
+       value_template: "{{ states('input_datetime.sonoff2_end_time')}}"
+     input_sonoff3_on:
+       value_template: "{{ states('input_datetime.sonoff3_start_time')}}"
+     input_sonoff3_off:
+       value_template: "{{ states('input_datetime.sonoff3_end_time')}}"
+     input_sonoff5_on:
+       value_template: "{{ states('input_datetime.sonoff5_start_time')}}"
+     input_sonoff5_off:
+       value_template: "{{ states('input_datetime.sonoff5_end_time')}}"
+     input_sonoff6_on:
+       value_template: "{{ states('input_datetime.sonoff6_start_time')}}"
+     input_sonoff6_off:
+       value_template: "{{ states('input_datetime.sonoff6_end_time')}}"
+     state_sonoff1:
+       value_template: "{{ states('switch.sonoff1') }}"
+     state_sonoff2:
+       value_template: "{{ states('switch.sonoff2') }}"
+     state_sonoff3:
+       value_template: "{{ states('switch.sonoff3') }}" 
+     state_sonoff4:
+       value_template: "{{ states('switch.sonoff4') }}"
+     state_sonoff5:
+       value_template: "{{ states('switch.sonoff5') }}"
+     state_sonoff6:
+       value_template: "{{ states('switch.sonoff6') }}"      
+############################################################################
+#                                                                          # 
+#                               Sonoff1:                                   #    
+#                                                                          #
+############################################################################
+  - platform: mqtt
+    state_topic: "tablet/mytablet/sensor/battery"
+    name: "tablet Battery Level"
+    unit_of_measurement: "%"
+    value_template: '{{ value_json.value }}'
+
+  - platform: mqtt
+    state_topic: "tablet/mytablet/sensor/light"
+    name: "tablet Light Level"
+    unit_of_measurement: "lx"
+    value_template: '{{ value_json.value }}'
+    
+  - platform: mqtt
+    state_topic: "tablet/mytablet/sensor/magneticField"
+    name: "tablet Magnetic Field"
+    unit_of_measurement: "uT"
+    value_template: '{{ value_json.value }}'
+
+  # - platform: mqtt
+  #   state_topic: "tablet/mytablet/sensor/motion"
+  #   name: "tabley motion"
+  #   payload_on: '{"value": true}'
+  #   payload_off: '{"value": false}'
+  #   device_class: motion 
+
+  
+  - platform: mqtt
+    name: "sonoff1"
+    force_update: true
+    state_topic: "tele/Sonoff1/SENSOR"
+    value_template: "{{ value_json.DS18B20.Temperature }}"
+    unit_of_measurement: "°C"
+    #state_topic: "stat/Sonoff1/RESULT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    #retain: false
+############################################################################
+#                                                                          # 
+#                               Sonoff4:                                   #    
+#                                                                          #
+############################################################################
+  - platform: mqtt
+    name: "Sonoff4"
+    state_topic: "tele/Sonoff4/SENSOR"
+    value_template: "{{ value_json.DS18B20.Temperature }}"
+    unit_of_measurement: "°C"
+    availability_topic: "tele/Sonoff4/LWT"
+    #state_topic: "stat/Sonoff1/RESULT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    #retain: false
+############################################################################
+#                                                                          # 
+#                               Temp 1                                     #    
+#                                                                          #
+############################################################################
+  - platform: mqtt
+    name: "temp1"
+    state_topic: "tele/temp1/SENSOR"
+    value_template: "{{ value_json.AM2301.Temperature }}"
+    unit_of_measurement: "°C"
+    availability_topic: "tele/temp1/LWT"
+    #state_topic: "stat/Sonoff1/RESULT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    #retain: false
+  - platform: mqtt
+    name: "temp11"
+    state_topic: "tele/temp1/SENSOR"
+    value_template: "{{ value_json.AM2301.Humidity }}"
+    unit_of_measurement: "%"
+    availability_topic: "tele/temp1/LWT"
+    #state_topic: "stat/Sonoff1/RESULT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    #retain: false
+############################################################################
+#                                                                          # 
+#                               Temp 2                                     #    
+#                                                                          #
+############################################################################
+  - platform: mqtt
+    name: "temp2"
+    state_topic: "tele/temp2/SENSOR"
+    value_template: "{{ value_json.DHT11.Temperature }}"
+    unit_of_measurement: "°C"
+    availability_topic: "tele/temp2/LWT"
+    #state_topic: "stat/Sonoff1/RESULT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    #retain: false
+  - platform: mqtt
+    name: "temp22"
+    state_topic: "tele/temp2/SENSOR"
+    value_template: "{{ value_json.DHT11.Humidity }}"
+    unit_of_measurement: "%"
+    availability_topic: "tele/temp2/LWT"
+    #state_topic: "stat/Sonoff1/RESULT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    #retain: false
+############################################################################
+#                                                                          # 
+#                               Temp 3                                     #    
+#                                                                          #
+############################################################################
+  - platform: mqtt
+    name: "temp3"
+    state_topic: "tele/temp3/SENSOR"
+    value_template: "{{ value_json.AM2301.Temperature }}"
+    unit_of_measurement: "°C"
+    availability_topic: "tele/temp3/LWT"
+    #state_topic: "stat/Sonoff1/RESULT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    #retain: false
+  - platform: mqtt
+    name: "temp33"
+    state_topic: "tele/temp3/SENSOR"
+    value_template: "{{ value_json.AM2301.Humidity }}"
+    unit_of_measurement: "%"
+    availability_topic: "tele/temp3/LWT"
+    #state_topic: "stat/Sonoff1/RESULT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    #retain: false
+############################################################################
+#                                                                          # 
+#                               Temp 4                                     #    
+#                                                                          #
+############################################################################
+  - platform: mqtt
+    name: "temp4"
+    state_topic: "tele/temp4/SENSOR"
+    value_template: "{{ value_json.DHT11.Temperature }}"
+    unit_of_measurement: "°C"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    #retain: false
+  - platform: mqtt
+    name: "temp44"
+    state_topic: "tele/temp4/SENSOR"
+    value_template: "{{ value_json.DHT11.Humidity }}"
+    unit_of_measurement: "%"
+    availability_topic: "tele/temp4/LWT"
+    #state_topic: "stat/Sonoff1/RESULT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    #retain: false
+############################################################################
+#                                                                          # 
+#                               Temp 5                                     #    
+#                                                                          #
+############################################################################
+  - platform: mqtt
+    name: "temp5"
+    state_topic: "tele/temp5/SENSOR"
+    value_template: "{{ value_json.DHT11.Temperature }}"
+    unit_of_measurement: "°C"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    #retain: false
+  - platform: mqtt
+    name: "temp55"
+    state_topic: "tele/temp5/SENSOR"
+    value_template: "{{ value_json.DHT11.Humidity }}"
+    unit_of_measurement: "%"
+    availability_topic: "tele/temp5/LWT"
+    #state_topic: "stat/Sonoff1/RESULT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    #retain: false
+############################################################################
+#                                                                          # 
+#                         OwnTracks - Saar                                 #    
+#                                                                          #
+############################################################################
+  - platform: template
+    sensors:
+      saar_battery:
+        friendly_name: "saar battery"
+        unit_of_measurement: '%'
+        value_template: "{{ states.device_tracker.mi_9t_pro.attributes.battery_level | int if states.device_tracker.mi_9t_pro is not none }}"
+        icon_template: '{% if states.device_tracker.mi_9t_pro.attributes.battery_level == 100 %}
+                          mdi:battery
+                      {% elif states.device_tracker.mi_9t_pro.attributes.battery_level >= 90 %}
+                          mdi:battery-90
+                      {% elif states.device_tracker.mi_9t_pro.attributes.battery_level >= 80 %}
+                          mdi:battery-80
+                      {% elif states.device_tracker.mi_9t_pro.attributes.battery_level >= 70 %}
+                          mdi:battery-70
+                      {% elif states.device_tracker.mi_9t_pro.attributes.battery_level >= 60 %}
+                          mdi:battery-60
+                      {% elif states.device_tracker.mi_9t_pro.attributes.battery_level >= 50 %}
+                          mdi:battery-50
+                      {% elif states.device_tracker.mi_9t_pro.attributes.battery_level >= 40 %}
+                          mdi:battery-40
+                      {% elif states.device_tracker.mi_9t_pro.attributes.battery_level >= 30 %}
+                          mdi:battery-30
+                      {% elif states.device_tracker.mi_9t_pro.attributes.battery_level >= 20 %}
+                          mdi:battery-20
+                      {% elif states.device_tracker.mi_9t_pro.attributes.battery_level >= 10 %}
+                          mdi:battery-10
+                      {% else %}
+                          battery-outline
+                      {% endif %}'
+  - platform: template
+    sensors:
+      michael_battery:
+        friendly_name: "michael battery"
+        unit_of_measurement: '%'
+        value_template: "{{ states.device_tracker.sm_n975f.attributes.battery_level | int if states.device_tracker.sm_n975f is not none }}"
+        icon_template: '{% if states.device_tracker.sm_n975f.attributes.battery_level == 100 %}
+                          mdi:battery
+                      {% elif states.device_tracker.sm_n975f.attributes.battery_level >= 90 %}
+                          mdi:battery-90
+                      {% elif states.device_tracker.sm_n975f.attributes.battery_level >= 80 %}
+                          mdi:battery-80
+                      {% elif states.device_tracker.sm_n975f.attributes.battery_level >= 70 %}
+                          mdi:battery-70
+                      {% elif states.device_tracker.sm_n975f.attributes.battery_level >= 60 %}
+                          mdi:battery-60
+                      {% elif states.device_tracker.sm_n975f.attributes.battery_level>= 50 %}
+                          mdi:battery-50
+                      {% elif states.device_tracker.sm_n975f.attributes.battery_level >= 40 %}
+                          mdi:battery-40
+                      {% elif states.device_tracker.sm_n975f.attributes.battery_level >= 30 %}
+                          mdi:battery-30
+                      {% elif states.device_tracker.sm_n975f.attributes.battery_level >= 20 %}
+                          mdi:battery-20
+                      {% elif states.device_tracker.sm_n975f.attributes.battery_level >= 10 %}
+                          mdi:battery-10
+                      {% else %}
+                          battery-outline
+                      {% endif %}'
+  - platform: template
+    sensors:
+      rachel_battery:
+        friendly_name: "rachel battery"
+        unit_of_measurement: '%'
+        value_template: "{{ states.device_tracker.sm_g965f.attributes.battery_level | int if states.device_tracker.sm_g965f is not none }}"
+        icon_template: '{% if states.device_tracker.sm_g965f.attributes.battery_level == 100 %}
+                    mdi:battery
+                {% elif states.device_tracker.sm_g965f.attributes.battery_level >= 90 %}
+                    mdi:battery-90
+                {% elif states.device_tracker.sm_g965f.attributes.battery_level >= 80 %}
+                    mdi:battery-80
+                {% elif states.device_tracker.sm_g965f.attributes.battery_level >= 70 %}
+                    mdi:battery-70
+                {% elif states.device_tracker.sm_g965f.attributes.battery_level >= 60 %}
+                    mdi:battery-60
+                {% elif states.device_tracker.sm_g965f.attributes.battery_level >= 50 %}
+                    mdi:battery-50
+                {% elif states.device_tracker.sm_g965f.attributes.battery_level >= 40 %}
+                    mdi:battery-40
+                {% elif states.device_tracker.sm_g965f.attributes.battery_level >= 30 %}
+                    mdi:battery-30
+                {% elif states.device_tracker.sm_g965f.attributes.battery_level >= 20 %}
+                    mdi:battery-20
+                {% elif states.device_tracker.sm_g965f.attributes.battery_level >= 10 %}
+                    mdi:battery-10
+                {% else %}
+                    battery-outline
+                {% endif %}'
+
+############################################################################
+#                                                                          # 
+#                               Sonoff1-POW:                               #    
+#                                                                          #
+############################################################################
+  - platform: mqtt
+    name: "POW1 energy today"
+    state_topic: "tele/Sonoff6/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Today"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "POW1 energy total"
+    state_topic: "tele/Sonoff6/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Total"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "POW1 Watt"
+    state_topic: "tele/Sonoff6/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    unit_of_measurement: "וואט" #W
+  - platform: mqtt
+    name: "POW1 Voltage"
+    state_topic: "tele/Sonoff6/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+    unit_of_measurement: "וולט" #V
+  - platform: mqtt
+    name: "POW1 Current"
+    state_topic: "tele/Sonoff6/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Current"] }}'
+    unit_of_measurement: "אמפר" #Amperes
+  - platform: mqtt
+    name: "POW1 total cost"
+    state_topic: "tele/Sonoff6/SENSOR"
+    value_template: '{{ (value_json["ENERGY"]["Total"] * 0.5404) | round(3) }}'
+    #ILS OR USD (Depends on local currency) Just change the value of "0.5404" to your local elctricity price
+    unit_of_measurement: "₪" # USD / Other local currency
+ 
+############################################
+  - platform: rest
+    name: Sonoff latest release
+    resource: https://api.github.com/repos/arendst/Sonoff-Tasmota/releases/latest
+    value_template: '{{ value_json.tag_name }}'
+    headers:
+      Accept: application/vnd.github.v3+json
+      Content-Type: application/json
+      User-Agent: Home Assistant REST sensor 
+  - platform: mqtt
+    name: Sonoff 1 Version
+    state_topic: "stat/Sonoff1/STATUS2"
+    value_template: "{{ value_json['StatusFWR'].Version[:5] }}"
+  - platform: mqtt
+    name: Sonoff 2 Version
+    state_topic: "stat/Sonoff2/STATUS2"
+    value_template: "{{ value_json['StatusFWR'].Version[:5] }}"
+  - platform: mqtt
+    name: Sonoff 3 Version
+    state_topic: "stat/Sonoff3/STATUS2"
+    value_template: "{{ value_json['StatusFWR'].Version[:5] }}"
+  - platform: mqtt
+    name: Sonoff 4 Version
+    state_topic: "stat/Sonoff4/STATUS2"
+    value_template: "{{ value_json['StatusFWR'].Version[:5] }}"
+  - platform: mqtt
+    name: Sonoff 5 Version
+    state_topic: "stat/Sonoff5/STATUS2"
+    value_template: "{{ value_json['StatusFWR'].Version[:5] }}"
+  - platform: mqtt
+    name: Sonoff 6 Version
+    state_topic: "stat/Sonoff6/STATUS2"
+    value_template: "{{ value_json['StatusFWR'].Version[:5] }}"
+  - platform: mqtt
+    name: Temp 1 Version
+    state_topic: "stat/temp1/STATUS2"
+    value_template: "{{ value_json['StatusFWR'].Version[:5] }}"
+  - platform: mqtt
+    name: Temp 2 Version
+    state_topic: "stat/temp2/STATUS2"
+    value_template: "{{ value_json['StatusFWR'].Version[:5] }}"
+  - platform: mqtt
+    name: Temp 3 Version
+    state_topic: "stat/temp3/STATUS2"
+    value_template: "{{ value_json['StatusFWR'].Version[:5] }}"
+  - platform: mqtt
+    name: Temp 4 Version
+    state_topic: "stat/temp4/STATUS2"
+    value_template: "{{ value_json['StatusFWR'].Version[:5] }}"
+  - platform: mqtt
+    name: Temp 5 Version
+    state_topic: "stat/temp5/STATUS2"
+    value_template: "{{ value_json['StatusFWR'].Version[:5] }}"
+
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /config
+      - type: memory_use_percent
+      - type: load_1m
+      - type: network_in
+        arg: eth0
+      - type: network_out
+        arg: eth0
+      - type: processor_use
+      - type: last_boot
+
+  - platform: darksky
+    api_key: d03ec468f0f920610cc93eea77fc18f6
+    units: ca
+    language: he
+    forecast:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+    monitored_conditions:
+      - icon
+      - summary
+      - humidity
+      - temperature
+      - temperature_high
+      - temperature_low
+      - wind_speed #?
+      - wind_bearing #?
+      - precip_probability
+      - precip_intensity
+      - precip_intensity_max
+      - daily_summary
+      - pressure
+      - visibility
+      - apparent_temperature #Feels like
+    scan_interval:
+      minutes: 5
+
+  - platform: template
+    sensors:
+      time_of_day:
+        value_template: >
+          {% set current_hour = strptime(states('sensor.time'), "%H:%M").hour %}
+          {% if current_hour < 12 %}
+            בוקר טוב, סער
+          {% elif 12 <= current_hour < 18 %}
+            צהריים טובים, סער
+          {% elif 18 <= current_hour < 20 %}
+            ערב טוב, סער
+          {% else %}
+            לילה טוב, סער
+          {% endif %}
+
+###########################################################################
+#                                                                          # 
+#                           Shutter precentage                             #    
+#                                                                          #
+############################################################################
+  - platform: template
+    sensors:
+      cover_livingroom_positon:
+        value_template: "{{ states.cover.livingroom_cover.attributes.current_position }}"
+        unit_of_measurement: '%'
+############################################################################
+#                                                                          # 
+#                           Switch Current W                               #    
+#                                                                          #
+############################################################################
+
+  - platform: template
+    sensors:
+      sonoff_10006f9483_electric_current_a:
+        value_template: "{{ states.switch.sonoff_10006f9483.attributes.current }}"
+        friendly_name: 'צריכת זרם'
+        unit_of_measurement: 'A'
+############################################################################
+#                                                                          # 
+#                           sonoff_10006f9483_electric_current_w           #    
+#                                                                          #
+############################################################################
+  - platform: template
+    sensors:
+      sonoff_10006f9483_electric_current_w:
+        value_template: "{{ states.switch.sonoff_10006f9483.attributes.power }}"
+        friendly_name: 'הספק נצרך'
+        unit_of_measurement: 'W'
+############################################################################
+#                                                                          # 
+#                               Vacuum - Status:                           #    
+#                                                                          #
+############################################################################
+  - platform: template
+    sensors:
+      vacuum_status:
+        friendly_name: "Vacuum - Status"
+        # value_template: "{{ states.vacuum.xiaomi_vacuum.attributes.status }}:מצב"
+        value_template: >-
+          {%if states.vacuum.xiaomi_vacuum.attributes.status == 'Charging' %}מצב:בטעינה
+          {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Cleaning' %}מצב:מנקה
+          {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Spot cleaning' %}מצב:מנקה נקודתי
+          {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Returning home' %}מצב:בחזרה לבסיס
+          {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Paused' %}מצב:בהשהייה
+          {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Idle' %}מצב:לא פעיל
+          {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Error' %}מצב:שגיאה,בדוק מה הסיבה באפליקציה          
+          {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Charger disconnected' %}מצב:מטען מנותק          
+          {%- else -%}
+            {{states.vacuum.xiaomi_vacuum.attributes.status}}:מצב
+          {% endif %}
+############################################################################
+#                                                                          # 
+#                               Sensors temprature humidity                #    
+#                                                                          #
+############################################################################
+  - platform: template
+    sensors:
+      temp1_1:
+        value_template: "{{ states.sensor.temp1.state }} °C    |    {{ states.sensor.temp11.state}} %"
+      temp2_2:
+        value_template: "{{ states.sensor.temp2.state }} °C    |    {{ states.sensor.temp22.state}} %"
+      temp3_3:
+        value_template: "{{ states.sensor.temp3.state }} °C    |    {{ states.sensor.temp33.state}} %"
+      temp4_4:
+        value_template: "{{ states.sensor.temp4.state }} °C    |    {{ states.sensor.temp44.state}} %"
+      temp5_5:
+        value_template: "{{ states.sensor.temp5.state }} °C    |    {{ states.sensor.temp55.state}} %"
+##################################################################################################################
+  - platform: command_line
+    name: printer_color
+    scan_interval: 21600
+    command: curl -s http://192.168.1.10/DevMgmt/ConsumableConfigDyn.xml | grep -m1 'dd:ConsumablePercentageLevelRemaining' | sed 's/\s*<.*>\(.*\)<.*>/\1/'
+
+  - platform: command_line
+    name: printer_black
+    scan_interval: 21600
+    command: curl -s http://192.168.1.10/DevMgmt/ConsumableConfigDyn.xml | grep "dd:ConsumablePercentageLevelRemaining" | sed 's/\s*<.*>\(.*\)<.*>/\1/' | tail +2
+    unit_of_measurement: '%'
+    
+  - platform: command_line
+    name: printer_status
+    scan_interval: 10
+    command: curl -s http://192.168.1.10/DevMgmt/ProductStatusDyn.xml | grep "pscat:StatusCategory" | sed 's/\s*<.*>\(.*\)<.*>/\1/' | tail +2
+    unit_of_measurement: '%'
+
+  - platform: command_line
+    name: printer_count
+    scan_interval: 21600
+    command: curl -s http://192.168.1.10/DevMgmt/ProductUsageDyn.xml | grep -m1 "dd:TotalImpressions" | sed 's/\s*<.*>\(.*\)<.*>/\1/'
+################################################################################################################################################
+
+
+  - platform: template
+    sensors:
+      printer_status_template:
+        value_template: >-
+          {% if is_state("sensor.printer_status", "ready") %}
+            דולקת
+          {% elif is_state("sensor.printer_status", "inPowerSave") %}  
+            בהמתנה
+          {% elif is_state("sensor.printer_status", "processing") %}  
+            מדפיסה
+          {% elif is_state("sensor.printer_status", "") %}  
+            כבויה
+          {% else %}
+            {{ states.sensor.printer_status.state }}
+          {% endif %}
+############################################################################
+#                                                                          # 
+#                           Security Camera                                #    
+#                                                                          #
+############################################################################

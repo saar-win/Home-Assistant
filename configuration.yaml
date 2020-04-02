@@ -1,0 +1,191 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret homelatitude
+  longitude: !secret homelongitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Asia/Jerusalem
+  customize: !include config/customize.yaml
+  customize_glob: !include config/customize_glob.yaml
+#  whitelist_external_dirs:
+#    - /home/homeassistant/.homeassistant/images/
+#    - /tmp
+#    - /share
+#    - /home/homeassistant/.homeassistant/www
+      # Customization file
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+#http:
+http:
+  base_url: !secret base_url
+#  ip_ban_enabled: True
+  login_attempts_threshold: 5
+  use_x_forwarded_for: True
+  trusted_proxies:
+      - 127.0.0.1 #localhost
+  #trusted_networks:
+  #    - 192.168.104.145
+# base_url: saarpi.duckdns.org:8123
+
+# Discover some devices automatically
+################################################################################
+#updater:
+config:
+logbook:
+map:
+discovery:
+history:
+system_health:
+sun:
+default_config:
+ ################################################################################
+frontend:
+  javascript_version: latest #auto
+#  extra_html_url:
+#    - /local/custom_ui/state-card-custom-ui.html
+#  extra_html_url_es5:
+#    - /local/custom_ui/state-card-custom-ui-es5.html
+#  themes: !include config/themes.yaml
+################################################################################
+speedtestdotnet:
+################################################################################
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+    - key: !secret xiaomigetway
+      
+# media_player:
+#   - platform: samsungtv_smart
+#     host: 192.168.1.16
+#     port: 8002
+#     name: Salon Tv
+#     api_key: !secret salon_api_key
+#     mac: !secret salon_tv_mac_id
+
+#   - platform: samsungtv_smart
+#     host: 192.168.1.18
+#     port: 8002
+#     name: Saar tv
+#     api_key: !secret saar_api_key
+#     mac: !secret saar_tv_mac_id
+################################################################################
+telegram_bot:
+  - platform: polling
+    api_key: !secret telegram_api
+    allowed_chat_ids:
+      - !secret telegram_bot
+################################################################################
+################################################################################
+google:
+  client_id: !secret clientid
+  client_secret: !secret clientsecret
+################################################################################
+vacuum:
+  - platform: xiaomi_miio
+    host: 192.168.1.39
+    name: Xiaomi Vacuum
+    token: !secret vacuumtoken
+################################################################################
+sonoff:
+  username: !secret sonoffuser
+  password: !secret sonoffpass
+  reload: always
+################################################################################
+notify: !include config/notify.yaml
+shopping_list:
+################################################################################
+weather:
+ # - platform: yweather
+  - platform: darksky
+    api_key: !secret darksky
+    name: darksky_forecast
+    mode: daily
+################################################################################
+tts:
+  - platform: google_translate
+################################################################################
+device_tracker: !include config/device_tracker.yaml
+#known_devices: !include config/known_devices.yaml
+binary_sensor: !include config/binary_sensor.yaml
+################################################################################
+lovelace:
+  mode: yaml
+  resources: !include /config/lovelace/resources.yaml
+
+  dashboards:
+    lovelace-wallpanel:
+      mode: yaml
+      filename: ui-wallpanel.yaml
+      title: "Wall Panel"
+      icon: mdi:view-dashboard
+      show_in_sidebar: true
+      require_admin: false
+################################################################################
+mqtt:
+    broker: 192.168.1.19
+    port: 1883
+    username: !secret mqtt_username
+    password: !secret mqtt_password
+################################################################################
+
+################################################################################
+# switcher_kis:
+#  switcherIP = "192.168.0.111" 
+#  phone_id = "0000"
+#  device_id = !secret deviceid
+#  device_password = "00000000"
+################################################################################
+#alexa_media:
+#  accounts:
+#    - email: !secret email_id
+#      password: !secret password_id
+#      url: "amazon.com"
+################################################################################
+recorder:
+  purge_interval: 1
+  purge_keep_days: 3
+  include:
+    domains:
+      - input-datetime
+      - input-number
+      - input-boolean
+      - sensor
+      - switch.*
+      - switcher_aio
+      - automation.*
+################################################################################
+cloud: !include config/cloud.yaml
+emulated_hue:
+  host_ip: 192.168.1.19
+  #expose_by_default: true
+  exposed_domains:
+    - light
+    - switch
+  entities:
+    switch.sonoff1:
+      name: test
+stream:
+#ffmpeg:
+###############################################################################
+zone: !include config/zones.yaml
+group: !include config/groups.yaml
+input_datetime: !include config/input-datetime.yaml
+input_number: !include config/input-number.yaml
+input_boolean: !include config/input-boolean.yaml
+input_select: !include config/input-select.yaml
+cover: !include config/cover.yaml
+automation: !include_dir_merge_list config/automation/
+#google_assistant: !include config/google_assistant.yaml 
+script: !include_dir_merge_named config/scripts/
+sensor: !include_dir_merge_list config/sensors/
+switch: !include config/switch.yaml
+camera: !include config/cameras.yaml
+shell_command: !include config/shell_commands.yaml
+rest_command: !include config/switcher-webapi.yaml

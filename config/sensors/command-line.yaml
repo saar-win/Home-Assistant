@@ -1,0 +1,51 @@
+############################################################################
+#                                                                          # 
+#                           Security Camera                                #    
+#                                                                          #
+############################################################################
+
+- platform: command_line
+  name: latest_backup
+  command: "ls -llt /backup | awk 'NR==2 {print $9}'"
+  scan_interval: 60
+
+- platform: command_line
+  name: 2_backup
+  command: "ls -llt /backup | awk 'NR==3 {print $9}'"
+  scan_interval: 60
+
+- platform: command_line
+  name: 3_backup
+  command: "ls -llt /backup | awk 'NR==4 {print $9}'"
+  scan_interval: 60
+
+- platform: command_line
+  name: old_backup
+  command: "ls -llt /backup | awk 'NR==5 {print $9}'"
+  scan_interval: 60
+
+- platform: command_line
+  name: backup_storage_use
+  #friendly_name: אחוז שנמצא בשימוש
+  #unit_of_measurement: "%"
+  command: "df -h | grep backup | awk '{print $4}'"
+  scan_interval: 60
+
+- platform: command_line
+  name: backup_storage_giga_used
+  #friendly_name: כמות גיגה בשימוש
+  command: "df -h | grep backup | awk '{print $2}'"
+  scan_interval: 60
+
+- platform: command_line
+  name: backup_storage_avil
+  #friendly_name: כמות גיגה זמינה
+  command: "df -h | grep backup | awk '{print $1}'"
+  scan_interval: 60
+
+# - platform: command_line
+#   name: home_assistant_version
+#   #friendly_name: כמות גיגה זמינה
+#   command: "python3 -c "import requests; print(requests.get('https://pypi.python.org/pypi/homeassistant/json').json()['info']['version'])""
+#   scan_interval: 60
+ 

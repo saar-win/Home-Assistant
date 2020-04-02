@@ -1,0 +1,76 @@
+alexa:
+  filter:
+    exclude_domains:
+      - group
+      - script
+      - binary_sensor
+      - input_boolean
+      - input_select
+      - notify
+    exclude_entities:
+      - media_player.living_room_speaker
+      - media_player.bedroom_speaker
+  entity_config:
+###########################################
+#################SWITCH####################
+###########################################
+    switch.sonoff1:
+      name: Aquarium thermostat 
+      description: Aquarium main thermosatat 
+      display_categories: switch
+    switch.sonoff3:
+      name: Aquarium air pump
+      description: Aquarium main air pump
+      display_categories: switch
+    switch.broadlink_switch:
+      name: Boiler
+      description: home boiler
+      display_categories: switch
+    cover.livingroom_cover:
+      name: Shutter
+      description: Living Room Shutter
+      display_categories: Shutter
+###########################################
+#################SENSOR####################
+###########################################
+    sensor.sonoff4:
+      name: Big Aquarium
+      display_categories: TEMPERATURE_SENSOR
+    sensor.sonoff1:
+      name: little Aquarium
+      display_categories: TEMPERATURE_SENSOR
+    sensor.temp1:
+      name: Saar room
+      display_categories: TEMPERATURE_SENSOR
+    sensor.temp2:
+      name: Miki room
+      display_categories: TEMPERATURE_SENSOR   
+    sensor.temp3:
+      name: Salon
+      display_categories: TEMPERATURE_SENSOR
+    sensor.temp4:
+      name: Maamaad room
+      display_categories: TEMPERATURE_SENSOR
+    sensor.temp5:
+      name: Rachel room
+      display_categories: TEMPERATURE_SENSOR
+   
+###########################################
+#################Scripts###################
+###########################################
+google_actions:
+    filter:
+      include_entities:
+        - light.kitchen
+        - light.kitchen_left
+      include_domains:
+        - switch
+      exclude_entities:
+        - switch.outside
+    entity_config:
+      switch.kitchen:
+        name: Custom Name for Google Assistant
+        aliases:
+         - bright lights
+         - entry lights
+        room: living room

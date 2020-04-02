@@ -1,0 +1,111 @@
+title: Aquarium Main + Second
+icon: mdi:fish
+path: Aquarium
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: לוח זמנים לתאורה אק. תחתון
+
+      - type: entities
+        show_header_toggle: false
+        entities:
+        - switch.sonoff2
+        - automation.sonoff2_on
+        - entity: input_datetime.sonoff2_start_time
+          secondary_info: last-changed
+        - automation.sonoff2_off
+        - entity: input_datetime.sonoff2_end_time
+          secondary_info: last-changed
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: לוח זמנים למשאבת אוויר
+
+      - type: entities
+        show_header_toggle: false
+        entities:
+        - switch.sonoff3
+        - automation.sonoff3_on
+        - entity: input_datetime.sonoff3_start_time
+          secondary_info: last-changed
+        - automation.sonoff3_off
+        - entity: input_datetime.sonoff3_end_time
+          secondary_info: last-changed
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: CO2 לוח זמנים למונה בועות
+
+      - type: entities
+        show_header_toggle: false
+        entities:
+        - switch.sonoff5
+        - automation.sonoff5_on
+        - entity: input_datetime.sonoff5_start_time
+          secondary_info: last-changed
+        - automation.sonoff5_off
+        - entity: input_datetime.sonoff5_end_time
+          secondary_info: last-changed
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: לוח זמנים לתאורה אק. עליון
+
+      - type: entities
+        show_header_toggle: false
+        entities:
+        - switch.sonoff_10006f9483
+        - automation.sonoff6_on
+        - entity: input_datetime.sonoff6_start_time
+          secondary_info: last-changed
+        - automation.sonoff6_off
+        - entity: input_datetime.sonoff6_end_time
+          secondary_info: last-changed
+        #- entity: sensor.sonoff_10006f9483
+        - entity: sensor.sonoff_10006f9483_electric_current_w
+        - entity: sensor.sonoff_10006f9483_electric_current_a
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: מאורר חיצוני אק' גדול
+
+      - type: entities
+        show_header_toggle: false
+        entities:
+        - switch.sonoff4
+        - sensor.sonoff4
+        - automation.sonoff4_temp_off
+          # secondary_info: last-changed
+        - entity: input_number.temp_off
+        - automation.sonoff4_temp_on
+          # secondary_info: last-changed
+        - entity: input_number.temp_on
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: גוף חימום אקווריום קטן 
+
+      - type: entities
+        show_header_toggle: false
+        entities:
+        - switch.sonoff1
+        - sensor.sonoff1
+        - automation.sonoff1_temp_off
+          # secondary_info: last-changed
+        - entity: input_number.littel_temp_off
+        - automation.sonoff1_temp_on
+          # secondary_info: last-changed
+        - entity: input_number.littel_temp_on 

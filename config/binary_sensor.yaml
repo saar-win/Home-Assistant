@@ -1,0 +1,51 @@
+- platform: ping
+  host: 192.168.1.2
+  name: sonoff_big
+
+- platform: ping
+  host: 192.168.1.3
+  name: sp_mini
+
+- platform: ping
+  host: 192.168.1.4
+  name: sonoff_littel
+
+- platform: ping
+  host: 192.168.1.5
+  name: pingsonoffunkwon
+
+- platform: ping
+  host: 192.168.1.6
+  name: pingsonoff6
+  
+- platform: ping
+  host: 192.168.1.7
+  name: pingsonoff5
+
+- platform: ping
+  host: 192.168.1.8
+  name: pingsonoff8
+
+- platform: ping
+  host: 192.168.1.9
+  name: pingsonoff9
+ 
+- platform: ping
+  host: 192.168.1.10
+  name: HP_Printer
+
+- platform: ping
+  host: 192.168.1.16
+  name: SamsungTV_Salon
+
+- platform: ping
+  host: 192.168.1.28
+  name: SamsungTV_Room
+
+- platform: workday
+  country: DE
+  workdays: [sun, mon, tue, wed, thu]
+  excludes: [fri, sat, holiday]
+  add_holidays:
+#    - '2018-12-26'
+#    - '2018-12-31'

@@ -1,0 +1,75 @@
+ - title: Xioami Vacuum
+    icon: mdi:robot-vacuum
+    path: Vacuum
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: שעת הדלקת פעולת שואב
+            show_header_toggle: false
+            icon: mdi:lightbulb-on
+            entities:
+             - entity: input_datetime.vacuum_timer_on
+               secondary_info: last-changed
+             - entity: automation.vacuum_all_days
+      - type: horizontal-stack
+        cards:
+          - type: custom:card-modder
+            card:
+              type: entity-button
+              icon: mdi:robot-vacuum
+              entity: script.vacuum_bathroom
+              name: אמבטיה
+
+          - type: custom:card-modder
+            card:
+              type: entity-button
+              icon: mdi:robot-vacuum
+              entity: script.vacuum_bathroom
+              entity: script.vacuum_saar
+              entity: script.vacuum_rachel
+              entity: script.vacuum_perents_room
+              entity: script.vacuum_kitchen
+              entity: script.vacuum_halway
+              entity: script.vacuum_saloon
+              name: כל הבית
+
+          - type: custom:card-modder
+            card:
+              type: entity-button
+              icon: mdi:robot-vacuum
+              entity: script.vacuum_rachel
+              name: חדר רחל
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:card-modder
+            card:
+              type: entity-button
+              icon: mdi:robot-vacuum
+              entity: script.vacuum_halway
+              name: מסדרון
+          - type: custom:card-modder
+            card:
+              type: entity-button
+              icon: mdi:robot-vacuum
+              entity: script.vacuum_perents_room
+              name: חדר הורים
+          - type: custom:card-modder
+            card:
+              type: entity-button
+              icon: mdi:robot-vacuum
+              entity: script.vacuum_saloon
+              name: סלון
+          - type: custom:card-modder
+            card:
+              type: entity-button
+              icon: mdi:robot-vacuum
+              entity: script.vacuum_kitchen
+              name: מטבח
+          - type: custom:card-modder
+            card:
+              type: entity-button
+              icon: mdi:robot-vacuum
+              entity: script.vacuum_saar
+              name: חדר סער

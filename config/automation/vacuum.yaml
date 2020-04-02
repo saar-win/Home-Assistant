@@ -1,0 +1,13 @@
+#########################################################################
+#                                                                       #
+#                               Vacuum                                  #
+#                                                                       #
+######################################################################### 
+- id: 'אוטומציית תחילת פעולת שואב יומית'
+  alias: 'vacuum_all_days'
+  trigger:
+  - platform: template
+    value_template: '{{ states(''sensor.time'') == (states.input_datetime.vacuum_timer_on.attributes.timestamp | int | timestamp_custom(''%H:%M'', False))}}'          
+  action:
+  - service: script.turn_on
+    entity_id: script.vacuum_allhome

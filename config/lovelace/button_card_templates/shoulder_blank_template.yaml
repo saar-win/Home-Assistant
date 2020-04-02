@@ -1,0 +1,14 @@
+shoulder_blank_card:
+
+  type: 'custom:button-card'
+  color_type: blank-card
+  styles:
+    card:
+      - width: 0px
+# blank_card:
+#   card:
+#     type: custom:layout-card
+#     color_type: vertical
+#     styles:
+#       card:
+#         - width: 0px

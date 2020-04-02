@@ -1,0 +1,94 @@
+Homelight:
+    - switch.sonoff_1000a3c51a_1
+    - switch.sonoff_1000a3c51a_2
+    - switch.sonoff_1000a3c51a_3
+    - switch.sonoff_1000ad249f_1
+    - switch.sonoff_1000ad249f_2
+    - switch.sonoff_1000ad249f_3
+
+Family:
+    - device_tracker.ee_08_6b_f4_92_2d
+    - device_tracker.galaxy_note10
+    - device_tracker.galaxy_s9
+
+family_Notify:
+    - notify.mobile_app_mi_9t_pro
+    - notify.mobile_app_sm_g965f
+    - notify.mobile_app_sm_g975f
+
+internet_speed_group:
+  name: Internet Speed
+  entities:
+    - sensor.speedtest_download
+    - sensor.speedtest_download_filtered
+    - sensor.speedtest_ping
+    - sensor.speedtest_upload
+    - sensor.speedtest_upload_filtered
+    - sensor.fritz_netmonitor
+
+rates:
+  name: 'Currency Exchange Rates'
+  entities:
+   - sensor.exchange_date
+   - sensor.dollarusd
+   - sensor.euroeur
+   - sensor.poundgbp
+
+devices:
+   - binary_sensor.ping_sonoff1
+   - binary_sensor.Sonoff3_0934
+   - binary_sensor.Sonoff4_4433
+   - binary_sensor.HP_Printer
+   - binary_sensor.ESP_346ED9
+   - binary_sensor.SP_Mini
+
+saarhome_Info:
+  name: saarhome
+  entities:
+   - sensor.sonoff_latest_release
+   - script.check_saarhome_version
+   - sensor.sonoff_1_version
+   - sensor.sonoff_2_version
+   - sensor.sonoff_3_version
+   - sensor.sonoff_4_version
+   - sensor.sonoff_5_version
+   - sensor.sonoff_6_version   
+   - sensor.sonoff_7_version
+
+sonoff4_text:
+  name: הגדרות כיבוי הדלקה
+  entities:
+    - sensor.sonoff4
+    - cover.sonoff4_cover
+    - input_select.sonoff4_on_text
+    - input_select.sonoff4_off_text
+
+host_system_group:
+  name: Host System
+  entities:
+    - sensor.disk_use_percent_config
+    - sensor.last_boot
+    - sensor.load_1m
+    - sensor.memory_use_percent
+    - sensor.network_in_eth0
+    - sensor.network_out_eth0
+    - sensor.processor_use
+
+saarhome:
+  name: saarhome
+  entities:
+   - switch.sonoff1
+   - switch.sonoff2
+   - switch.sonoff3
+   - switch.sonoff4
+   - switch.sonoff5
+   - switch.sonoff6
+   - switch.sonoff7
+
+docker_containers:
+  name: Docker Containers
+  entities:
+   - switch.home_assistant
+   - switch.nginx
+   - switch.mqtt
+   - switch.switcher

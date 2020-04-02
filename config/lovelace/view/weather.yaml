@@ -1,0 +1,41 @@
+title: Waether
+icon: mdi:weather-cloudy
+path: weather
+cards:
+  # - type: custom:layout-card
+  #   column_width: [1000]
+  #   layout: vertical
+  #   cards:
+  - type: vertical-stack
+    cards:
+      - type: "custom:button-card"
+        color: rgb(255, 255, 255)
+        name: מזג אוויר בעפולה
+        styles:
+          card:
+                - height: 20px
+                - text-transform: none
+                - color: black
+                - background-color: rgb(211,211,211,0.6)
+                - font-size: 20px
+                - font-weight: bold
+      - type: "custom:weather-card"
+        entity: weather.darksky_forecast
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: מזג אוויר בעפולה
+      - type: iframe
+        url: https://www.yr.no/place/Israel/North_Israel/afula/meteogram.png
+        aspect_ratio: 60%
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: מזג אוויר בת׳א
+      - type: iframe
+        url: https://www.yr.no/place/Israel/Tel_Aviv/Tel_Aviv_Yaffo/meteogram.png
+        aspect_ratio: 60%

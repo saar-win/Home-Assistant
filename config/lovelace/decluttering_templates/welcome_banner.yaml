@@ -1,0 +1,105 @@
+welcome_banner:
+  card:
+    type: picture-elements
+    style: |
+      ha-card {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        image-size: 40%;
+        }
+    image: '[[image]]'
+    aspect_ratio: 33%
+    elements:
+      - type: image
+        image: '[[image]]' 
+        tap_action: '[[tap_action]]'
+        hold_action: '[[hold_action]]'
+        style:
+          left: 50%
+          top: 50%
+          width: 100%
+          heigth: 10%
+      - type: state-label
+        entity: sensor.[[sensor1]]
+        style:
+          direction: '[[direction1]]'
+          top: 8%
+          left: 87%
+          pointer-events: none
+          font-size: '[[font_size1]]px'
+          font-weight: bold
+          color: '[[text_color]]'
+          text-shadow: 2px 2px DarkSlateGrey
+          font-family: tahoma
+          pointer-events: none
+          text-rendering: optimizeLegibility
+          -moz-osx-font-smoothing: grayscale
+          font-smoothing: antialiased
+          -webkit-font-smoothing: antialiased
+
+      - type: state-label
+        entity: sensor.[[sensor2]]
+        style:
+          direction: '[[direction2]]'
+          top: 8%
+          left: 10%
+          # pointer-events: none
+          font-size: '[[font_size2]]px'
+          color: '[[text_color]]'
+          font-family: tahoma
+          # width: 100%
+          #transform: initial
+          #padding: 0px 50px
+
+      - type: state-label
+        entity: sensor.[[sensor3]]
+        style:
+          top: 8%
+          left: 35%
+          direction: '[[direction3]]'
+          pointer-events: none
+          color: '[[text_color]]'
+          text-shadow: 2px 2px DarkSlateGrey
+          font-family: tahoma
+          #font-weight: bold
+          font-size: '[[font_size3]]px'
+          # pointer-events: none
+          text-rendering: optimizeLegibility
+          -moz-osx-font-smoothing: grayscale
+          font-smoothing: antialiased
+          -webkit-font-smoothing: antialiased
+          # width: 100%
+          # transform: initial
+          #padding: 0px 50px
+
+      - type: state-label
+        entity: sensor.[[sensor4]]
+        style:
+          direction: '[[direction4]]'
+          top: 60%
+          left: 50%
+          color: '[[text_color]]'
+          font-size: '[[font_size4]]px'
+          text-shadow: 2px 2px DarkSlateGrey
+          font-family: tahoma
+          text-rendering: optimizeLegibility
+          font-smoothing: antialiased
+          -moz-osx-font-smoothing: grayscale
+          -webkit-font-smoothing: antialiased
+          
+      - type: state-label
+        entity: sensor.[[sensor5]]
+        prefix: 'התחזית להיום: '
+        style:
+          direction: '[[direction5]]'
+          top: 35%
+          left: 50%
+          color: '[[text_color]]'
+          font-family: tahoma
+          #font-style: oblique
+          text-shadow: 2px 2px DarkSlateGrey
+          font-size: '[[font_size5]]px'
+          text-rendering: optimizeLegibility
+          -moz-osx-font-smoothing: grayscale
+          font-smoothing: antialiased
+          -webkit-font-smoothing: antialiased

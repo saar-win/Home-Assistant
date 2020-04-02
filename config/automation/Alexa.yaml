@@ -1,0 +1,35 @@
+#- id: 'alexa_switch_state'
+#  alias: 'alexa_switch_state'
+#  trigger:
+#  - entity_id: switch.sonoff1
+#    platform: state
+#  condition: []
+#  action:
+#  - service: media_player.alexa_tts
+#    data_template: 
+#      entity_id: media_player.saar_s_echo_dot
+#      message: 'littel Aqarium thermostat Goes To {{ trigger.to_state.state }}'
+
+#- id: 'alexa_switch_state2'
+#  alias: 'alexa_switch_state2'
+#  trigger:
+#  - entity_id: switch.sonoff2
+#    platform: state
+#  condition: []
+#  action:
+#  - service: media_player.alexa_tts
+#    data_template: 
+#      entity_id: media_player.saar_s_echo_dot
+#      message: 'Sonoff 2 Goes To {{ trigger.to_state.state }}'
+
+#- id: 'alexa_switch_state3'
+#  alias: 'alexa_switch_state3'
+#  trigger:
+#  - entity_id: switch.sonoff2
+#    platform: state
+#  condition: []
+#  action:
+#  - service: media_player.alexa_tts
+#    data_template: 
+#      entity_id: media_player.saar_s_echo_dot
+#      message: 'Sonoff 2 Goes To {{ trigger.to_state.state }}'

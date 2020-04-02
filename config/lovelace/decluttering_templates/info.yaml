@@ -1,0 +1,14 @@
+info:
+    card:
+        type: "custom:button-card"
+        entity: '[[entity]]'
+        show_state: '[[state]]'
+        show_name: '[[show_name]]'
+        name: '[[name]]'
+        size: 80%  
+        styles:
+            card:
+            - height: 80px
+            - font-size: 14px
+            icon:
+            - color: var(--paper-item-icon-color)

@@ -1,0 +1,17 @@
+vacuum_room:
+    name: Choose a room to clean
+    options:
+      - Select Input
+      - סלון
+      - חדר הורים
+      - מטבח
+      - החדר של רחל
+      - החדר של סער
+switcher_timer_minutes_input_select:
+  name: Timer minutes
+  #initial: 15
+  options:
+      - 15
+      - 30
+      - 45
+      - 60

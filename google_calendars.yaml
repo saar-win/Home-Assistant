@@ -1,0 +1,40 @@
+- cal_id: "Saar1122@gmail.com"
+  entities:
+  - device_id: test_everything
+    name: Give me everything
+    track: true
+- cal_id: p6stlbdn0a2b8jefpke8ibqn7g@group.calendar.google.com
+  entities:
+  - device_id: tsb_gdvd_595_khzqh_lv_z
+    ignore_availability: true
+    name: "\u05E6\u05D1\u05D0 / \u05D2\u05D3\u05D5\u05D3 595 / \u05D0\u05D7\u05D6\u05E7\
+      \u05D4 / \u05DC\u05D5\"\u05D6"
+    track: true
+
+- cal_id: saar1122@gmail.com
+  entities:
+  - device_id: saar1122_gmail_com
+    ignore_availability: true
+    name: saar1122@gmail.com
+    track: true
+
+- cal_id: addressbook#contacts@group.v.calendar.google.com
+  entities:
+  - device_id: contacts
+    ignore_availability: true
+    name: Contacts
+    track: true
+
+- cal_id: en.jewish#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: holidays_in_israel
+    ignore_availability: true
+    name: Holidays in Israel
+    track: true
+
+- cal_id: iw.jewish#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: khgym_byshrl
+    ignore_availability: true
+    name: "\u05D7\u05D2\u05D9\u05DD \u05D1\u05D9\u05E9\u05E8\u05D0\u05DC"
+    track: true
