@@ -305,3 +305,10 @@ ec_08_6b_4b_36_e5:
   name: EC:08:6B:4B:36:E5
   picture:
   track: true
+
+ee_08_6b_d3_7e_36:
+  icon:
+  mac: EE:08:6B:D3:7E:36
+  name: EE:08:6B:D3:7E:36
+  picture:
+  track: true

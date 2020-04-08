@@ -6,7 +6,7 @@ title: Wintrov Home
 views:
   - id: home
     panel: true
-    theme: ios-dark-mode
+    #theme: ios-dark-mode
     icon: mdi:home-lightbulb-outline
     path: homekit
     cards:
@@ -52,7 +52,7 @@ views:
               - row: 1
                 columns:
                   - column: 1
-                    tileOnRow: 5
+                    tileOnRow: 7
                     entities:
                       - title:
                         entities: 
@@ -62,12 +62,15 @@ views:
                           - entity: switch.sonoff_1000a3c51a_1
                           - entity: switch.sonoff_1000a3c51a_2
 
-                  - columns: 1
-                    tileOnRow: 1
-                    entities:
-                      - title:
-                        entities:
+                  # - columns: 2
+                  #   tileOnRow: 2
+                  #   entities:
+                  #     - title:
+                  #       entities:
                           - entity: switch.switcher_webapi
+                          - entity: sensor.boiler_temp
+                            icon: mdi:thermometer
+                            name: טמפ׳ דוד
                           
               # - row: 2
               #   columns:    

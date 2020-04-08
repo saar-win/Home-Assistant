@@ -1,6 +1,6 @@
 
 title: Speed Test/
-icon: mdi:home-automation
+icon: fas:wifi
 path: speedtest
 cards:
     - type: entities

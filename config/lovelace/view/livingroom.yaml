@@ -62,7 +62,9 @@ cards:
           - sensor.door_battery_sensor
           - sensor.smart_battery_sensor
           - sensor.switch_battery_sensor
-          - sensor.motion_battery_sensor
+          - sensor.motion_battery_sensor_1
+          - sensor.motion_battery_sensor_2
+          - sensor.motion_battery_sensor_3
 
       - type: custom:decluttering-card
         template: title

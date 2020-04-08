@@ -1,88 +1,88 @@
-test:
-  card:
-      type: custom:button-card
-      entity: '[[entity]]'
-      icon: mdi:[[icon]]
-      name: '[[name]]'
-      color: '[[color]]'
-      font_family: '[[font_family]]'
-      color_type: '[[color_type]]'
-      show_last_changed: false
-      label_template: >
-        var bri = Math.round(states['entitiy'].attributes.brightness / 2.55);
-        return (bri ? bri : '0') + '%';
-      color: auto
-      show_state: true
-      show_label: true
-      show_name: true
-      styles:
-        card:
-          - border-radius: 15px
-          - height: 105px
-          - width: 105px
-          - --paper-card-background-color: rgb(255, 251, 239)
-        # grid:
-        #   - grid-template-areas: '"i icon" "i name" "n n"'
-        #   - grid-template-columns: 1fr
-        #   - grid-template-rows: 1fr
-        icon:
-          - width: 100%
-          - height: 100%
-          - margin: none
-          - top: 20%
-          - right: 20%
-        name:
-          - font-size: 13px
-          - font-family: '[[font_family]]'
-          - justify-self: start
-          - font-weight: bold
-        label:
-          - justify-self: end
-          - color: gray
-          - font-size: 11px
-          - font-family: '[[font_family]]'
-          #- padding: 0px 10px
-          - justify-self: start
-        state:
-          - justify-self: start
-          - font-size: 11px
-          - font-family: '[[font_family]]'
-          - text-transform: capitalize
-          - font-weight: bold
-      state:
-        - value: "on"
-          styles:
-            name:
-              - color: black
-            state:
-              - color: gray
-        - value: "off"
-          style:
-            - opacity: 0.4
-          styles:
-            icon:
-              - color: '#666666'
-            name:
-              - color: '#666666'
-            state:
-              - color: '#666666'
-            card:
-              - color: 'black'
-        - value: "unavailable"
-          style:
-            - opacity: 0.2
-          styles:
-            icon:
-              - color: '#666666'
-            name:
-              - color: '#666666'
-            state:
-              - color: '#666666'
-  custom_fields:
-    icon: "[[icon]]"
-    name: "[[name]]"
-    label: "[[lable]]"
-    state: "[[state]]"
-  tap_action: '[[tap_action]]'
-  hold_action: '[[hold_action]]'
-  state: "[[state]]"
+# test:
+#   card:
+#       type: custom:button-card
+#       entity: '[[entity]]'
+#       icon: mdi:[[icon]]
+#       name: '[[name]]'
+#       color: '[[color]]'
+#       font_family: '[[font_family]]'
+#       color_type: '[[color_type]]'
+#       show_last_changed: false
+#       label_template: >
+#         var bri = Math.round(states['entitiy'].attributes.brightness / 2.55);
+#         return (bri ? bri : '0') + '%';
+#       color: auto
+#       show_state: true
+#       show_label: true
+#       show_name: true
+#       styles:
+#         card:
+#           - border-radius: 15px
+#           - height: 105px
+#           - width: 105px
+#           - --paper-card-background-color: rgb(255, 251, 239)
+#         # grid:
+#         #   - grid-template-areas: '"i icon" "i name" "n n"'
+#         #   - grid-template-columns: 1fr
+#         #   - grid-template-rows: 1fr
+#         icon:
+#           - width: 100%
+#           - height: 100%
+#           - margin: none
+#           - top: 20%
+#           - right: 20%
+#         name:
+#           - font-size: 13px
+#           - font-family: '[[font_family]]'
+#           - justify-self: start
+#           - font-weight: bold
+#         label:
+#           - justify-self: end
+#           - color: gray
+#           - font-size: 11px
+#           - font-family: '[[font_family]]'
+#           #- padding: 0px 10px
+#           - justify-self: start
+#         state:
+#           - justify-self: start
+#           - font-size: 11px
+#           - font-family: '[[font_family]]'
+#           - text-transform: capitalize
+#           - font-weight: bold
+#       state:
+#         - value: "on"
+#           styles:
+#             name:
+#               - color: black
+#             state:
+#               - color: gray
+#         - value: "off"
+#           style:
+#             - opacity: 0.4
+#           styles:
+#             icon:
+#               - color: '#666666'
+#             name:
+#               - color: '#666666'
+#             state:
+#               - color: '#666666'
+#             card:
+#               - color: 'black'
+#         - value: "unavailable"
+#           style:
+#             - opacity: 0.2
+#           styles:
+#             icon:
+#               - color: '#666666'
+#             name:
+#               - color: '#666666'
+#             state:
+#               - color: '#666666'
+#   custom_fields:
+#     icon: "[[icon]]"
+#     name: "[[name]]"
+#     label: "[[lable]]"
+#     state: "[[state]]"
+#   tap_action: '[[tap_action]]'
+#   hold_action: '[[hold_action]]'
+#   state: "[[state]]"

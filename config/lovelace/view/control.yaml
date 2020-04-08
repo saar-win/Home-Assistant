@@ -1,5 +1,5 @@
 title: Sonoff Version
-icon: mdi:information-outline
+icon: fas:info
 path: version
 cards:
   - type: vertical-stack

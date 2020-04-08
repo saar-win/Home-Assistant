@@ -56,8 +56,8 @@
   ############################################################################
   - platform: template
     sensors:
-      motion_battery_sensor:
-        friendly_name: 'חיישן תנועה'
+      motion_battery_sensor_1:
+        friendly_name: 'חיישן תנועה 1'
         unit_of_measurement: '%'
         value_template: "{{ states.binary_sensor.motion_sensor_158d00039d81bb.attributes.battery_level }}"
         icon_template: '{% if states.binary_sensor.motion_sensor_158d00039d81bb.attributes.battery_level == 100 %}
@@ -160,6 +160,64 @@
                         {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 20 %}
                             mdi:battery-20
                         {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 10 %}
+                            mdi:battery-10
+                        {% else %}
+                            battery-outline
+                        {% endif %}' 
+  - platform: template
+    sensors:
+      motion_battery_sensor_2:
+        friendly_name: 'חיישן תנועה 2'
+        unit_of_measurement: '%'
+        value_template: "{{ states.binary_sensor.motion_sensor_158d00034faab7.attributes.battery_level }}"
+        icon_template: '{% if states.binary_sensor.motion_sensor_158d00034faab7.attributes.battery_level == 100 %}
+                            mdi:battery
+                        {% elif states.binary_sensor.motion_sensor_158d00034faab7.attributes.battery_level >= 90 %}
+                            mdi:battery-90
+                        {% elif states.binary_sensor.motion_sensor_158d00034faab7.attributes.battery_level >= 80 %}
+                            mdi:battery-80
+                        {% elif states.binary_sensor.motion_sensor_158d00034faab7.attributes.battery_level >= 70 %}
+                            mdi:battery-70
+                        {% elif states.binary_sensor.motion_sensor_158d00034faab7.attributes.battery_level >= 60 %}
+                            mdi:battery-60
+                        {% elif states.binary_sensor.motion_sensor_158d00034faab7.attributes.battery_level >= 50 %}
+                            mdi:battery-50
+                        {% elif states.binary_sensor.motion_sensor_158d00034faab7.attributes.battery_level >= 40 %}
+                            mdi:battery-40
+                        {% elif states.binary_sensor.motion_sensor_158d00034faab7.attributes.battery_level >= 30 %}
+                            mdi:battery-30
+                        {% elif states.binary_sensor.motion_sensor_158d00034faab7.attributes.battery_level >= 20 %}
+                            mdi:battery-20
+                        {% elif states.binary_sensor.motion_sensor_158d00034faab7.attributes.battery_level >= 10 %}
+                            mdi:battery-10
+                        {% else %}
+                            battery-outline
+                        {% endif %}' 
+  - platform: template
+    sensors:
+      motion_battery_sensor_3:
+        friendly_name: 'חיישן תנועה 3'
+        unit_of_measurement: '%'
+        value_template: "{{ states.binary_sensor.motion_sensor_158d00034faa7b.attributes.battery_level }}"
+        icon_template: '{% if states.binary_sensor.motion_sensor_158d00034faa7b.attributes.battery_level == 100 %}
+                            mdi:battery
+                        {% elif states.binary_sensor.motion_sensor_158d00034faa7b.attributes.battery_level >= 90 %}
+                            mdi:battery-90
+                        {% elif states.binary_sensor.motion_sensor_158d00034faa7b.attributes.battery_level >= 80 %}
+                            mdi:battery-80
+                        {% elif states.binary_sensor.motion_sensor_158d00034faa7b.attributes.battery_level >= 70 %}
+                            mdi:battery-70
+                        {% elif states.binary_sensor.motion_sensor_158d00034faa7b.attributes.battery_level >= 60 %}
+                            mdi:battery-60
+                        {% elif states.binary_sensor.motion_sensor_158d00034faa7b.attributes.battery_level >= 50 %}
+                            mdi:battery-50
+                        {% elif states.binary_sensor.motion_sensor_158d00034faa7b.attributes.battery_level >= 40 %}
+                            mdi:battery-40
+                        {% elif states.binary_sensor.motion_sensor_158d00034faa7b.attributes.battery_level >= 30 %}
+                            mdi:battery-30
+                        {% elif states.binary_sensor.motion_sensor_158d00034faa7b.attributes.battery_level >= 20 %}
+                            mdi:battery-20
+                        {% elif states.binary_sensor.motion_sensor_158d00034faa7b.attributes.battery_level >= 10 %}
                             mdi:battery-10
                         {% else %}
                             battery-outline

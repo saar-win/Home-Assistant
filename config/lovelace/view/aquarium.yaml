@@ -1,5 +1,5 @@
 title: Aquarium Main + Second
-icon: mdi:fish
+icon: fas:fish
 path: Aquarium
 cards:
   - type: vertical-stack

@@ -1,11 +1,19 @@
 'background': center / cover no-repeat url("/local/image/wallpaper03.jpg") fixed
+custom_header: !include config/lovelace/custom_header.yaml
+
 decluttering_templates: !include_dir_merge_named config/lovelace/decluttering_templates/
 
 button_card_templates: !include_dir_merge_named config/lovelace/button_card_templates/
 
-title: Wintrov Home
+#title: Wintrov Home
 views:
-  # Main view t
+
+# exceptions:
+#   - conditions:
+#       query_string: kiosk
+#     config:
+#       kiosk_mode: true
+  # Main view
   - !include config/lovelace/view/main.yaml
 
       # - type: custom:mod-card

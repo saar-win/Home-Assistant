@@ -15,3 +15,12 @@ sensor.switcher_webapi_state:
           icon_color: >
             if (state === 'on') return '#ffcc00';
             return '#808080';
+
+sensor.state_sonoff6:
+  templates:
+          icon: >
+            {% if is_state('sensor.state_sonoff6','on') %} 
+            mdi:shower-head
+            {% else %} 
+            mdi:shield-home-outline
+            % endif %}

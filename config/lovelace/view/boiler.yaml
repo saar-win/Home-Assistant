@@ -1,5 +1,5 @@
   title: boiler
-  icon: mdi:shower-head
+  icon: fas:shower
   path: Boiler
   cards:
     - type: vertical-stack

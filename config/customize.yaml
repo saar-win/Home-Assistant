@@ -36,8 +36,9 @@ sensor.temp3:
   friendly_name: בסלון בבית
 sensor.temp4:
   friendly_name: בחדר ממ"ד
-sensor.temp5:
-  friendly_name: בחדר של רחל
+sensor.boiler_temp:
+  friendly_name: Boiler temp
+  icon: mdi:thermometer
 sensor.temp1_1:
   friendly_name: בחדר של סער
 sensor.temp2_2:

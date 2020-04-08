@@ -1,6 +1,6 @@
 id: Home
 badges:
-icon: mdi:home
+icon: fas:home
 cards:
   - type: horizontal-stack
     cards:    
@@ -9,7 +9,7 @@ cards:
           - type: custom:decluttering-card
             template: person_elements
             variables:
-              - name: ee_08_6b_f4_92_2d
+              - name: mi9tpro_saar_sphone
               - direction: rtl
               - direction2: rtl
               - person: saar
@@ -149,19 +149,42 @@ cards:
                     - entity: sensor.state_sonoff3
                     - state: true
                     - show_name: false
+                    - icon: mdi:shower-head
+                    - icon_color: "[[[if (entity.state == 'off') 
+                    return 'var(--paper-item-icon-color)';
+                    else 
+                    return 'var(--paper-item-icon-active-color)';
+                    ]]]"
               - type: custom:decluttering-card
                 template: info
                 variables:
                     - entity: sensor.state_sonoff5
                     - state: true
                     - show_name: false
+                    - icon_color: "[[[if (entity.state == 'off') 
+                    return 'var(--paper-item-icon-color)';
+                    else 
+                    return 'var(--paper-item-icon-active-color)';
+                    ]]]"
               - type: custom:decluttering-card
-                template: info
+                template: info1
                 variables:
                     - entity: sensor.state_sonoff6
                     - state: true
+                    - icon: mdi:lightbulb-outline
+                    - icon_on: mdi:lightbulb-on-outline
                     - show_name: false
-
+                    - icon_color: "[[[if (entity.state == 'off')
+                    return 'var(--paper-item-icon-color)';
+                    else 
+                    return 'var(--paper-item-icon-active-color)';
+                    ]]]"
+                    - icon: far:heart
+                      #"[[[if (entity.state == 'on')
+                    #return 'mdi:lightbulb-on-outline';
+                    #else 
+                    #return 'mdi:lightbulb-outline';
+                    #]]]"
           - type: horizontal-stack
             cards:
                 - type: custom:decluttering-card
@@ -170,18 +193,21 @@ cards:
                       - entity: sensor.sonoff4
                       - state: true
                       - show_name: false
+                      - icon_color: var(--paper-item-icon-color)
                 - type: custom:decluttering-card
                   template: info
                   variables:
                       - entity: sensor.input_sonoff6_on
                       - state: true
                       - show_name: false
+                      - icon_color: var(--paper-item-icon-color)
                 - type: custom:decluttering-card
                   template: info
                   variables:
                       - entity: sensor.input_sonoff6_off
                       - state: true
                       - show_name: false
+                      - icon_color: var(--paper-item-icon-color)
           - type: vertical-stack
             cards: 
               - type: custom:decluttering-card
@@ -196,20 +222,30 @@ cards:
                       - entity: sensor.input_sonoff2_on
                       - state: true
                       - show_name: false
-
+                      - icon_color: var(--paper-item-icon-color)
                 - type: custom:decluttering-card
                   template: info
                   variables:
                       - entity: sensor.input_sonoff2_off
                       - state: true
                       - show_name: false
+                      - icon_color: var(--paper-item-icon-color)
                 - type: custom:decluttering-card
-                  template: info
+                  template: info1
                   variables:
                       - entity: sensor.state_sonoff2
                       - state: true
                       - show_name: false
-  
+                      - icon_color: "[[[if (entity.state == 'off')
+                      return 'var(--paper-item-icon-color)';
+                      else 
+                      return 'var(--paper-item-icon-active-color)';
+                      ]]]"
+                      - icon: "[[[if (entity.state == 'on')
+                      return 'mdi:lightbulb-on-outline';
+                      else 
+                      return 'mdi:lightbulb-outline';
+                      ]]]"
               - type: horizontal-stack
                 cards:
                   - type: custom:decluttering-card
@@ -219,13 +255,16 @@ cards:
                         - state: true
                         - show_name: true
                         - name: גוף חימום
+                        - icon_color: "[[[if (entity.state == 'off') return 'var(--paper-item-icon-color)';
+                        else return 'var(--paper-item-icon-active-color)';
+                        ]]]"
                   - type: custom:decluttering-card
                     template: info
                     variables:
                         - entity: sensor.sonoff1
                         - state: true
                         - show_name: false
-
+                        - icon_color: var(--paper-item-icon-color)
 #############################################################################################################################################
 #                                                                                                                                           # 
 #                                                             Temprature sensor                                                             #
@@ -453,23 +492,25 @@ cards:
                 variables:
                     - entity: sensor.exchange_date
                     - name: תאריך עדכון
+                    - icon_color: var(--paper-item-icon-color)
               - type: custom:decluttering-card
                 template: info
                 variables:
                     - entity: sensor.dollar_usd
                     - name: דולר
+                    - icon_color: var(--paper-item-icon-color)
               - type: custom:decluttering-card
                 template: info
                 variables:
                     - entity: sensor.euro_eur
                     - name: אירו
-
+                    - icon_color: var(--paper-item-icon-color)
               - type: custom:decluttering-card
                 template: info
                 variables:
                      - entity: sensor.pound_gbp
                      - name: פאונד
-
+                     - icon_color: var(--paper-item-icon-color)
       - type: vertical-stack
         cards:
           - type: custom:decluttering-card
@@ -485,24 +526,37 @@ cards:
                     - entity: sensor.switcher_webapi_state
                     - state: true
                     - show_name: false
-
+                    - icon_color: "[[[if (entity.state == 'off') return 'var(--paper-item-icon-color)';
+                                  else return 'var(--paper-item-icon-active-color)';
+                                  ]]]"
               - type: custom:decluttering-card
                 template: info
                 variables:
                     - entity: sensor.switcher_webapi_power_consumption
                     - state: true
                     - show_name: false
-
+                    - icon_color: var(--paper-item-icon-color)
               - type: custom:decluttering-card
                 template: info
                 variables:
                     - entity:  sensor.switcher_webapi_electric_current
                     - state: true
                     - show_name: false
-
-              - type: custom:decluttering-card
-                template: info
-                variables:
-                    - entity: sensor.switcher_webapi_time_left
-                    - state: true
-                    - show_name: false
+                    - icon_color: var(--paper-item-icon-color)
+          - type: horizontal-stack
+            cards:
+                - type: custom:decluttering-card
+                  template: info
+                  variables:
+                      - entity: sensor.switcher_webapi_time_left
+                      - state: true
+                      - show_name: false
+                      - icon_color: var(--paper-item-icon-color)
+ 
+                - type: custom:decluttering-card
+                  template: info
+                  variables:
+                      - entity: sensor.boiler_temp
+                      - state: true
+                      - show_name: false
+                      - icon_color: var(--paper-item-icon-color)

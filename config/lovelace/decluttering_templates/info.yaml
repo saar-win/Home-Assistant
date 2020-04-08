@@ -1,14 +1,39 @@
 info:
+    default:
+        - icon: '[[icon]]'
+        - state:
+            - value: "on"
+              styles:
+                icon: mdi:test
     card:
         type: "custom:button-card"
         entity: '[[entity]]'
         show_state: '[[state]]'
         show_name: '[[show_name]]'
         name: '[[name]]'
-        size: 80%  
+        size: 80%
         styles:
             card:
             - height: 80px
             - font-size: 14px
-            icon:
-            - color: var(--paper-item-icon-color)
+            icon: 
+            - color: '[[icon_color]]'
+info1:
+    default:
+
+    card:
+        type: "custom:button-card"
+        entity: '[[entity]]'
+        show_state: '[[state]]'
+        icon: '[[icon]]'
+        show_name: '[[show_name]]'
+        name: '[[name]]'
+        size: 80%
+        state:
+        styles:
+            card:
+            - height: 80px
+            - font-size: 14px
+            icon: 
+            - color: '[[icon_color]]'
+            

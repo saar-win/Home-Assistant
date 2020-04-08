@@ -1,12 +1,11 @@
-
+- url: hacsfiles/custom-header/custom-header.js
+  type: module
 - url: /hacsfiles/banner-card/banner-card.js	
   type: module
 - url: /hacsfiles/light-popup-card/light-popup-card.js
   type: module
 - url: /hacsfiles/calendar-card/calendar-card.js?v=1.0.1
   type: module
-- url: /local/plugins/card-modder.js?v=1
-  type: js
 - url: /hacsfiles/lovelace-card-mod/card-mod.js
   type: module
 - url: /local/community/mod-card/mod-card.js
