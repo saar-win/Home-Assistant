@@ -123,3 +123,4 @@ views:
               #           entities:
               #             - entity: switch.wemos_d1_mini
               #               name: Wemos D1
+#
