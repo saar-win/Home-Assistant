@@ -40,3 +40,10 @@
     max: 7
     step: 1
     mode: slider
+  boiler_target:
+    name: מטרה
+    initial: 28
+    min: 28
+    max: 70
+    step: 5
+    mode: slider

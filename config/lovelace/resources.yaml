@@ -46,3 +46,5 @@
   type: module
 - url: /hacsfiles/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
   type: module
+- url: /hacsfiles/simple-weather-card-bundle.js?v=0.8.1
+  type: module

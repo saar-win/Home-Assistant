@@ -1,16 +1,16 @@
 ############################################################################
-#                                                                          # 
-#                               Hub Sensor Light:                          # 
+#                                                                          #
+#                               Hub Sensor Light:                          #
 #                                                                          #
 ############################################################################
   - platform: template
     sensors:
       getway_hub_lm:
         friendly_name: 'עוצמת תאורת חוץ'
-        value_template: "{{ states.sensor.illumination_04cf8cf40276.state }}"
+        value_template: "{{ states.sensor.illumination_04cf8c86ce26.state }}"
 ############################################################################
-#                                                                          # 
-#                               Door sensor:                               # 
+#                                                                          #
+#                               Door sensor:                               #
 #                                                                          #
 ############################################################################
   - platform: template
@@ -48,10 +48,10 @@
           friendly_name: 'מצב חיישן דלת'
           #unit_of_measurement: '%'
           value_template: "{{ states.binary_sensor.door_window_sensor_158d00039d8d54.state}}"
-  
+
   ############################################################################
-  #                                                                          # 
-  #                               Motion sensor:                             #    
+  #                                                                          #
+  #                               Motion sensor:                             #
   #                                                                          #
   ############################################################################
   - platform: template
@@ -91,8 +91,8 @@
             {% if is_state('binary_sensor.motion_sensor_158d00039d81bb', 'on') %} 1 {% else %} 0 {% endif %}
 #        "{{ states.binary_sensor.motion_sensor_158d00039d81bb.state }}"
   ############################################################################
-  #                                                                          # 
-  #                               Singel Switch sensor:                      #    
+  #                                                                          #
+  #                               Singel Switch sensor:                      #
   #                                                                          #
   ############################################################################
   - platform: template
@@ -123,7 +123,7 @@
                             mdi:battery-10
                         {% else %}
                             battery-outline
-                        {% endif %}'  
+                        {% endif %}'
   - platform: template
     sensors:
       switch_status_state:
@@ -132,42 +132,42 @@
         value_template: "{{ states.binary_sensor.switch_158d000394b306.state }}"
 
   ############################################################################
-  #                                                                          # 
-  #                               Smart Motion sensor:                       #    
+  #                                                                          #
+  #                               Smart Motion sensor:                       #
   #                                                                          #
   ############################################################################
-  - platform: template
-    sensors:
-      smart_battery_sensor:
-        friendly_name: 'מצב מתג שיאומי חכם'
-        unit_of_measurement: '%'
-        value_template: "{{ states.switch.plug_158d000391fdca.attributes.battery_level }}"
-        icon_template: '{% if states.switch.plug_158d000391fdca.attributes.battery_level == 100 %}
-                            mdi:battery
-                        {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 90 %}
-                            mdi:battery-90
-                        {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 80 %}
-                            mdi:battery-80
-                        {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 70 %}
-                            mdi:battery-70
-                        {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 60 %}
-                            mdi:battery-60
-                        {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 50 %}
-                            mdi:battery-50
-                        {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 40 %}
-                            mdi:battery-40
-                        {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 30 %}
-                            mdi:battery-30
-                        {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 20 %}
-                            mdi:battery-20
-                        {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 10 %}
-                            mdi:battery-10
-                        {% else %}
-                            battery-outline
-                        {% endif %}' 
+#   - platform: template
+#     sensors:
+#       smart_battery_sensor:
+#         friendly_name: 'מצב מתג שיאומי חכם'
+#         unit_of_measurement: '%'
+#         value_template: "{{ states.switch.plug_158d000391fdca.attributes.battery_level }}"
+#         icon_template: '{% if states.switch.plug_158d000391fdca.attributes.battery_level == 100 %}
+#                             mdi:battery
+#                         {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 90 %}
+#                             mdi:battery-90
+#                         {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 80 %}
+#                             mdi:battery-80
+#                         {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 70 %}
+#                             mdi:battery-70
+#                         {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 60 %}
+#                             mdi:battery-60
+#                         {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 50 %}
+#                             mdi:battery-50
+#                         {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 40 %}
+#                             mdi:battery-40
+#                         {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 30 %}
+#                             mdi:battery-30
+#                         {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 20 %}
+#                             mdi:battery-20
+#                         {% elif states.switch.plug_158d000391fdca.attributes.battery_level >= 10 %}
+#                             mdi:battery-10
+#                         {% else %}
+#                             battery-outline
+#                         {% endif %}'
   ############################################################################
-  #                                                                          # 
-  #                               Singel Switch sensor:                      #    
+  #                                                                          #
+  #                               Singel Switch sensor:                      #
   #                                                                          #
   ############################################################################
   - platform: template
@@ -198,7 +198,7 @@
                             mdi:battery-10
                         {% else %}
                             battery-outline
-                        {% endif %}' 
+                        {% endif %}'
   - platform: template
     sensors:
       motion_2_status_state:
@@ -208,8 +208,8 @@
             {% if is_state('binary_sensor.motion_sensor_158d00034faab7', 'on') %} 1 {% else %} 0 {% endif %}
  #            "{{ states.binary_sensor.motion_sensor_158d00034faab7.state }}"
   ############################################################################
-  #                                                                          # 
-  #                               Singel Switch sensor:                      #    
+  #                                                                          #
+  #                               Singel Switch sensor:                      #
   #                                                                          #
   ############################################################################
   - platform: template
@@ -240,17 +240,17 @@
                             mdi:battery-10
                         {% else %}
                             battery-outline
-                        {% endif %}' 
+                        {% endif %}'
   - platform: template
     sensors:
       motion_3_status_state:
         friendly_name: 'מצב חיישן תנועה 3'
         #unit_of_measurement: '%'
-        value_template: >- 
+        value_template: >-
             {% if is_state('binary_sensor.motion_sensor_158d00034faa7b', 'on') %} 1 {% else %} 0 {% endif %}
  #            "{{ states.binary_sensor.motion_sensor_158d00034faa7b.state }}"
   ############################################################################
-  #                                                                          # 
-  #                               Singel Switch sensor:                      #    
+  #                                                                          #
+  #                               Singel Switch sensor:                      #
   #                                                                          #
   ############################################################################

@@ -18,13 +18,13 @@ info:
             card:
             - height: 80px
             - font-size: 14px
-            icon: 
+            icon:
             - color: '[[icon_color]]'
 info1:
     default:
 
     card:
-        direction: '[[direction]]' 
+        direction: '[[direction]]'
         type: "custom:button-card"
         entity: '[[entity]]'
         show_state: '[[state]]'
@@ -39,6 +39,28 @@ info1:
             card:
             - height: 80px
             - font-size: 14px
-            icon: 
+            icon:
             - color: '[[icon_color]]'
-            
+
+info2:
+    default:
+
+    card:
+        direction: '[[direction]]'
+        type: "custom:slider-entity-row"
+        entity: '[[entity]]'
+        show_state: '[[state]]'
+        icon: '[[icon]]'
+        show_name: '[[show_name]]'
+        tap_action:
+            action: none
+        name: '[[name]]'
+        size: 80%
+        state:
+        styles:
+            card:
+            - height: 80px
+            - font-size: 14px
+            icon:
+            - color: '[[icon_color]]'
+

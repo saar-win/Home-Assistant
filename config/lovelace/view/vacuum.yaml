@@ -1,5 +1,5 @@
 title: Xioami Vacuum
-icon: fas:robot
+icon: mdi:robot-vacuum
 path: Vacuum
 cards:
   - type: custom:layout-card

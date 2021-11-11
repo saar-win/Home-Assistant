@@ -60,8 +60,8 @@ button:
         - font-weight: bold
         - text-transform: lowercase
         - border-radius: 10% # '[[border_radius]]'
-        - background-color: rgb(255, 251, 239)
-        - box-shadow: 3px 2px rgba(0,0,0,0.4)
+        - background-color: rgb(255,255,255)
+        #- box-shadow: 3px 2px rgba(0,0,0,0)
         - color: '[[text_color]]'
       grid:
         - grid-template-areas: '"i corner" "i corner_2" "n n" "cust_1 cust_1" "cust_2 cust_2"'
@@ -82,11 +82,11 @@ button:
         - padding-bottom: 0px
         - color: '[[icon_color]]'
       icon:
-        - width: 90%
-        - height: 90%
-        - margin: none
-        # - top: 40%
-        # - left: 50%
+        - width: 80%
+        - height: 80%
+        #- margin: none 
+        - margin-top: 5% # Change to 5% for awesome
+        - margin-left: 20% # Change to 5% for awesome
       lock:
         - color: '[[lock_color]]'
     
@@ -119,10 +119,10 @@ button:
           - color: "[[cust_2_text_color]]"
           - --icon-color-sensor: "[[cust_2_icon_color]]"
     custom_fields:
-      corner: "[[corner_field]]"
-      corner_2: "[[corner_2_field]]"
+      #corner: "[[corner_field]]"
+      #corner_2: "[[corner_2_field]]"
       cust_1: "[[cust_1_field]]"
-      cust_2: "[[cust_2_field]]"
+      #cust_2: "[[cust_2_field]]"
     tap_action: '[[tap_action]]'
     hold_action: '[[hold_action]]'
     state: "[[state]]"

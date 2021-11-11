@@ -1,10 +1,20 @@
-from typing import Optional
+"""
+Firmware   | LAN type  | uiid | Product Model
+-----------|-----------|------|--------------
+PSF-B04-GL | strip     | 34   | iFan02 (Sonoff iFan02)
+PSF-BFB-GL | fan_light | 34   | iFan (Sonoff iFan03)
+
+https://github.com/AlexxIT/SonoffLAN/issues/30
+"""
+from typing import Optional, List
 
 from homeassistant.components.fan import FanEntity, SUPPORT_SET_SPEED, \
-    SPEED_LOW, SPEED_MEDIUM, SPEED_HIGH, SPEED_OFF
+    SPEED_LOW, SPEED_MEDIUM, SPEED_HIGH, SPEED_OFF, ATTR_SPEED
 
-from . import DOMAIN, EWeLinkDevice
-from .toggle import EWeLinkToggle
+# noinspection PyUnresolvedReferences
+from . import DOMAIN, SCAN_INTERVAL
+from .sonoff_main import EWeLinkDevice
+from .switch import EWeLinkToggle
 
 IFAN02_CHANNELS = [2, 3, 4]
 IFAN02_STATES = {
@@ -22,51 +32,50 @@ async def async_setup_platform(hass, config, add_entities,
 
     deviceid = discovery_info['deviceid']
     channels = discovery_info['channels']
-    device = hass.data[DOMAIN][deviceid]
-    if device.config['type'] == 'fan_light':
-        add_entities([SonoffFan03(device)])
-    elif channels == IFAN02_CHANNELS:
-        add_entities([SonoffFan02(device)])
+    registry = hass.data[DOMAIN]
+
+    # iFan02 and iFan03 have the same uiid!
+    uiid = registry.devices[deviceid].get('uiid')
+    if uiid == 34 or uiid == 'fan_light':
+        # only channel 2 is used for switching
+        add_entities([SonoffFan02(registry, deviceid, [2])])
+    elif uiid == 25:
+        add_entities([SonoffDiffuserFan(registry, deviceid)])
     else:
-        add_entities([EWeLinkToggle(device, channels)])
+        add_entities([SonoffSimpleFan(registry, deviceid, channels)])
 
 
-class SonoffFanBase(FanEntity):
-    def __init__(self, device: EWeLinkDevice):
-        self.device = device
-        self._attrs = {}
-        self._name = None
-        self._speed = None
+class SonoffSimpleFan(EWeLinkToggle, FanEntity):
+    pass
 
-        self._update(device)
 
-        device.listen(self._update)
+class SonoffFanBase(FanEntity, EWeLinkDevice):
+    _speed = None
 
     async def async_added_to_hass(self) -> None:
-        # Присваиваем имя устройства только на этом этапе, чтоб в `entity_id`
-        # было "sonoff_{unique_id}". Если имя присвоить в конструкторе - в
-        # `entity_id` попадёт имя в латинице.
-        self._name = self.device.name()
-
-    def _update(self, device: EWeLinkDevice):
-        """Обновление от устройства.
-
-        :param device: Устройство в котором произошло обновление
-        """
-        pass
+        self._init()
 
     @property
     def should_poll(self) -> bool:
-        # Устройство само присылает обновление своего состояния по Multicast.
+        # The device itself sends an update of its status
         return False
 
     @property
     def unique_id(self) -> Optional[str]:
-        return self.device.deviceid
+        return self.deviceid
 
     @property
     def name(self) -> Optional[str]:
         return self._name
+
+    @property
+    def available(self) -> bool:
+        device: dict = self.registry.devices[self.deviceid]
+        return device['available']
+
+    @property
+    def supported_features(self):
+        return SUPPORT_SET_SPEED
 
     @property
     def speed(self) -> Optional[str]:
@@ -77,66 +86,93 @@ class SonoffFanBase(FanEntity):
         return [SPEED_OFF, SPEED_LOW, SPEED_MEDIUM, SPEED_HIGH]
 
     @property
-    def supported_features(self):
-        return SUPPORT_SET_SPEED
+    def state_attributes(self) -> dict:
+        return {
+            **self._attrs,
+            ATTR_SPEED: self.speed
+        }
 
 
 class SonoffFan02(SonoffFanBase):
-    def _update(self, device: EWeLinkDevice):
-        state = device.is_on(IFAN02_CHANNELS)
+    def _is_on_list(self, state: dict) -> List[bool]:
+        # https://github.com/AlexxIT/SonoffLAN/issues/146
+        switches = sorted(state['switches'], key=lambda i: i['outlet'])
+        return [
+            switches[channel - 1]['switch'] == 'on'
+            for channel in IFAN02_CHANNELS
+        ]
 
-        if state[0]:
-            if not state[1] and not state[2]:
-                self._speed = SPEED_LOW
-            elif state[1] and not state[2]:
-                self._speed = SPEED_MEDIUM
-            elif not state[1] and state[2]:
-                self._speed = SPEED_HIGH
+    def _update_handler(self, state: dict, attrs: dict):
+        self._attrs.update(attrs)
+
+        if 'switches' in state:
+            mask = self._is_on_list(state)
+            if mask[0]:
+                if not mask[1] and not mask[2]:
+                    self._speed = SPEED_LOW
+                elif mask[1] and not mask[2]:
+                    self._speed = SPEED_MEDIUM
+                elif not mask[1] and mask[2]:
+                    self._speed = SPEED_HIGH
+                else:
+                    raise Exception("Wrong iFan02 state")
             else:
-                raise Exception("Wrong iFan02 state")
-        else:
-            self._speed = SPEED_OFF
+                self._speed = SPEED_OFF
 
-        if self.hass:
-            self.schedule_update_ha_state()
+        self.schedule_update_ha_state()
 
-    async def set_speed(self, speed: str) -> None:
+    async def async_set_speed(self, speed: str) -> None:
         channels = IFAN02_STATES.get(speed)
-        await self.device.turn_bulk(channels)
+        await self._turn_bulk(channels)
 
-    async def turn_on(self, speed: Optional[str] = None, **kwargs) -> None:
+    async def async_turn_on(self, speed: Optional[str] = None, **kwargs):
         if speed:
-            await self.set_speed(speed)
+            await self.async_set_speed(speed)
         else:
-            await self.device.turn_on([2])
+            await self._turn_on()
 
-    async def turn_off(self, **kwargs) -> None:
-        await self.device.turn_off([2])
+    async def async_turn_off(self, **kwargs) -> None:
+        await self._turn_off()
 
 
-class SonoffFan03(SonoffFanBase):
-    def _update(self, device: EWeLinkDevice):
-        if 'fan' not in device.state:
-            return
+class SonoffDiffuserFan(SonoffFanBase):
+    def _update_handler(self, state: dict, attrs: dict):
+        self._attrs.update(attrs)
 
-        if device.state['fan'] == 'on':
-            speed = device.state.get('speed', 1)
-            self._speed = self.speed_list[speed]
-        else:
-            self._speed = SPEED_OFF
+        if 'switch' in state:
+            self._is_on = state['switch'] == 'on'
 
-        if self.hass:
-            self.schedule_update_ha_state()
+        if 'state' in state:
+            if state['state'] == 1:
+                self._speed = SPEED_LOW
+            elif state['state'] == 2:
+                self._speed = SPEED_HIGH
 
-    async def set_speed(self, speed: str) -> None:
-        speed = self.speed_list.index(speed)
-        await self.device.send('fan', {'fan': 'on', 'speed': speed})
+        self.schedule_update_ha_state()
 
-    async def turn_on(self, speed: Optional[str] = None, **kwargs) -> None:
+    @property
+    def speed(self) -> Optional[str]:
+        return self._speed if self._is_on else SPEED_OFF
+
+    @property
+    def speed_list(self) -> list:
+        return [SPEED_OFF, SPEED_LOW, SPEED_HIGH]
+
+    async def async_set_speed(self, speed: str) -> None:
+        if speed == SPEED_HIGH:
+            await self.registry.send(self.deviceid,
+                                     {'switch': 'on', 'state': 2})
+        elif speed == SPEED_LOW:
+            await self.registry.send(self.deviceid,
+                                     {'switch': 'on', 'state': 1})
+        elif speed == SPEED_OFF:
+            await self._turn_off()
+
+    async def async_turn_on(self, speed: Optional[str] = None, **kwargs):
         if speed:
-            await self.set_speed(speed)
+            await self.async_set_speed(speed)
         else:
-            await self.device.send('fan', {'fan': 'on'})
+            await self._turn_on()
 
-    async def turn_off(self, **kwargs) -> None:
-        await self.device.send('fan', {'fan': 'off'})
+    async def async_turn_off(self, **kwargs) -> None:
+        await self._turn_off()

@@ -1,7 +1,7 @@
 'background': center / cover no-repeat url("/local/image/wallpaper03.jpg") fixed
 decluttering_templates: !include_dir_merge_named config/lovelace/decluttering_templates/
 
-title: Wintrov Home
+# title: Wintrov Home
 views:
   - id: home
     panel: true
@@ -14,9 +14,11 @@ views:
           - type: "custom:homekit-card"
             home: false
             useBrightness: true
-            useTemperature: true
+            useTemperature: false
             titleColor: "#FFFF"
             enableColumns: true
+            tileHoldAnimation: false
+            statePositionTop: true
             style: |
               :host {
                 --tile-background: rgba(0, 0, 0, 0.3);
@@ -27,72 +29,63 @@ views:
                 --tile-on-background: rgba(255, 255, 255, 2);
                 --tile-name-text-color: rgba(255, 255, 255, 0.7);
                 --tile-on-name-text-color: rgba(0, 0, 0, 1);
-                --tile-state-text-color: rgba(255, 255, 255, 0.4);
+                --tile-state-text-color: rgba(255, 255, 255, 1);
                 --tile-on-state-text-color: rgba(0, 0, 0, 1);
-                --tile-state-changed-text-color: rgb(134, 134, 134);
-                --tile-unavailable-state-text-color: rgba(255, 255, 255, 0,5);
-                --tile-value-text-color: rgba(255, 0, 0, 1);
+                --tile-state-changed-text-color: rgb(0, 0, 0);
+                --tile-unavailable-state-text-color: rgba(255, 255, 255, 0.5);
+                --tile-value-text-color: rgba(255, 255, 255, 1);
                 --tile-icon-color: rgba(255, 255, 255, 1);
-                --tile-icon-size: 10%;
+                --tile-icon-size: 80%;
                 --tile-on-icon-color: #f7d959;
-
-              }  
+              }
               .button-inner .icon {
                     width: 50px;  #Default = 50px
                     height: 50px; #Default = 50px
-                  }
+              }
                   .button-inner .icon ha-icon {
-                    width: 50px; #Default = 50px
-                    height: 50px; #Default = 50px
-                  }
-            statePositionTop: true
-            tileHoldAnimation: true
+                    width: 80px; #Default = 80px
+                    height: 80px; #Default = 80px
+              }
+              .icon.image {
+                    position: right;
+                    width: 50%;
+                    height: 50%;
+                    left: 0;
+                    top: 0;
+              }
             rows:
               - row: 1
                 columns:
-                  - column: 1
-                    tileOnRow: 
+                  - column: 3
+                    # tileOnRow: 3
                     entities:
-                      - title:
-                        entities: 
+                      - title: תאורת סלון
+                        entities:
                           - entity: switch.sonoff_1000ad249f_1
                           - entity: switch.sonoff_1000ad249f_2
                           - entity: switch.sonoff_1000ad249f_3
                           - entity: switch.sonoff_1000a3c51a_1
                           - entity: switch.sonoff_1000a3c51a_2
 
-                  - columns: 1
-                    tileOnRow: 1
+                  - column: 3
+                    # tileOnRow: 1
                     entities:
-                      - title:
+                      - title: בוילר
                         entities:
                           - entity: switch.switcher_webapi
+                            slider: true
                             state: sensor.boiler_temp
-                          # - entity: sensor.boiler_temp
-                          #   secondary_info: last-changed
-                          #   icon: mdi:thermometer
-                          #   name: טמפ׳ דוד
-                          
-              # - row: 2
-              #   columns:    
-              #     - column: 1
-              #       tileOnRow: 7
-              #       entities:
-              #         - title:
-              #           entities:
-                            
-                  - columns: 2
-                    tileOnRow: 7
+
+                  - column: 4
+                    # tileOnRow: 4
                     entities:
-                      - title:
+                      - title: תריס סלון
                         entities:
-                          - entity: sensor.time
                           - entity: cover.livingroom_cover
                             name: העלאה
                             tap_action:
                               service: script.living_room_shutter_open
                               action: call-service
-                              
                           - entity: cover.livingroom_cover
                             name: עצירה
                             tap_action:
@@ -103,22 +96,32 @@ views:
                             tap_action:
                               service: script.living_room_shutter_close
                               action: call-service
-                  # - columns: 3
-                  #   tileOnRow: 4
-                  #   entities:
-                        # - title: How Home?
-                        #   entities:
+                  - column: 2
+                    entities:
+                      - title: שעון
+                        entities:
+                          - entity: sensor.time
+                            wider: true
+                            widerSize: 2
+                  - column: 3
+                    entities:
+                      - title: אנשים
+                        entities:
                           - entity: person.saar
+                            image: /local/saar-new.jpg
                             name: סער
                           - entity: person.michael
+                            image: /local/michael-new1.jpg
                             name: מיכאל
                           - entity: person.rachel
+                            image: /local/rachel-new.jpg
                             name: רחל
 
-                  - columns: 3
-                    tileOnRow: 1
+                  - column: 4
                     entities:
-                      - title:
+                      - title: מרפסת
                         entities:
                           - entity: switch.balcony_lights
                             name: אור במרפסת
+                          - entity: switch.balcony_lights
+                            name: אור פסלים

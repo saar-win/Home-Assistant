@@ -62,14 +62,11 @@ person_elements:
       - type: state-icon
         entity: sensor.[[icon]]
         style:
+          '--mdc-icon-size': '[[icon_size]]px'
+          '--paper-item-icon-color': '[[text_color]]'
           bottom: '[[bottom]]'
           right: '[[right]]'
           direction: '[[direction]]'
-          -–iron-icon-height: 3px
-          -–iron-icon-width: 3px
-         # --iron-icon-width: '[[icon_size]]px'
-          --paper-item-icon-color: '[[text_color]]'
-
 
       - type: state-label
         entity: person.[[person]]

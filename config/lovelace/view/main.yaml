@@ -1,6 +1,6 @@
 id: Home
 badges:
-icon: fas:home
+icon: mdi:home-outline
 cards:
   - type: horizontal-stack
     cards:  
@@ -15,13 +15,13 @@ cards:
               - direction: rtl
               - direction2: rtl
               - person: saar
-              - bottom: -15%
-              - right: -14%
+              - bottom: -18%
+              - right: -17%
               - image_away: '/local/saar-new.jpg'
               - image_home: '/local/saar-new.jpg'
               - battery: mi_9t_pro_battery_level
               - icon: mi_9t_pro_battery_level
-              - icon_size: 6
+              - icon_size: 18
               - text_color: white
               - text_weight: bold
               - icon_color: white
@@ -37,8 +37,8 @@ cards:
             template: person_elements
             variables:
               - name: galaxy_note10
-              - bottom: -15%
-              - right: -14%
+              - bottom: -18%
+              - right: -17%
               - direction: rtl
               - direction2: rtl
               - person: michael
@@ -46,7 +46,7 @@ cards:
               - image_home: '/local/michael-new1.jpg'
               - battery: sm_n975f_battery_level
               - icon: sm_n975f_battery_level
-              - icon_size: 6
+              - icon_size: 18
               - text_color: white
               - icon_color: white
               - tap_action: more_info
@@ -62,8 +62,8 @@ cards:
             template: person_elements
             variables:
               - name: galaxy_s9
-              - bottom: -15%
-              - right: -14%
+              - bottom: -18%
+              - right: -17%
               - direction: rtl
               - direction2: rtl
               - person: rachel
@@ -71,7 +71,7 @@ cards:
               - image_home: '/local/rachel-new.jpg'
               - battery: sm_g965f_battery_level
               - icon: sm_g965f_battery_level
-              - icon_size: 6
+              - icon_size: 18
               - text_color: white
               - icon_color: white
               - tap_action: more_info
@@ -187,11 +187,23 @@ cards:
                     return 'var(--paper-item-icon-active-color)';
                     ]]]"
                     - icon: far:heart
-                      #"[[[if (entity.state == 'on')
-                    #return 'mdi:lightbulb-on-outline';
-                    #else 
-                    #return 'mdi:lightbulb-outline';
-                    #]]]"
+              - type: custom:decluttering-card
+                template: info1
+                variables:
+                    - entity: sensor.state_sonoff4
+                    - state: true
+                    - icon:  "[[[if (entity.state == 'off')
+                    return 'mdi:fan-off';
+                    else 
+                    return 'mdi:fan';
+                    ]]]"
+                    - show_name: false
+                    - icon_color: "[[[if (entity.state == 'off')
+                    return 'var(--paper-item-icon-color)';
+                    else 
+                    return 'var(--paper-item-icon-active-color)';
+                    ]]]"
+                    - icon: far:heart
               - type: custom:button-card
                 template: shoulder_blank_card
           - type: horizontal-stack
@@ -680,6 +692,38 @@ cards:
                 - type: custom:button-card
                   template: shoulder_blank_card
 
+      - type: vertical-stack
+        cards:
+          - type: custom:decluttering-card
+            template: title
+            variables:
+               - name: מידע אודות מקרר מטבח
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: shoulder_blank_card
+              - type: custom:decluttering-card
+                template: info1
+                variables:
+                    - entity: sensor.temperature_158d000573408e
+                    - direction: rtl
+                    - state: true
+                    - show_name: true
+                    - name: טמפ' מקרר
+                    - icon: mdi:fridge-top
+                    - icon_color: var(--paper-item-icon-color)
+              - type: custom:button-card
+                template: shoulder_blank_card
+              - type: custom:decluttering-card
+                template: info1
+                variables:
+                    - entity: sensor.temperature_158d0005734096
+                    - direction: rtl
+                    - state: true
+                    - show_name: true
+                    - name: טמפ' מקפיא
+                    - icon: mdi:fridge-bottom
+                    - icon_color: var(--paper-item-icon-color)
       - type: vertical-stack
         cards:
           - type: custom:decluttering-card

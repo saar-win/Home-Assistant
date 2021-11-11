@@ -17,6 +17,17 @@
   payload_off: "OFF"
   retain: false
 ###############################################################################
+
+- platform: mqtt
+  name: "Sonoff8"
+  state_topic: "stat/sonoff8/RESULT"
+  value_template: "{{ value_json.POWER }}"
+  command_topic: "cmnd/sonoff8/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: false
+###############################################################################
 - platform: mqtt
   name: "Sonoff2"
   state_topic: "stat/Sonoff2/RESULT"
@@ -36,7 +47,7 @@
   payload_on: "ON"
   payload_off: "OFF"
   retain: false
-###############################################################################       
+###############################################################################
 - platform: mqtt
   name: "Sonoff4"
   state_topic: "stat/Sonoff4/RESULT"

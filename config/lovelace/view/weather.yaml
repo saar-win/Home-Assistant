@@ -1,5 +1,5 @@
 title: Waether
-icon: fas:sun
+icon: mdi:weather-hail
 path: weather
 cards:
   # - type: custom:layout-card

@@ -29,7 +29,7 @@
       entity_id: sensor.cert_expiry_saarhome_mynetgear_com
   condition:
     - condition: template
-      value_template: "{{ states.sensor.cert_expiry_saarhome_mynetgear_com.state == '3' }}"
+      value_template: "{{ states.sensor.cert_expiry_saarhome_mynetgear_com.state == '15' }}"
   action:
     - service: notify.mobile_app_mi_9t_pro
       data_template:
@@ -91,7 +91,28 @@
       data_template:
         title: 'אייפיי נחסם!'   #Failed login attempt!
         message: "{{ state_attr('persistent_notification.ip_ban', 'message') }}"
-
+##############################################################################
+- alias: 'freezer_notify'
+  initial_state: 'on'
+  trigger:
+    - platform: template
+      value_template: "{% if states.sensor.temperature_158d0005734096.state | int > -10 %}true{% endif %}"
+  action:
+    - service: notify.notify
+      data_template:
+        title: אזהרת טמפ' פריזר
+        message: "בדוק טמפ פריזר {{ states.sensor.temperature_158d0005734096.state }} מעלות"
+##############################################################################
+- alias: 'fridge_notify'
+  initial_state: 'on'
+  trigger:
+    - platform: template
+      value_template: "{% if states.sensor.temperature_158d000573408e.state | int > 9 %}true{% endif %}"
+  action:
+    - service: notify.notify
+      data_template:
+        title: אזהרת טמפ' מקרר
+        message: "בדוק טמפ מקרר {{ states.sensor.temperature_158d000573408e.state }} מעלות"
 ########################################################################################################################
  
 - alias: Alert when a critical container goes offline

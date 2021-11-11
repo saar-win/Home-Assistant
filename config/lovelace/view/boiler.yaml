@@ -1,5 +1,5 @@
   title: boiler
-  icon: fas:shower
+  icon: mdi:shower-head
   path: Boiler
   cards:
     - type: vertical-stack
@@ -20,6 +20,8 @@
             secondary_info: '[[ if(sun.sun.attributes.elevation < 0, "Below", "Above") ]] the horizon'
           - automation.boiler_off
           - entity: input_datetime.boiler_end_time
+            secondary_info: last-changed
+          - entity: input_number.boiler_target
             secondary_info: last-changed
         - type: vertical-stack
           cards:
@@ -57,12 +59,12 @@
         - type: horizontal-stack
           cards:
             - type: custom:button-card
-              template: shoulder_blank_card 
-      
+              template: shoulder_blank_card
+
             - type: "custom:button-card"
               entity: script.switcher_turn_on_timer_script_30
               name: "טיימר 30 דק"
-              tap_action: 
+              tap_action:
                 action: toggle
               icon: mdi:shower-head
               #color: rgb(0, 255, 0)
@@ -79,7 +81,7 @@
             - type: "custom:button-card"
               entity: script.switcher_turn_on_timer_script_45
               name: "טיימר 45 דק"
-              tap_action: 
+              tap_action:
                 action: toggle
               icon: mdi:shower-head
               #color: rgb(0, 255, 0)
@@ -97,7 +99,7 @@
               entity: script.switcher_turn_on_timer_script_60
               name: "טיימר 60 דק"
               icon: mdi:shower-head
-              tap_action: 
+              tap_action:
                 action: toggle
               #color: rgb(0, 255, 0)
               #color_off: rgb(255, 0, 0, 0)
@@ -112,7 +114,7 @@
                   - font-size: 14px
 
             - type: custom:button-card
-              template: shoulder_blank_card 
+              template: shoulder_blank_card
 
         - type: vertical-stack
           cards:
@@ -125,8 +127,8 @@
               cards:
 
                 - type: custom:button-card
-                  template: shoulder_blank_card 
-                      
+                  template: shoulder_blank_card
+
                 - type: custom:decluttering-card
                   template: boiler
                   variables:

@@ -203,7 +203,7 @@
   - service: mqtt.publish
     data:
       topic: saarhome/cmnd/power2
-      payload: ""  
+      payload: ""
   - service: mqtt.publish
     data:
       topic: saarhome/cmnd/sensor
@@ -252,6 +252,32 @@
 #                       Turn off the littel Thrmostat                   #
 #                                                                       #
 #########################################################################
+- alias: 'target_temprature_on'
+  # initial_state: 'off'
+  trigger:
+  - platform: state
+    entity_id: input_number.boiler_target
+  action:
+  - service: switch.turn_on
+    entity_id: switch.switcher_webapi
+  - service: automation.turn_on
+    entity_id: automation.target_temprature
+  - service: automation.turn_on
+    entity_id: automation.target_temprature_on
+##
+- alias: 'target_temprature'
+  # initial_state: 'off'
+  trigger:
+  - platform: template
+    value_template: '{{ (states.input_number.boiler_target.state | float) <= (states.sensor.boiler_temp.state | float) }}'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.switcher_webapi
+  - service: automation.turn_off
+    entity_id: automation.target_temprature_on
+  - service: automation.turn_off
+    entity_id: automation.target_temprature
+#########################################################################
 - id: 'אוטומציית כיבוי גוף חימום קטן'
   alias: 'sonoff1_temp_off'
   trigger:
@@ -270,7 +296,8 @@
       click_type: single
   action:
     service: cover.open_cover
-    entity_id: cover.livingroom_cover
+    target:
+      entity_id: cover.livingroom_cover
 ########################################################################
 - alias: Shutter Close
   trigger:
@@ -281,7 +308,8 @@
       click_type: double
   action:
     service: cover.stop_cover
-    entity_id: cover.livingroom_cover
+    target:
+      entity_id: cover.livingroom_cover
 ########################################################################
 - alias: Shutter Stop
   trigger:
@@ -292,7 +320,8 @@
       click_type: long_click_press
   action:
     service: cover.close_cover
-    entity_id: cover.livingroom_cover
+    target:
+      entity_id: cover.livingroom_cover
 ########################################################################
 
 - alias: 'Auto Backup'
@@ -326,8 +355,8 @@
     - entity_id: sensor.motion_2_status_state
       platform: state
       to: '0'
-      for: 
-        minutes: '1' # {{ states('input_number.bathroom_lights_without_motion' ) | int }}"
+      for:
+        minutes: '{{ states("input_number.bathroom_lights_without_motion") | int }}'
   condition:
     - condition: time
       after: '20:00:00'

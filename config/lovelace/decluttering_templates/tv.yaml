@@ -1,3 +1,32 @@
+tv_source:
+    default:
+        - icon: '[[icon]]'
+        - state:
+            - value: "on"
+              styles:
+                icon: mdi:test
+    card:
+        type: "custom:button-card"
+        #template: '[[template]]'
+        entity: '[[entity]]'
+        show_state: '[[state]]'
+        show_name: '[[show_name]]'
+        icon: '[[icon]]'
+        tap_action:
+          action: '[[action]]'
+          service: '[[service]]'
+          service_data:
+            entity_id: '[[entity]]'
+            device_id: '[[device]]'
+            source: '[[source]]'
+        name: '[[name]]'
+        size: 80%
+        styles:
+            card:
+            - height: 80px
+            - font-size: 14px
+            icon:
+            - color: '[[icon_color]]'
 tv:
     default:
         - icon: '[[icon]]'
@@ -13,10 +42,12 @@ tv:
         show_name: '[[show_name]]'
         icon: '[[icon]]'
         tap_action:
-            service: '[[service]]'
-            action: '[[action]]'     
-            service_data:
-              entity_id: '[[entity]]'
+          action: '[[action]]'
+          service: '[[service]]'
+          service_data:
+            entity_id: '[[entity]]'
+            # device_id: '[[device]]'
+            # source: '[[source]]'
         name: '[[name]]'
         size: 80%
         styles:
@@ -26,4 +57,4 @@ tv:
             icon:
             - color: '[[icon_color]]'
 
-            
+

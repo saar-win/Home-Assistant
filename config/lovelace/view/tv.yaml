@@ -1,6 +1,6 @@
 title: TV
-icon: fas:tv
-path: tv  
+icon: mdi:monitor-star
+path: tv
 cards:
 
   - type: custom:layout-card
@@ -17,33 +17,43 @@ cards:
           - type: custom:decluttering-card
             template: tv
             variables:
-              - name: "ON \ OFF"
-              - entity: media_player.salov_tv
+              - name: "ON / OFF"
+              - entity: media_player.tv
               #- template: power_button
               - icon: mdi:power
-              - service:
+              - service: media_player.toggle
               - action: call-service
               - state:
-          - type: custom:decluttering-card
-            template: tv
-            variables:
-              - name: Volume up
-              - entity: media_player.salov_tv
-              #- template: volume_button
-              - icon: mdi:volume-plus
-              - service: media_player.volume_up
-              - action: call-service
-              - state:
-          - type: custom:decluttering-card
-            template: tv
-            variables:
-              - name: Volume down
-              - entity: media_player.salov_tv
-              #- template: volume_button
-              - icon: mdi:volume-minus
-              - service: media_player.volume_down
-              - action: call-service
-              - state:
+          # - type: custom:decluttering-card
+          #   template: tv
+          #   variables:
+          #     - name: Volume up
+          #     - entity: media_player.tv
+          #     #- template: volume_button
+          #     - icon: mdi:volume-plus
+          #     - service: media_player.volume_up
+          #     - action: call-service
+          #     - state:
+          # - type: custom:decluttering-card
+          #   template: tv
+          #   variables:
+          #     - name: Volume down
+          #     - entity: media_player.tv
+          #     #- template: volume_button
+          #     - icon: mdi:volume-minus
+          #     - service: media_player.volume_down
+          #     - action: call-service
+          #     - state:
+          # - type: custom:decluttering-card
+          #   template: tv
+          #   variables:
+          #     - name: Netflix
+          #     - entity: media_player.tv
+          #     #- template: volume_button
+          #     - icon: mdi:netflix
+          #     - service: media_player.volume_down
+          #     - action: call-service
+          #     - state:
 
   - type: custom:layout-card
     #column_width: 250
@@ -53,24 +63,14 @@ cards:
       - type: custom:decluttering-card
         template: title
         variables:
-          - name: טלויזיה בחדר של סער
+          - name: אופציות
       - type: horizontal-stack
         cards:
           - type: custom:decluttering-card
             template: tv
             variables:
-              - name: "ON \ OFF"
-              - entity: media_player.saar_tv
-              #- template: power_button
-              - icon: mdi:power
-              - service:
-              - action: call-service
-              - state:
-          - type: custom:decluttering-card
-            template: tv
-            variables:
               - name: Volume up
-              - entity: media_player.saar_tv
+              - entity: media_player.tv
               #- template: volume_button
               - icon: mdi:volume-plus
               - service: media_player.volume_up
@@ -79,12 +79,50 @@ cards:
           - type: custom:decluttering-card
             template: tv
             variables:
-              - name: Volume down 
-              - entity: media_player.saar_tv
+              - name: Volume down
+              - entity: media_player.tv
               #- template: volume_button
               - icon: mdi:volume-minus
               - service: media_player.volume_down
               - action: call-service
+              - state:
+      - type: horizontal-stack
+        cards:
+          - type: custom:decluttering-card
+            template: tv_source
+            variables:
+              - name: Netflix
+              - entity: media_player.tv
+              #- template: volume_button
+              - icon: mdi:netflix
+              - action: call-service
+              - service: media_player.select_source
+              - source: Netflix
+              # - device: f3a742cf1319d85c841f555310435765
+              - state:
+          - type: custom:decluttering-card
+            template: tv_source
+            variables:
+              - name: 'Yes'
+              - entity: media_player.tv
+              #- template: volume_button
+              - icon: mdi:movie
+              - action: call-service
+              - service: media_player.select_source
+              - source: 'HDMI'
+              # - device: f3a742cf1319d85c841f555310435765
+              - state:
+          - type: custom:decluttering-card
+            template: tv_source
+            variables:
+              - name: Youtube
+              - entity: media_player.tv
+              #- template: volume_button
+              - action: call-service
+              - icon: mdi:youtube
+              - service: media_player.select_source
+              - source: 'YouTube'
+              # - device: f3a742cf1319d85c841f555310435765
               - state:
       # - type: horizontal-stack
       #   cards:
@@ -99,9 +137,9 @@ cards:
       #       icon: mdi:volume-plus
       #       name: "volume up"
       #       entity: media_player.saar_tv
-      #       tap_action: 
+      #       tap_action:
       #         service: media_player.volume_up
-      #         action: call-service             
+      #         action: call-service
       #         service_data:
       #           entity_id: media_player.saar_tv
       #     - type: "custom:button-card"
@@ -110,8 +148,8 @@ cards:
       #       icon: mdi:volume-minus
       #       name: "volume down"
       #       entity: media_player.saar_tv
-      #       tap_action: 
+      #       tap_action:
       #         service: media_player.volume_down
-      #         action: call-service             
+      #         action: call-service
       #         service_data:
       #           entity_id: media_player.saar_tv

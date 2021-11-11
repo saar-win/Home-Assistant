@@ -30,7 +30,7 @@ cards:
             --tile-icon-color: rgba(255, 255, 255, 1);
             --tile-on-icon-color: #f7d959;
 
-          }  
+          }
           .button-inner .icon {
                 width:60px;  #Default = 50px
                 height:60px; #Default = 50px
@@ -48,11 +48,11 @@ cards:
                 tileOnRow: 3
                 entities:
                   - title: Living Room Lights
-                    entities: 
+                    entities:
                       - entity: switch.sonoff_1000ad249f_1
                       - entity: switch.sonoff_1000ad249f_2
                       - entity: switch.sonoff_1000ad249f_3
-              - column: 2  
+              - column: 2
                 tileOnRow: 4
                 entities:
                   - title: Living Room Lights
@@ -79,7 +79,7 @@ cards:
                         tap_action:
                           service: script.living_room_shutter_open
                           action: call-service
-                          
+
                       - entity: cover.livingroom_cover
                         name: עצירה
                         tap_action:
@@ -95,7 +95,7 @@ cards:
             columns:
               - column: 1
                 entities:
-                  - title: Saar Room
+                  - title: Balcony
                     entities:
-                      - entity: switch.wemos_d1_mini
-                        name: Wemos D1
+                      - entity: switch.sonoff8
+                        name: אור פסלים

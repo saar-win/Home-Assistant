@@ -57,25 +57,25 @@ frontend:
 ################################################################################
 speedtestdotnet:
 ################################################################################
-xiaomi_aqara:
-  discovery_retry: 5
-  gateways:
-    - key: !secret xiaomigetway
-      
-media_player:
-#   - platform: samsungtv_smart
-#     host: 192.168.1.16
-#     port: 8002
-#     name: Salon Tv
-#     api_key: !secret salon_api_key
-#     mac: !secret salon_tv_mac_id
+# xiaomi_aqara:
+  # discovery_retry: 5
+  # gateways:
+    # - key: !secret xiaomigetway
 
-  - platform: samsungtv_tizen
-    host: 192.168.1.18
-    port: 8002
-    name: Saar tv
-    #api_key: !secret saar_api_key
-    mac: !secret saar_tv_mac_id
+samsungtv_smart:
+  - platform: samsungtv_smart
+    host: 192.168.1.26
+    # port: 8002
+    name: Salon Tv
+    # api_key: !secret salon_api_key
+    mac: 24:FC:E5:90:CA:3E
+
+  # - platform: samsungtv_tizen
+  #   host: 192.168.1.18
+  #   port: 8002
+  #   name: Saar tv
+  #   #api_key: !secret saar_api_key
+  #   mac: !secret saar_tv_mac_id
 ################################################################################
 telegram_bot:
   - platform: polling
@@ -88,16 +88,18 @@ google:
   client_id: !secret clientid
   client_secret: !secret clientsecret
 ################################################################################
-vacuum:
-  - platform: xiaomi_miio
-    host: 192.168.1.39
-    name: Xiaomi Vacuum
-    token: !secret vacuumtoken
+# vacuum:
+#   - platform: xiaomi_miio
+#     host: 192.168.1.39
+#     name: Xiaomi Vacuum
+#     token: !secret vacuumtoken
 ################################################################################
 sonoff:
   username: !secret sonoffuser
   password: !secret sonoffpass
-  reload: always
+  force_update: [temperature, power]
+  scan_interval: '00:05:00'  # (optional) default 5 minutes
+  sensors: [temperature, humidity, power, current, voltage]
 ################################################################################
 notify: !include config/notify.yaml
 shopping_list:
@@ -144,7 +146,7 @@ mqtt:
 
 ################################################################################
 # switcher_kis:
-#  switcherIP = "192.168.0.111" 
+#  switcherIP = "192.168.0.111"
 #  phone_id = "0000"
 #  device_id = !secret deviceid
 #  device_password = "00000000"
@@ -185,6 +187,7 @@ logger:
   default: info
   logs:
     homeassistant.components.shell_command: debug
+    xiaomi_aqara: debug
 ###############################################################################
 zone: !include config/zones.yaml
 group: !include config/groups.yaml
@@ -194,7 +197,7 @@ input_boolean: !include config/input-boolean.yaml
 input_select: !include config/input-select.yaml
 cover: !include config/cover.yaml
 automation: !include_dir_merge_list config/automation/
-#google_assistant: !include config/google_assistant.yaml 
+#google_assistant: !include config/google_assistant.yaml
 script: !include_dir_merge_named config/scripts/
 sensor: !include_dir_merge_list config/sensors/
 switch: !include_dir_merge_list config/switch/

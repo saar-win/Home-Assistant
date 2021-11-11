@@ -1,5 +1,5 @@
 title: Sonoff Version
-icon: fas:info
+icon: mdi:information-outline
 path: version
 cards:
   - type: vertical-stack
@@ -218,54 +218,125 @@ cards:
       - type: custom:decluttering-card
         template: menu_button
         variables:
-          - entity: group.homelight
-          - name: סלון
-          - icon: mdi:sofa
-          - font-family: tahoma
-          - icon: mdi:light
-          - tap_action: none
-          - hold_action: none
+          - entity: sensor.state_sonoff4
+          - name: מאורר
+          - icon: "[[[if (entity.state == 'off')
+          return 'mdi:fan-off';
+          else 
+          return 'mdi:fan';
+          ]]]"
           - corner_2_field: "[[[
-                  if (states['sensor.temp2'].state == 'unavailable') 
+                  if (states['sensor.sonoff4'].state == 'unavailable') 
                   return `<span></span>`;
-                  else return `<span><span style='text-transform: capitalize'>${states['sensor.temp2'].state}°C</span></span>`;                               
+                  else return `<span><span style='text-transform: capitalize'>${states['sensor.sonoff4'].state}°C</span></span>`;                               
                   ]]]"
           - corner_2_text_color: "[[[
-                  if (states['sensor.temp2'].state >= 30) return '#bf4040';
-                  if (states['sensor.temp2'].state >= 26 && states['sensor.temp2'].state < 30) return '#bf9540';
-                  if (states['sensor.temp2'].state >= 18 && states['sensor.temp2'].state < 26) return 'rgba(117,189,111,1.0)';
-                  if (states['sensor.temp2'].state < 18) return 'rgb(43, 154, 249)';
+                  if (states['sensor.sonoff4'].state >= 30) return '#bf4040';
+                  if (states['sensor.sonoff4'].state >= 26 && states['sensor.sonoff4'].state < 30) return '#bf9540';
+                  if (states['sensor.sonoff4'].state >= 18 && states['sensor.sonoff4'].state < 26) return 'rgba(117,189,111,1.0)';
+                  if (states['sensor.sonoff4'].state < 18) return 'rgb(43, 154, 249)';
                   ]]]"
           - cust_1_field: "[[[
-                  return ` <span><span>${states['binary_sensor.samsungtv_salon'].state}</span></span>
-                  <ha-icon icon='mdi:television' style='width: 12px; height: 12px; color: var(--icon-color-sensor);'></ha-icon>
+                  return ` <span><span>${states['switch.sonoff4'].state}</span></span>
+                  <ha-icon icon='mdi:power' style='width: 12px; height: 12px; color: [[[if (entity.state == 'off')
+                  return 'var(--paper-item-icon-color)';
+                  else 
+                  return 'var(--paper-item-icon-active-color)';
+                  ]]]'></ha-icon>
                   <span>`;
                   ]]]"
           - cust_1_icon_color: "[[[
-                  if (states['switch.mqtt'].state == 'Off') return 'var(--paper-item-icon-color)';
+                  if (states['switch.sonoff4'].state == 'Off') return 'var(--paper-item-icon-color)';
                   else return 'var(--paper-item-icon-active-color)';
                   ]]]"
-
       - type: custom:decluttering-card
         template: menu_button
         variables:
           - entity: switch.mqtt
-          - name: חדר הורים
-          - icon: mdi:sofa
+          - name: מצב תאורה
+          - icon: "[[[if (entity.state == 'off')
+          return 'mdi:lightbulb-outline';
+          else 
+          return 'mdi:lightbulb-on-outline';
+          ]]]"
           - corner_2_field: "[[[
-                  if (states['sensor.temp4'].state == 'unavailable') 
+                  if (states['sensor.state_sonoff6'].state == 'unavailable') 
                   return `<span></span>`;
-                  else return `<span><span style='text-transform: capitalize'>${states['sensor.temp4'].state}°C</span></span>`;                               
+                  else return `<span><span style='text-transform: capitalize'>${states['sensor.state_sonoff6'].state}°C</span></span>`;                               
                   ]]]"
           - corner_2_text_color: "[[[
-                  if (states['sensor.temp4'].state >= 30) return '#bf4040';
-                  if (states['sensor.temp4'].state >= 26 && states['sensor.temp4'].state < 30) return '#bf9540';
-                  if (states['sensor.temp4'].state >= 18 && states['sensor.temp4'].state < 26) return 'rgba(117,189,111,1.0)';
-                  if (states['sensor.temp4'].state < 18) return 'rgb(43, 154, 249)';
+                  if (states['sensor.state_sonoff6'].state >= 30) return '#bf4040';
+                  if (states['sensor.state_sonoff6'].state >= 26 && states['sensor.state_sonoff6'].state < 30) return '#bf9540';
+                  if (states['sensor.state_sonoff6'].state >= 18 && states['sensor.state_sonoff6'].state < 26) return 'rgba(117,189,111,1.0)';
+                  if (states['sensor.state_sonoff6'].state < 18) return 'rgb(43, 154, 249)';
                   ]]]"
           - cust_1_field: "[[[
-                  return ` <span><span>${states['binary_sensor.samsungtv_salon'].state}</span></span>
-                  <ha-icon icon='mdi:television' style='width: 12px; height: 12px; color: var(--icon-color-sensor);'></ha-icon>
+                  return ` <span><span>${states['sensor.state_sonoff6'].state}</span></span>
+                  <ha-icon icon='mdi:power' style='width: 12px; height: 12px; color: [[[if (entity.state == 'off')
+                  return 'var(--paper-item-icon-color)';
+                  else 
+                  return 'var(--paper-item-icon-active-color)';
+                  ]]]'></ha-icon>
+                  <span>`;
+                  ]]]"
+          - cust_1_icon_color: "[[[
+                  if (states['sensor.state_sonoff6'].state == 'Off') return 'var(--paper-item-icon-color)';
+                  else return 'var(--paper-item-icon-active-color)';
+                  ]]]"
+      - type: custom:decluttering-card
+        template: menu_button
+        variables:
+          - entity: switch.mqtt
+          - name: כיבוי
+          - icon: mdi:clock
+          - corner_2_field: "[[[
+                  if (states['sensor.input_sonoff6_off'].state == 'unavailable') 
+                  return `<span></span>`;
+                  else return `<span><span style='text-transform: capitalize'>${states['sensor.input_sonoff6_off'].state}°C</span></span>`;                               
+                  ]]]"
+          - corner_2_text_color: "[[[
+                  if (states['sensor.input_sonoff6_off'].state >= 30) return '#bf4040';
+                  if (states['sensor.input_sonoff6_off'].state >= 26 && states['sensor.input_sonoff6_off'].state < 30) return '#bf9540';
+                  if (states['sensor.input_sonoff6_off'].state >= 18 && states['sensor.input_sonoff6_off'].state < 26) return 'rgba(117,189,111,1.0)';
+                  if (states['sensor.input_sonoff6_off'].state < 18) return 'rgb(43, 154, 249)';
+                  ]]]"
+          - cust_1_field: "[[[
+                  return ` <span><span>${states['sensor.input_sonoff6_off'].state}</span></span>
+                  <ha-icon icon='mdi:power' style='width: 12px; height: 12px; color: [[[if (entity.state == 'off')
+                  return 'var(--paper-item-icon-color)';
+                  else 
+                  return 'var(--paper-item-icon-active-color)';
+                  ]]]'></ha-icon>
+                  <span>`;
+                  ]]]"
+          - cust_1_icon_color: "[[[
+                  if (states['switch.mqtt'].state == 'Off') return 'var(--paper-item-icon-color)';
+                  else return 'var(--paper-item-icon-active-color)';
+                  ]]]"
+      - type: custom:decluttering-card
+        template: menu_button
+        variables:
+          - entity: switch.mqtt
+          - name: הדלקה
+          - icon: mdi:clock
+          - corner_2_field: "[[[
+                  if (states['sensor.input_sonoff6_on'].state == 'unavailable') 
+                  return `<span></span>`;
+                  else return `<span><span style='text-transform: capitalize'>${states['sensor.input_sonoff6_on'].state}°C</span></span>`;                               
+                  ]]]"
+          - corner_2_text_color: "[[[
+                  if (states['sensor.input_sonoff6_on'].state >= 30) return '#bf4040';
+                  if (states['sensor.input_sonoff6_on'].state >= 26 && states['sensor.input_sonoff6_on'].state < 30) return '#bf9540';
+                  if (states['sensor.input_sonoff6_on'].state >= 18 && states['sensor.input_sonoff6_on'].state < 26) return 'rgba(117,189,111,1.0)';
+                  if (states['sensor.input_sonoff6_on'].state < 18) return 'rgb(43, 154, 249)';
+                  ]]]"
+          - cust_1_field: "[[[
+                  return ` <span><span>${states['sensor.input_sonoff6_on'].state}</span></span>
+                  <ha-icon icon='mdi:power' style='width: 12px; height: 12px; color: [[[if (entity.state == 'off')
+                  return 'var(--paper-item-icon-color)';
+                  else 
+                  return 'var(--paper-item-icon-active-color)';
+                  ]]]'></ha-icon>
                   <span>`;
                   ]]]"
           - cust_1_icon_color: "[[[
@@ -273,39 +344,6 @@ cards:
                   else return 'var(--paper-item-icon-active-color)';
                   ]]]"
 
-      - type: custom:decluttering-card
-        template: menu_button
-        variables:
-              - entity: switch.mqtt
-              - name: חדר סער
-              - icon: mdi:sofa
-              - color: black
-              - background_color: 
-              - corner_field: "[[[
-                      if (states['switch.mqtt'].state == 'unavailable') 
-                      return `<span></span>`;
-                      else return `<span><span style='text-transform: capitalize'>${states['switch.mqtt'].state}°C</span></span>`;                               
-                      ]]]"
-              - corner_2_field: "[[[
-                      if (states['switch.mqtt'].state == 'unavailable') 
-                      return `<span></span>`;
-                      else return `<span><span style='text-transform: capitalize'>${states['switch.mqtt'].state}°C</span></span>`;                               
-                      ]]]"
-              - corner_2_text_color: "[[[
-                      if (states['switch.mqtt'].state >= 30) return '#bf4040';
-                      if (states['switch.mqtt'].state >= 26 && states['switch.mqtt'].state < 30) return '#bf9540';
-                      if (states['switch.mqtt'].state >= 18 && states['switch.mqtt'].state < 26) return 'rgba(117,189,111,1.0)';
-                      if (states['switch.mqtt'].state < 18) return 'rgb(43, 154, 249)';
-                      ]]]"
-              - cust_1_field: "[[[
-                      return ` <span><span>${states['binary_sensor.samsungtv_salon'].state}</span></span>
-                      <ha-icon icon='mdi:television' style='width: 12px; height: 12px; color: var(--icon-color-sensor);'></ha-icon>
-                      <span>`;
-                      ]]]"
-              - cust_1_icon_color: "[[[
-                  if (states['switch.mqtt'].state == 'Off') return 'var(--paper-item-icon-color)';
-                  else return 'var(--paper-item-icon-active-color)';
-                  ]]]"
 
       - type: custom:button-card
         template: shoulder_blank_card       
@@ -354,7 +392,7 @@ cards:
               name: "DB size"
               unit_of_measurement: 'MB'
 
-            - entity: sensor.cert_expiry_saar_home
+            - entity: sensor.cert_expiry_saarhome
               name: "SSL"
               unit_of_measurement: 'Days'
 
