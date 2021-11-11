@@ -3,8 +3,10 @@ import logging
 import random
 import re
 import string
+import time
 import uuid
 from datetime import datetime
+from functools import lru_cache
 from typing import List, Optional
 
 import requests
@@ -12,6 +14,7 @@ from aiohttp import web
 from homeassistant.components.http import HomeAssistantView
 from homeassistant.helpers.device_registry import DeviceRegistry
 from homeassistant.helpers.entity_registry import EntityRegistry
+from homeassistant.helpers.template import Template
 from homeassistant.helpers.typing import HomeAssistantType
 from homeassistant.requirements import async_process_requirements
 
@@ -32,6 +35,15 @@ def remove_device(hass: HomeAssistantType, did: str):
     device = registry.async_get_device({('xiaomi_gateway3', mac)}, None)
     if device:
         registry.async_remove_device(device.id)
+
+
+def update_device_info(hass: HomeAssistantType, did: str, **kwargs):
+    # lumi.1234567890 => 0x1234567890
+    mac = '0x' + did[5:]
+    registry: DeviceRegistry = hass.data['device_registry']
+    device = registry.async_get_device({('xiaomi_gateway3', mac)}, None)
+    if device:
+        registry.async_update_device(device.id, **kwargs)
 
 
 def migrate_unique_id(hass: HomeAssistantType):
@@ -99,6 +111,9 @@ def check_mgl03(host: str, token: str, telnet_cmd: Optional[str]) \
     # fw 1.4.6_0043+ won't answer on cmd without cloud, so don't check answer
     miio.send(raw['method'], raw.get('params'))
 
+    # waiting for telnet to start
+    time.sleep(1)
+
     try:
         # 4. check if telnet command helps
         TelnetShell(host)
@@ -147,26 +162,34 @@ async def get_bindkey(cloud: MiCloud, did: str):
     return bindkey
 
 
+def reverse_mac(s: str):
+    return f"{s[10:]}{s[8:10]}{s[6:8]}{s[4:6]}{s[2:4]}{s[:2]}"
+
+
 EZSP_URLS = {
-    7: 'https://master.dl.sourceforge.net/project/mgl03/zigbee/ncp-uart-sw_mgl03_6_6_2_stock.gbl?viasf=1',
-    8: 'https://master.dl.sourceforge.net/project/mgl03/zigbee/ncp-uart-sw_mgl03_6_7_8_z2m.gbl?viasf=1',
+    7: 'https://master.dl.sourceforge.net/project/mgl03/zigbee/'
+       'ncp-uart-sw_mgl03_6_6_2_stock.gbl?viasf=1',
+    8: 'https://master.dl.sourceforge.net/project/mgl03/zigbee/'
+       'ncp-uart-sw_mgl03_6_7_8_z2m.gbl?viasf=1',
 }
 
 
 def _update_zigbee_firmware(host: str, ezsp_version: int):
     shell = TelnetShell(host)
 
-    ps = shell.get_running_ps()
-    if "Lumi_Z3GatewayHost_MQTT" in ps:
-        shell.stop_lumi_zigbee()
-    if "tcp-l:8888" not in ps:
-        shell.check_or_download_socat()
-        shell.run_zigbee_tcp()
+    # stop all utilities without checking if they are running
+    shell.stop_lumi_zigbee()
+    shell.stop_zigbee_tcp()
+    # flash on another port because running ZHA or z2m can breake process
+    shell.run_zigbee_tcp(port=8889)
+    time.sleep(.5)
+
+    _LOGGER.debug(f"Try update EZSP to version {ezsp_version}")
 
     from ..util.elelabs_ezsp_utility import ElelabsUtilities
 
     config = type('', (), {
-        'port': (host, 8888),
+        'port': (host, 8889),
         'baudrate': 115200,
         'dlevel': _LOGGER.level
     })
@@ -174,6 +197,7 @@ def _update_zigbee_firmware(host: str, ezsp_version: int):
 
     # check current ezsp version
     resp = utils.probe()
+    _LOGGER.debug(f"EZSP before flash: {resp}")
     if resp[0] == 0 and resp[1] == ezsp_version:
         return True
 
@@ -181,7 +205,7 @@ def _update_zigbee_firmware(host: str, ezsp_version: int):
     r = requests.get(url)
 
     resp = utils.flash(r.content)
-
+    _LOGGER.debug(f"EZSP after flash: {resp}")
     return resp[0] == 0 and resp[1] == ezsp_version
 
 
@@ -192,6 +216,13 @@ async def update_zigbee_firmware(hass: HomeAssistantType, host: str,
     return await hass.async_add_executor_job(
         _update_zigbee_firmware, host, ezsp_version
     )
+
+
+@lru_cache(maxsize=0)
+def attributes_template(hass: HomeAssistantType) -> Template:
+    template = hass.data[DOMAIN]['attributes_template']
+    template.hass = hass
+    return template
 
 
 TITLE = "Xiaomi Gateway 3 Debug"

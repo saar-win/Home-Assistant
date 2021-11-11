@@ -12,24 +12,23 @@ homeassistant:
   time_zone: Asia/Jerusalem
   customize: !include config/customize.yaml
   customize_glob: !include config/customize_glob.yaml
-#  whitelist_external_dirs:
-#    - /home/homeassistant/.homeassistant/images/
-#    - /tmp
-#    - /share
-#    - /home/homeassistant/.homeassistant/www
-      # Customization file
+  # whitelist_external_dirs:
+    # - /backup/picture
+    # - /backup/records
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 #http:
 http:
-  base_url: !secret base_url
+  # base_url: !secret base_url
 #  ip_ban_enabled: True
   login_attempts_threshold: 5
   use_x_forwarded_for: True
   trusted_proxies:
-      - 127.0.0.1 #localhost
+      - 192.168.50.19 #localhost
+      - 172.19.0.3
+      - 127.0.0.1
   #trusted_networks:
   #    - 192.168.104.145
 # base_url: saarpi.duckdns.org:8123
@@ -44,10 +43,10 @@ discovery:
 history:
 system_health:
 sun:
-default_config:
+# default_config:
  ################################################################################
 frontend:
-  javascript_version: latest #auto
+  # javascript_version: latest #auto
   themes: !include_dir_merge_named themes
 
 #  extra_html_url:
@@ -62,13 +61,13 @@ speedtestdotnet:
   # gateways:
     # - key: !secret xiaomigetway
 
-samsungtv_smart:
-  - platform: samsungtv_smart
-    host: 192.168.1.26
-    # port: 8002
-    name: Salon Tv
-    # api_key: !secret salon_api_key
-    mac: 24:FC:E5:90:CA:3E
+# samsungtv_smart:
+#   - platform: samsungtv_smart
+#     host: 192.168.1.26
+#     # port: 8002
+#     name: Salon Tv
+#     # api_key: !secret salon_api_key
+#     mac: 24:FC:E5:90:CA:3E
 
   # - platform: samsungtv_tizen
   #   host: 192.168.1.18
@@ -90,9 +89,9 @@ google:
 ################################################################################
 # vacuum:
 #   - platform: xiaomi_miio
-#     host: 192.168.1.39
+#     host: 192.168.50.235
 #     name: Xiaomi Vacuum
-#     token: !secret vacuumtoken
+#     token: 774933365431745354697a7176463666
 ################################################################################
 sonoff:
   username: !secret sonoffuser
@@ -111,10 +110,10 @@ weather:
     name: darksky_forecast
     mode: daily
 ################################################################################
-read_your_meter:
-  host: http://localhost:4444
-  username: !secret water_meter_email
-  password: !secret water_meter_pass
+# read_your_meter:
+#   host: http://localhost:4444
+#   username: !secret water_meter_email
+#   password: !secret water_meter_pass
 ################################################################################
 
 tts:
@@ -138,7 +137,7 @@ lovelace:
       require_admin: false
 ################################################################################
 mqtt:
-    broker: 192.168.1.19
+    broker: 192.168.50.19
     port: 1883
     username: !secret mqtt_username
     password: !secret mqtt_password
@@ -171,16 +170,16 @@ recorder:
       - switch
       - automation
 ################################################################################
-cloud: !include config/cloud.yaml
-emulated_hue:
-  host_ip: 192.168.1.19
-  #expose_by_default: true
-  exposed_domains:
-    - light
-    - switch
-  entities:
-    switch.sonoff1:
-      name: test
+# cloud: !include config/cloud.yaml
+# emulated_hue:
+#   host_ip: 192.168.1.19
+#   #expose_by_default: true
+#   exposed_domains:
+#     - light
+#     - switch
+#   entities:
+#     switch.sonoff1:
+#       name: test
 stream:
 ###############################################################################
 logger:

@@ -2,7 +2,7 @@
 #                                                                       #
 #                          Weather  Telegream                           #
 #                                                                       #
-######################################################################## 
+########################################################################
 telegram_weather:
   alias: 'weather_telegram'
   sequence:
@@ -18,7 +18,7 @@ telegram_weather:
 #                                                                       #
 #                          TIMER-ON Telegream                           #
 #                                                                       #
-########################################################################       
+########################################################################
 backup_to_hardisk:
    alias: 'Backup Home Assitant img'
    sequence:
@@ -74,7 +74,7 @@ turn_on_air:
       - service: notify.telegram
         data:
           title: '*Home Assistant*'
-          message: "מצב מתג מאורר עליון השתנה ל *{{ states('switch.sonoff4')}}* 
+          message: "מצב מתג מאורר עליון השתנה ל *{{ states('switch.sonoff4')}}*
 
 
                     טמפרטורה השתנתה ל *{{ states('sensor.sonoff4')}}*"
@@ -85,7 +85,7 @@ turn_off_air:
       - service: notify.telegram
         data:
           title: '*Home Assistant*'
-          message: "מצב מתג מאורר עליון השתנה ל *{{ states('switch.sonoff4')}}* 
+          message: "מצב מתג מאורר עליון השתנה ל *{{ states('switch.sonoff4')}}*
 
 
                     טמפרטורה השתנתה ל *{{ states('sensor.sonoff4')}}*"
@@ -101,70 +101,77 @@ alexa_tts_temp_state:
             The Aquarium temp is {{ states("sensor.sonoff4") }} , The air Switch goes to {{ states("switch.sonoff4") }}'
 
 
-vacuum_saar:
-    alias: "חדר סער"
-    sequence:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum
-          command: app_zoned_clean
-          params: [[12481,26064,18381,30864,1]]
-vacuum_perents_room:
-    alias: "חדר הורים"
-    sequence:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum
-          command: app_zoned_clean
-          params: [[32373,24463,36073,28063,1],[31710,22687,33810,27087,1],[30199,21634,31699,25784,1],[29071,22019,30871,24919,1]]
+vacuum_perentes:
+  alias: חדר הורים
+  icon: mdi:stairs
+  mode: single
+  sequence:
+  - service: vacuum.send_command
+    data_template:
+      command: app_segment_clean
+      entity_id: vacuum.roborock_vacuum_a08_2
+      params: 16
 vacuum_kitchen:
-    alias: "מטבח"
-    sequence:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum
-          command: app_zoned_clean
-          params: [[30368,26449,33068,29799,1],[28800,24986,31150,28286,1]]
-vacuum_saloon:
-    alias: "סלון"
-    sequence:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum
-          command: app_zoned_clean
-          params: [[23115,22741,28165,26341,1],[25720,25339,34520,27739,1],[32541,21166,36191,26266,1]]
-vacuum_rachel:
-    alias: "חדר רחל"
-    sequence:
-      - service: vacuum.send_command
-        data:
-         entity_id: vacuum.xiaomi_vacuum
-         command: app_zoned_clean
-         params: [[16109,22957,20609,26607,1]]
+  alias: מטבח
+  icon: mdi:stairs
+  mode: single
+  sequence:
+  - service: vacuum.send_command
+    data_template:
+      command: app_segment_clean
+      entity_id: vacuum.roborock_vacuum_a08_2
+      params: 20
 vacuum_bathroom:
-    alias: "חדר אמבטיה"
-    sequence:
-      - service: vacuum.send_command
-        data:
-         entity_id: vacuum.xiaomi_vacuum
-         command: app_zoned_clean
-         params: [[18197,19425,21447,22925,1],[20411,22195,22611,24195,1]]
-vacuum_halway:
-    alias: "מסדרון"
-    sequence:
-      - service: vacuum.send_command
-        data:
-         entity_id: vacuum.xiaomi_vacuum
-         command: app_zoned_clean
-         params: [[22797,18175,24497,19575,1],[23779,19404,25629,20754,1],[24817,20431,27217,22081,1],[25439,21995,28039,23695,1]]
-vacuum_allhome:
-    alias: "שאיבת כל הבית"
-    sequence:
-      - service: vacuum.send_command
-        data:
-         entity_id: vacuum.xiaomi_vacuum
-         command: app_zoned_clean
-         params: [[9595,17430,24795,33530,1],[24833,19542,29733,26242,1],[24854,31197,30604,35097,1]]
+  alias: אמבטיה
+  icon: mdi:stairs
+  mode: single
+  sequence:
+  - service: vacuum.send_command
+    data_template:
+      command: app_segment_clean
+      entity_id: vacuum.roborock_vacuum_a08_2
+      params: 17
+vacuum_rachel:
+  alias: חדר דחל
+  icon: mdi:stairs
+  mode: single
+  sequence:
+  - service: vacuum.send_command
+    data_template:
+      command: app_segment_clean
+      entity_id: vacuum.roborock_vacuum_a08_2
+      params: 18
+vacuum_hallway:
+  alias: מסדרון
+  icon: mdi:stairs
+  mode: single
+  sequence:
+  - service: vacuum.send_command
+    data_template:
+      command: app_segment_clean
+      entity_id: vacuum.roborock_vacuum_a08_2
+      params: 21
+vacuum_saar:
+  alias: חדר סער
+  icon: mdi:stairs
+  mode: single
+  sequence:
+  - service: vacuum.send_command
+    data_template:
+      command: app_segment_clean
+      entity_id: vacuum.roborock_vacuum_a08_2
+      params: 22
+bathroom_perents:
+  alias: מקלחת הורים
+  icon: mdi:stairs
+  mode: single
+  sequence:
+  - service: vacuum.send_command
+    data_template:
+      command: app_segment_clean
+      entity_id: vacuum.roborock_vacuum_a08_2
+      params: 23
+
 #####################################################################################################################
 living_room_shutter_open:
     alias: "Living room shutter open"
@@ -206,6 +213,7 @@ switcher_turn_on_timer_script_15:
           minutes: 15 #'{{ states.input_select.switcher_timer_minutes_input_select.state }}'
       - service: homeassistant.update_entity
         entity_id: sensor.switcher_webapi
+
 switcher_turn_on_timer_script_30:
   alias: 30 min On with Timer
   sequence:
@@ -216,6 +224,7 @@ switcher_turn_on_timer_script_30:
           minutes: 30 #'{{ states.input_select.switcher_timer_minutes_input_select.state }}'
       - service: homeassistant.update_entity
         entity_id: sensor.switcher_webapi
+        
 switcher_turn_on_timer_script_45:
   alias: 45 min On with Timer
   sequence:

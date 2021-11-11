@@ -2,19 +2,17 @@ title: Xioami Vacuum
 icon: mdi:robot-vacuum
 path: Vacuum
 cards:
-  - type: custom:layout-card
-    layout: horizontal
+  - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: title
         variables:
           - name: פאנל שואב אבק רובוטי
 
-  - type: custom:layout-card
-    layout: horizontal
+  - type: vertical-stack
     cards:
       - type: entities
-        show_header_toggle: false
+        # show_header_toggle: false
         entities:
          - entity: input_datetime.vacuum_timer_on
            secondary_info: last-changed
@@ -24,57 +22,96 @@ cards:
         template: title
         variables:
           - name: שאיבה לפי אזורים
-
-
       - type: horizontal-stack
         cards:
-          - type: "custom:button-card"
+          - type: "button"
             tap_action:
               action: call-service
-            entity: script.vacuum_bathroom
+              service: script.turn_on
+              service_data:
+                entity_id: script.vacuum_bathroom
             name: אמבטיה
             icon: mdi:robot-vacuum
-          - type: "custom:button-card"
+          - type: "button"
             tap_action:
               action: call-service
-            entity: script.vacuum_allhome
-            name: כל הבית
-            icon: mdi:robot-vacuum
-          - type: "custom:button-card"
-            tap_action:
-              action: call-service
-            entity: script.vacuum_rachel
+              service: script.turn_on
+              service_data:
+                entity_id: script.vacuum_rachel
             name: חדר רחל
             icon: mdi:robot-vacuum
-          - type: "custom:button-card"
+          - type: "button"
             tap_action:
               action: call-service
-            entity: script.vacuum_halway
+              service: script.turn_on
+              service_data:
+                entity_id: script.vacuum_hallway
             name: מסדרון
             icon: mdi:robot-vacuum
+
       - type: horizontal-stack
         cards:
-          - type: "custom:button-card"
+          - type: "button"
             tap_action:
               action: call-service
-            entity: script.vacuum_perents_room
+              service: script.turn_on
+              service_data:
+                entity_id: script.vacuum_perentes
             name: חדר הורים
             icon: mdi:robot-vacuum
-          - type: "custom:button-card"
+          - type: "button"
             tap_action:
               action: call-service
-            entity: script.vacuum_saloon
-            name: סלון
-            icon: mdi:robot-vacuum
-          - type: "custom:button-card"
-            tap_action:
-              action: call-service
-            entity: script.vacuum_kitchen
+              service: script.turn_on
+              service_data:
+                entity_id: script.vacuum_kitchen
             name: מטבח
             icon: mdi:robot-vacuum
-          - type: "custom:button-card"
+          - type: "button"
             tap_action:
               action: call-service
-            entity: script.vacuum_saar
+              service: script.turn_on
+              service_data:
+                entity_id: script.vacuum_saar
             name: חדר סער
             icon: mdi:robot-vacuum
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: מידע / שליטה
+      - type: horizontal-stack
+        cards:
+          - type: custom:xiaomi-vacuum-card
+            entity: vacuum.roborock_vacuum_a08_2
+            image: /local/image/vacuum_card002.jpg
+            name: My Vacuum
+            vendor: xiaomi
+            buttons:
+              # state: true
+              # puse: true
+              # stop: true
+              # locate: false
+              # return: true
+            # icons:
+            #   start: mdi:some-icon
+            #   stop: mdi:other-icon
+            labels:
+              status: Etat
+              battery: Batterie
+              mode: Puissance
+              main_brush: Brosse Principale
+              side_brush: Brosse Latérale
+              filter: Filtre
+              sensor: Capteurs
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: title
+        variables:
+          - name: מפת אזורים
+      - type: horizontal-stack
+        cards:
+          - type: custom:xiaomi-vacuum-map-card
+            entity: vacuum.roborock_vacuum_a08_2
+            map_camera: camera.xiaomi_cloud_map_extractor
+            camera_calibration: true

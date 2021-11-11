@@ -1,6 +1,6 @@
 ############################################################################
-#                                                                          # 
-#                           Time Date sensor:                              #    
+#                                                                          #
+#                           Time Date sensor:                              #
 #                                                                          #
 ############################################################################
   - platform: time_date
@@ -9,8 +9,8 @@
       - 'date'
 
 ############################################################################
-#                                                                          # 
-#                           Dollar to SHekel                               #    
+#                                                                          #
+#                           Dollar to SHekel                               #
 #                                                                          #
 ############################################################################
   - platform: command_line
@@ -33,8 +33,8 @@
     command: "curl get https://www.boi.org.il/currency.xml?curr=02 2>&1 | grep RATE | grep -o '[0-9].*[0-9]' "
     scan_interval: 43200 #12 Hours
 ############################################################################
-#                                                                          # 
-#                               Sensors State:                             #    
+#                                                                          #
+#                               Sensors State:                             #
 #                                                                          #
 ############################################################################
   - platform: template
@@ -63,27 +63,27 @@
        value_template: "{{ states('switch.sonoff1') }}"
      state_sonoff2:
        value_template: "{{ states('switch.sonoff2') }}"
-       icon_template: "if (state === 'on') 
-       return 'mdi:lightbulb-on-outline'; 
-       else 
-       return 
-       'mdi:lightbulb-outline';"  
+       icon_template: "if (state === 'on')
+       return 'mdi:lightbulb-on-outline';
+       else
+       return
+       'mdi:lightbulb-outline';"
      state_sonoff3:
-       value_template: "{{ states('switch.sonoff3') }}" 
+       value_template: "{{ states('switch.sonoff3') }}"
      state_sonoff4:
        value_template: "{{ states('switch.sonoff4') }}"
      state_sonoff5:
        value_template: "{{ states('switch.sonoff5') }}"
      state_sonoff6:
        value_template: "{{ states('switch.sonoff6') }}"
-       icon_template: "if (state === 'on') 
-       return 'mdi:lightbulb-on-outline'; 
-       else 
-       return 
-       'mdi:lightbulb-outline';"  
+       icon_template: "if (state === 'on')
+       return 'mdi:lightbulb-on-outline';
+       else
+       return
+       'mdi:lightbulb-outline';"
 ############################################################################
-#                                                                          # 
-#                               Shelly 2.5:                                #    
+#                                                                          #
+#                               Shelly 2.5:                                #
 #                                                                          #
 ############################################################################
   - platform: mqtt
@@ -106,7 +106,7 @@
     value_template: "{{ value|float }}"
     qos: 1
     unit_of_measurement: "kWh"
-    
+
   - platform: mqtt
     name: "Shelly Balcony energy"
     state_topic: "shellies/shellyswitch25-68C63AF966F2/relay/0/power"
@@ -114,8 +114,8 @@
     qos: 1
     unit_of_measurement: "kWh"
 ############################################################################
-#                                                                          # 
-#                               Sonoff1:                                   #    
+#                                                                          #
+#                               Sonoff1:                                   #
 #                                                                          #
 ############################################################################
 
@@ -132,7 +132,7 @@
     name: "tablet Light Level"
     unit_of_measurement: "lx"
     value_template: '{{ value_json.value }}'
-    
+
   - platform: mqtt
     state_topic: "tablet/mytablet/sensor/magneticField"
     name: "tablet Magnetic Field"
@@ -144,9 +144,9 @@
   #   name: "tabley motion"
   #   payload_on: '{"value": true}'
   #   payload_off: '{"value": false}'
-  #   device_class: motion 
+  #   device_class: motion
 
-  
+
   - platform: mqtt
     name: "sonoff1"
     force_update: true
@@ -158,8 +158,8 @@
     payload_not_available: "Offline"
     #retain: false
 ############################################################################
-#                                                                          # 
-#                               Sonoff4:                                   #    
+#                                                                          #
+#                               Sonoff4:                                   #
 #                                                                          #
 ############################################################################
   - platform: mqtt
@@ -173,8 +173,8 @@
     payload_not_available: "Offline"
     #retain: false
 ############################################################################
-#                                                                          # 
-#                               Temp 1                                     #    
+#                                                                          #
+#                               Temp 1                                     #
 #                                                                          #
 ############################################################################
   - platform: mqtt
@@ -198,8 +198,8 @@
     payload_not_available: "Offline"
     #retain: false
 ############################################################################
-#                                                                          # 
-#                               Temp 2                                     #    
+#                                                                          #
+#                               Temp 2                                     #
 #                                                                          #
 ############################################################################
   - platform: mqtt
@@ -223,8 +223,8 @@
     payload_not_available: "Offline"
     #retain: false
 ############################################################################
-#                                                                          # 
-#                               Temp 3                                     #    
+#                                                                          #
+#                               Temp 3                                     #
 #                                                                          #
 ############################################################################
   - platform: mqtt
@@ -248,8 +248,8 @@
     payload_not_available: "Offline"
     #retain: false
 ############################################################################
-#                                                                          # 
-#                               Temp 4                                     #    
+#                                                                          #
+#                               Temp 4                                     #
 #                                                                          #
 ############################################################################
   - platform: mqtt
@@ -271,8 +271,8 @@
     payload_not_available: "Offline"
     #retain: false
 ############################################################################
-#                                                                          # 
-#                               Temp 5                                     #    
+#                                                                          #
+#                               Temp 5                                     #
 #                                                                          #
 ############################################################################
     #retain: false
@@ -297,8 +297,8 @@
   #   payload_not_available: "Offline"
   #   #retain: false
 ############################################################################
-#                                                                          # 
-#                         OwnTracks - Saar                                 #    
+#                                                                          #
+#                         OwnTracks - Saar                                 #
 #                                                                          #
 ############################################################################
   - platform: template
@@ -390,8 +390,8 @@
                 {% endif %}'
 
 ############################################################################
-#                                                                          # 
-#                               Sonoff1-POW:                               #    
+#                                                                          #
+#                               Sonoff1-POW:                               #
 #                                                                          #
 ############################################################################
   - platform: mqtt
@@ -425,7 +425,7 @@
     value_template: '{{ (value_json["ENERGY"]["Total"] * 0.5404) | round(3) }}'
     #ILS OR USD (Depends on local currency) Just change the value of "0.5404" to your local elctricity price
     unit_of_measurement: "₪" # USD / Other local currency
- 
+
 ############################################
   - platform: rest
     name: Sonoff latest release
@@ -434,7 +434,7 @@
     headers:
       Accept: application/vnd.github.v3+json
       Content-Type: application/json
-      User-Agent: Home Assistant REST sensor 
+      User-Agent: Home Assistant REST sensor
   - platform: mqtt
     name: Sonoff 1 Version
     state_topic: "stat/Sonoff1/STATUS2"
@@ -494,7 +494,7 @@
       - type: last_boot
 
   - platform: darksky
-    api_key:
+    api_key: d03ec468f0f920610cc93eea77fc18f6
     units: ca
     language: he
     forecast:
@@ -539,8 +539,8 @@
           {% endif %}
 
 ###########################################################################
-#                                                                          # 
-#                           Shutter precentage                             #    
+#                                                                          #
+#                           Shutter precentage                             #
 #                                                                          #
 ############################################################################
   - platform: template
@@ -549,8 +549,8 @@
         value_template: "{{ states.sensor.read_your_meter.state }}"
         unit_of_measurement: 'מ״ק'
 ###########################################################################
-#                                                                          # 
-#                           Shutter precentage                             #    
+#                                                                          #
+#                           Shutter precentage                             #
 #                                                                          #
 ############################################################################
   - platform: template
@@ -560,8 +560,8 @@
         unit_of_measurement: 'מ״ק'
 
 ###########################################################################
-#                                                                          # 
-#                           Shutter precentage                             #    
+#                                                                          #
+#                           Shutter precentage                             #
 #                                                                          #
 ############################################################################
   - platform: template
@@ -571,8 +571,8 @@
         unit_of_measurement: 'מ״ק'
 
 ###########################################################################
-#                                                                          # 
-#                           Shutter precentage                             #    
+#                                                                          #
+#                           Shutter precentage                             #
 #                                                                          #
 ############################################################################
   - platform: template
@@ -581,8 +581,8 @@
         value_template: "{{ states.cover.livingroom_cover.attributes.current_position }}"
         unit_of_measurement: '%'
 ############################################################################
-#                                                                          # 
-#                           Switch Current W                               #    
+#                                                                          #
+#                           Switch Current W                               #
 #                                                                          #
 ############################################################################
 
@@ -593,8 +593,8 @@
         friendly_name: 'צריכת זרם'
         unit_of_measurement: 'A'
 ############################################################################
-#                                                                          # 
-#                           sonoff_10006f9483_electric_current_w           #    
+#                                                                          #
+#                           sonoff_10006f9483_electric_current_w           #
 #                                                                          #
 ############################################################################
   - platform: template
@@ -604,8 +604,8 @@
         friendly_name: 'הספק נצרך'
         unit_of_measurement: 'W'
 ############################################################################
-#                                                                          # 
-#                               Vacuum - Status:                           #    
+#                                                                          #
+#                               Vacuum - Status:                           #
 #                                                                          #
 ############################################################################
   - platform: template
@@ -620,14 +620,14 @@
           {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Returning home' %}מצב:בחזרה לבסיס
           {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Paused' %}מצב:בהשהייה
           {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Idle' %}מצב:לא פעיל
-          {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Error' %}מצב:שגיאה,בדוק מה הסיבה באפליקציה          
-          {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Charger disconnected' %}מצב:מטען מנותק          
+          {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Error' %}מצב:שגיאה,בדוק מה הסיבה באפליקציה
+          {% elif states.vacuum.xiaomi_vacuum.attributes.status == 'Charger disconnected' %}מצב:מטען מנותק
           {%- else -%}
             {{states.vacuum.xiaomi_vacuum.attributes.status}}:מצב
           {% endif %}
 ############################################################################
-#                                                                          # 
-#                               Sensors temprature humidity                #    
+#                                                                          #
+#                               Sensors temprature humidity                #
 #                                                                          #
 ############################################################################
   - platform: template
@@ -646,24 +646,24 @@
   - platform: command_line
     name: printer_color
     scan_interval: 21600
-    command: curl -s http://192.168.1.10/DevMgmt/ConsumableConfigDyn.xml | grep -m1 'dd:ConsumablePercentageLevelRemaining' | sed 's/\s*<.*>\(.*\)<.*>/\1/'
+    command: curl -s http://192.168.50.231/DevMgmt/ConsumableConfigDyn.xml | grep -m1 'dd:ConsumablePercentageLevelRemaining' | sed 's/\s*<.*>\(.*\)<.*>/\1/'
 
   - platform: command_line
     name: printer_black
     scan_interval: 21600
-    command: curl -s http://192.168.1.10/DevMgmt/ConsumableConfigDyn.xml | grep "dd:ConsumablePercentageLevelRemaining" | sed 's/\s*<.*>\(.*\)<.*>/\1/' | tail +2
+    command: curl -s http://192.168.50.231/DevMgmt/ConsumableConfigDyn.xml | grep "dd:ConsumablePercentageLevelRemaining" | sed 's/\s*<.*>\(.*\)<.*>/\1/' | tail +2
     unit_of_measurement: '%'
-    
+
   - platform: command_line
     name: printer_status
     scan_interval: 10
-    command: curl -s http://192.168.1.10/DevMgmt/ProductStatusDyn.xml | grep "pscat:StatusCategory" | sed 's/\s*<.*>\(.*\)<.*>/\1/' | tail +2
+    command: curl -s http://192.168.50.231/DevMgmt/ProductStatusDyn.xml | grep "pscat:StatusCategory" | sed 's/\s*<.*>\(.*\)<.*>/\1/' | tail +2
     unit_of_measurement: '%'
 
   - platform: command_line
     name: printer_count
     scan_interval: 21600
-    command: curl -s http://192.168.1.10/DevMgmt/ProductUsageDyn.xml | grep -m1 "dd:TotalImpressions" | sed 's/\s*<.*>\(.*\)<.*>/\1/'
+    command: curl -s http://192.168.50.231/DevMgmt/ProductUsageDyn.xml | grep -m1 "dd:TotalImpressions" | sed 's/\s*<.*>\(.*\)<.*>/\1/'
 ################################################################################################################################################
 
 
@@ -673,18 +673,18 @@
         value_template: >-
           {% if is_state("sensor.printer_status", "ready") %}
             דולקת
-          {% elif is_state("sensor.printer_status", "inPowerSave") %}  
+          {% elif is_state("sensor.printer_status", "inPowerSave") %}
             בהמתנה
-          {% elif is_state("sensor.printer_status", "processing") %}  
+          {% elif is_state("sensor.printer_status", "processing") %}
             מדפיסה
-          {% elif is_state("sensor.printer_status", "") %}  
+          {% elif is_state("sensor.printer_status", "") %}
             כבויה
           {% else %}
             {{ states.sensor.printer_status.state }}
           {% endif %}
 ############################################################################
-#                                                                          # 
-#                           Security Camera                                #    
+#                                                                          #
+#                           Security Camera                                #
 #                                                                          #
 ############################################################################
   - platform: template
@@ -697,8 +697,8 @@
             פתוחה
           {% endif %}
 ############################################################################
-#                                                                          # 
-#                           Security Camera                                #    
+#                                                                          #
+#                           Security Camera                                #
 #                                                                          #
 ############################################################################
 

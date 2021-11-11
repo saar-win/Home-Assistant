@@ -1,34 +1,34 @@
 """The samsungtv_smart integration."""
 
-import socket
+from aiohttp import ClientConnectionError, ClientSession, ClientResponseError
+from async_timeout import timeout
 import asyncio
 import logging
 import os
-from aiohttp import ClientConnectionError, ClientSession, ClientResponseError
-from async_timeout import timeout
 from shutil import copyfile
+import socket
+import voluptuous as vol
 from websocket import WebSocketException
+
 from .api.samsungws import SamsungTVWS
 from .api.exceptions import ConnectionFailure
 from .api.smartthings import SmartThingsTV
 
-import voluptuous as vol
-import homeassistant.helpers.config_validation as cv
-
 from homeassistant.components.media_player.const import DOMAIN as MP_DOMAIN
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.helpers.typing import HomeAssistantType
+import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.storage import STORAGE_DIR
+from homeassistant.helpers.typing import HomeAssistantType
 
 from homeassistant.const import (
-    CONF_HOST,
-    CONF_NAME,
-    CONF_MAC,
-    CONF_PORT,
-    CONF_DEVICE_ID,
-    CONF_TIMEOUT,
     CONF_API_KEY,
     CONF_BROADCAST_ADDRESS,
+    CONF_DEVICE_ID,
+    CONF_HOST,
+    CONF_MAC,
+    CONF_NAME,
+    CONF_PORT,
+    CONF_TIMEOUT,
 )
 
 from .const import (
@@ -45,6 +45,7 @@ from .const import (
     CONF_UPDATE_METHOD,
     CONF_UPDATE_CUSTOM_PING_URL,
     CONF_SCAN_APP_HTTP,
+    DATA_OPTIONS,
     DEFAULT_SOURCE_LIST,
     WS_PREFIX,
     RESULT_NOT_SUCCESSFUL,
@@ -200,7 +201,11 @@ class SamsungTVInfo:
         for port in (8001, 8002):
 
             try:
-                _LOGGER.debug("Try config with port: %s", str(port))
+                _LOGGER.info(
+                    "Try to configure SamsungTV %s using port %s",
+                    self._hostname,
+                    str(port),
+                )
                 token_file = get_token_file(self._hass, self._hostname, port, True)
                 with SamsungTVWS(
                     name=WS_PREFIX
@@ -212,12 +217,13 @@ class SamsungTVInfo:
                     timeout=45,  # We need this high timeout because waiting for auth popup is just an open socket
                 ) as remote:
                     remote.open()
-                _LOGGER.debug("Working config with port: %s", str(port))
+                _LOGGER.info("Found working configuration using port %s", str(port))
                 self._port = port
                 return RESULT_SUCCESS
             except (OSError, ConnectionFailure, WebSocketException) as err:
-                _LOGGER.debug("Failing config with port: %s, error: %s", str(port), err)
+                _LOGGER.info("Configuration failed using port %s, error: %s", str(port), err)
 
+        _LOGGER.error("Web socket connection to SamsungTV %s failed", self._hostname)
         return RESULT_NOT_SUCCESSFUL
 
     async def _try_connect_st(self, api_key, device_id, session: ClientSession):
@@ -225,7 +231,7 @@ class SamsungTVInfo:
 
         try:
             with timeout(10):
-                _LOGGER.debug(
+                _LOGGER.info(
                     "Try connection to SmartThings TV with id [%s]", device_id
                 )
                 with SmartThingsTV(
@@ -233,17 +239,17 @@ class SamsungTVInfo:
                 ) as st:
                     result = await st.async_device_health()
                 if result:
-                    _LOGGER.debug("Connection completed successfully.")
+                    _LOGGER.info("Connection completed successfully.")
                     return RESULT_SUCCESS
                 else:
-                    _LOGGER.debug("Connection not available.")
+                    _LOGGER.error("Connection to SmartThings TV not available.")
                     return RESULT_ST_DEVICE_NOT_FOUND
         except ClientResponseError as err:
-            _LOGGER.debug("Failed connecting to SmartThings deviceID, error: %s", err)
+            _LOGGER.error("Failed connecting to SmartThings TV, error: %s", err)
             if err.status == 400:  # Bad request, means that token is valid
                 return RESULT_ST_DEVICE_NOT_FOUND
         except Exception as err:
-            _LOGGER.debug("Failed connecting with SmartThings, error: %s", err)
+            _LOGGER.error("Failed connecting with SmartThings, error: %s", err)
 
         return RESULT_WRONG_APIKEY
 
@@ -257,7 +263,7 @@ class SamsungTVInfo:
                     api_key, session, st_device_label
                 )
         except Exception as err:
-            _LOGGER.debug("Failed connecting with SmartThings, error: %s", err)
+            _LOGGER.error("Failed connecting with SmartThings, error: %s", err)
             return None
 
         return devices
@@ -309,20 +315,15 @@ async def async_setup(hass: HomeAssistantType, config: ConfigEntry):
     """Set up the Samsung TV integration."""
     if DOMAIN in config:
         hass.data[DOMAIN] = {}
+        entries_list = hass.config_entries.async_entries(DOMAIN)
         for entry_config in config[DOMAIN]:
 
             # get ip address
             ip_address = entry_config[CONF_HOST]
 
             # check if already configured
-            entry_found = False
-            entries_list = hass.config_entries.async_entries(DOMAIN)
-            for entry in entries_list:
-                if entry.unique_id == ip_address:
-                    entry_found = True
-                    break
-
-            if not entry_found:
+            valid_entries = [entry for entry in entries_list if entry.unique_id == ip_address]
+            if not valid_entries:
                 _LOGGER.warning(
                     "Found yaml configuration for not configured device %s. Please use UI to configure",
                     ip_address
@@ -351,7 +352,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry):
     hass.data[DOMAIN].setdefault(
         entry.entry_id,
         {
-            "options": entry.options.copy(),
+            DATA_OPTIONS: entry.options.copy(),
             DATA_LISTENER: [entry.add_update_listener(update_listener)],
         }
     )
@@ -381,4 +382,4 @@ async def async_unload_entry(hass, config_entry):
 async def update_listener(hass, config_entry):
     """Update when config_entry options update."""
     entry_id = config_entry.entry_id
-    hass.data[DOMAIN][entry_id]["options"] = config_entry.options.copy()
+    hass.data[DOMAIN][entry_id][DATA_OPTIONS] = config_entry.options.copy()

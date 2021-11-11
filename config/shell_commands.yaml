@@ -3,4 +3,4 @@
 ##################################################################################
 backup_to_hardisk: "bash scripts/homeassistant.sh"
 homeassistant_updade: !secret update_homeassistant_container
-
+cam_shell: 'bash scripts/camera.sh {{state_attr ("camera.bedroom", "access_token")}}'

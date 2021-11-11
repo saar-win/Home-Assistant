@@ -1,8 +1,8 @@
 switcher_turn_on:
-  url: !secret switcher_web_api_turn_on
+  url: http://192.168.50.19:8000/switcher/turn_on?id=582a5f&ip=192.168.50.179
   method: "POST"
   payload: '{"minutes": "{{ minutes }}"}'
 
 switcher_turn_off:
-  url: !secret switcher_web_api_turn_off
+  url: http://192.168.50.19:8000/switcher/turn_off?id=582a5f&ip=192.168.50.179
   method: "POST"

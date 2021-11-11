@@ -16,7 +16,7 @@
       data:
         push:
           sound: "US-EN-Morgan-Freeman-Front-Door-Opened.wav"
-        attachment: 
+        attachment:
           url: https://i.imgur.com/O0BOOFA.gif
 
 #########################################################################
@@ -32,7 +32,7 @@
     platform: template
   action:
   - service: light.turn_off
-    entity_id: light.gateway_light_04cf8cf40276
+    entity_id: light.gateway_light_04cf8c86ce26
 #########################################################################
 #                                                                       #
 #                          ON-TIMER Xiaomi Hub light                     #
@@ -46,7 +46,7 @@
     platform: template
   action:
   - service: light.turn_on
-    entity_id: light.gateway_light_04cf8cf40276
+    entity_id: light.gateway_light_04cf8c86ce26
 #########################################################################
 #                                                                       #
 #                          ON-TIMER Xiaomi Hub light                     #
@@ -71,6 +71,29 @@
     - service: notify.notify
       data:
         message: 'דלת הכניסה לבית נפתחה'
+#########################################################################
+#                                                                       #
+#                          Xioami Singel switch                         #
+#                                                                       #
+########################################################################
+- alias: "when parents room door open - message"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d000521cff6
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: group.family
+        state: 'not_home'
+      - condition: state
+        entity_id: group.family_gps
+        state: 'not_home'
+  action:
+    - service: notify.notify
+      data:
+        message: 'דלת חדר הורים נפתחה'
 #########################################################################
 #                                                                       #
 #                          Xioami Singel switch                         #

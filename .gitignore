@@ -1,3 +1,8 @@
+www/
+custom_components/**
+**/**/**/__pycache__/*
+**/*.log
+.cloud
 known_devices.yaml
 trash
 *.json

@@ -33,13 +33,13 @@
   action:
     - service: notify.mobile_app_mi_9t_pro
       data_template:
-        title: 'SSL Certificate attention' 
+        title: 'SSL Certificate attention'
         message: "EXP IN {{ states.sensor.cert_expiry_saarhome_mynetgear_com.state }} days"
 #########################################################################
 #                                                                       #
 #                                                                       #
 #                                                                       #
-######################################################################## 
+########################################################################
 - alias: 'New version update Notify'
   initial_state: 'on'
   trigger:
@@ -49,13 +49,13 @@
   action:
     - service: notify.mobile_app_mi_9t_pro
       data_template:
-        title: 'עדכון גרסא זמין' 
+        title: 'עדכון גרסא זמין'
         message: "Current Version: {{ states.sensor.ha_current_version.state }}. \nNew Version: {{ states.sensor.ha_available_version.state }}"
 #########################################################################
 #                                                                       #
 #                                                                       #
 #                                                                       #
-######################################################################## 
+########################################################################
 - alias: HACS Updates Notification
   trigger:
     - platform: state
@@ -96,7 +96,7 @@
   initial_state: 'on'
   trigger:
     - platform: template
-      value_template: "{% if states.sensor.temperature_158d0005734096.state | int > -10 %}true{% endif %}"
+      value_template: "{% if states.sensor.temperature_158d0005734096.state | int > -8 %}true{% endif %}"
   action:
     - service: notify.notify
       data_template:
@@ -107,14 +107,14 @@
   initial_state: 'on'
   trigger:
     - platform: template
-      value_template: "{% if states.sensor.temperature_158d000573408e.state | int > 9 %}true{% endif %}"
+      value_template: "{% if states.sensor.temperature_158d000573408e.state | int > 11 %}true{% endif %}"
   action:
     - service: notify.notify
       data_template:
         title: אזהרת טמפ' מקרר
         message: "בדוק טמפ מקרר {{ states.sensor.temperature_158d000573408e.state }} מעלות"
 ########################################################################################################################
- 
+
 - alias: Alert when a critical container goes offline
   initial_state: 'on'
   trigger:

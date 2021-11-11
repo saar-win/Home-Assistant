@@ -1,4 +1,4 @@
-boiler:
+boiler_on:
   default:
   - text_color: var(--picture-elements-text-color)
   - entity: switch.[[entity]]
@@ -14,26 +14,47 @@ boiler:
     image: '[[image]]'
     icon: mdi:[[icon]]
     tap_action:
-      action: '[[tap_action]]'
+      action: call-service
+      service: switch.[[tap_action]]
+      target:
+        entity_id: switch.[[entity]] 
     elements:
       - type: image
         entity: switch.[[entity]]
         icon: mdi:[[icon]]
         image: '[[image]]'
         tap_action:
-          action: '[[tap_action]]'
+          action: call-service
+          service: switch.[[tap_action]]
+          target:
+            entity_id: switch.[[entity]] 
         style:
           top: 50%
           left: 50%
           width: 100%
+      # - type: state-label
+      #   entity: sensor.[[entity]]_state
+      #   prefix: ''
+      #   show_name: false
+      #   style:
+      #     top: '[[top]]'
+      #     left: '[[left]]'
+      #     direction: '[[direction]]'
+      #     font-size: '[[font_size1]]px'
+      #     color: '[[text_color]]'
+      #     font-family: tahoma
+      #     font-weight: bold
       - type: state-label
         entity: sensor.[[entity]]_state_1
         prefix: 'מצב הבוילר: '
         tap_action:
-          action: '[[tap_action]]'
+          action: call-service
+          service: switch.[[tap_action]]
+          target:
+            entity_id: switch.[[entity]] 
         style:
-          top: '[[top]]'
-          left: '[[left]]'
+          top: '[[top2]]'
+          left: '[[left2]]'
           direction: '[[direction]]'
           font-size: '[[font_size1]]px'
           color: '[[text_color]]'
@@ -42,7 +63,10 @@ boiler:
       - type: state-icon
         entity: switch.[[entity]]
         tap_action:
-          action: '[[tap_action]]'
+          action: call-service
+          service: switch.[[tap_action]]
+          target:
+            entity_id: switch.[[entity]] 
         style:
           top: '[[top1]]'
           left: '[[left1]]'
@@ -50,7 +74,85 @@ boiler:
           --iron-icon-height: '[[icon_size]]px'
           --iron-icon-width: '[[icon_size]]px'
           --paper-item-icon-color: '[[text_color]]'
-          
+
+boiler_off:
+  default:
+  - text_color: var(--picture-elements-text-color)
+  - entity: switch.[[entity]]
+  - icon: mdi:[[icon]]
+  card:
+    type: picture-elements
+    style: |
+      ha-card {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+      }          
+    aspect_ratio: 40%  
+    image: '[[image]]'
+    icon: mdi:[[icon]]
+    tap_action:
+      action: call-service
+      service: switch.[[tap_action]]
+      target:
+        entity_id: switch.[[entity]] 
+    elements:
+      - type: image
+        entity: switch.[[entity]]
+        icon: mdi:[[icon]]
+        image: '[[image]]'
+        tap_action:
+          action: call-service
+          service: switch.[[tap_action]]
+          target:
+            entity_id: switch.[[entity]] 
+        style:
+          top: 50%
+          left: 50%
+          width: 100%
+      - type: state-label
+        entity: sensor.[[entity]]_state
+        prefix: 'כפתור כיבוי             '
+        style:
+          top: '[[top]]'
+          left: '[[left]]'
+          direction: '[[direction]]'
+          font-size: '[[font_size1]]px'
+          color: '[[text_color]]'
+          font-family: tahoma
+          font-weight: bold
+      - type: state-label
+        entity: sensor.[[entity]]_state
+        prefix: 'מצב הבוילר: '
+        tap_action:
+          action: call-service
+          service: switch.[[tap_action]]
+          target:
+            entity_id: switch.[[entity]] 
+        style:
+          top: '[[top2]]'
+          left: '[[left2]]'
+          direction: '[[direction]]'
+          font-size: '[[font_size1]]px'
+          color: '[[text_color]]'
+          font-family: tahoma
+          font-weight: bold
+      - type: state-icon
+        prefix: 'כפתור כיבוי: '
+        entity: switch.[[entity]]
+        tap_action:
+          action: call-service
+          service: switch.[[tap_action]]
+          target:
+            entity_id: switch.[[entity]] 
+        style:
+          top: '[[top1]]'
+          left: '[[left1]]'
+          direction: '[[direction]]'
+          --iron-icon-height: '[[icon_size]]px'
+          --iron-icon-width: '[[icon_size]]px'
+          --paper-item-icon-color: '[[text_color]]'
+
+
 boiler_handle:
   default:
   - text_color: var(--picture-elements-text-color)

@@ -234,9 +234,9 @@ class SamsungTVWS:
             return self.token
 
     def _set_token(self, token):
-        _LOGGING.info("New token %s", token)
+        _LOGGING.debug("New token %s", token)
         if self.token_file is not None:
-            _LOGGING.debug("Save token to file", token)
+            _LOGGING.debug("Save new token to file %s", self.token_file)
             with open(self.token_file, "w") as token_file:
                 token_file.write(token)
         else:
@@ -264,6 +264,9 @@ class SamsungTVWS:
             if using_remote or use_control:
                 _LOGGING.info("_ws_send: try to restart communication threads")
                 self.start_client(start_all=use_control)
+            return False
+        except websocket.WebSocketTimeoutException:
+            _LOGGING.warning("_ws_send: timeout error sending command %s", payload)
             return False
 
         if using_remote:
@@ -334,6 +337,7 @@ class SamsungTVWS:
         )
         sslopt = {"cert_reqs": ssl.CERT_NONE} if is_ssl else {}
 
+        websocket.setdefaulttimeout(self.timeout)
         self._ws_remote = websocket.WebSocketApp(
             url,
             on_message=self._on_message_remote,
@@ -343,7 +347,7 @@ class SamsungTVWS:
         # we set ping interval (1 hour) only to enable multi-threading mode
         # on socket. TV do not answer to ping but send ping to client
         self._ws_remote.run_forever(
-            sslopt=sslopt, ping_interval=3600, ping_timeout=2
+            sslopt=sslopt, ping_interval=3600
         )
         self._is_connected = False
         if self._ws_art:
@@ -354,7 +358,7 @@ class SamsungTVWS:
         self._ws_remote = None
         _LOGGING.debug("Thread SamsungRemote terminated")
 
-    def _on_ping_remote(self, payload):
+    def _on_ping_remote(self, _, payload):
         _LOGGING.debug("Received ping %s, sending pong", payload)
         self._last_ping = datetime.now()
         if self._ws_remote.sock:
@@ -363,7 +367,7 @@ class SamsungTVWS:
             except Exception as ex:
                 _LOGGING.warning("send_pong failed: {}".format(ex))
 
-    def _on_message_remote(self, message):
+    def _on_message_remote(self, _, message):
         response = self._process_api_response(message)
         _LOGGING.debug(response)
         event = response.get("event")
@@ -380,7 +384,6 @@ class SamsungTVWS:
             _LOGGING.debug("Message remote: received connect")
             token = conn_data.get("token")
             if token:
-                _LOGGING.debug("Got token %s", token)
                 self._set_token(token)
             self._is_connected = True
             self._request_apps_list()
@@ -388,7 +391,6 @@ class SamsungTVWS:
         elif event == "ed.installedApp.get":
             _LOGGING.debug("Message remote: received installedApp")
             self._handle_installed_app(response)
-            # self.start_client(start_all=True)
         elif event == "ed.edenTV.update":
             _LOGGING.debug("Message remote: received edenTV")
             self.get_running_app(force_scan=True)
@@ -425,17 +427,22 @@ class SamsungTVWS:
         )
         sslopt = {"cert_reqs": ssl.CERT_NONE} if is_ssl else {}
 
+        websocket.setdefaulttimeout(self.timeout)
         self._ws_control = websocket.WebSocketApp(
             url,
             on_message=self._on_message_control,
         )
         _LOGGING.debug("Thread SamsungControl started")
-        self._ws_control.run_forever(sslopt=sslopt)
+        # we set ping interval (1 hour) only to enable multi-threading mode
+        # on socket. TV do not answer to ping but send ping to client
+        self._ws_control.run_forever(
+            sslopt=sslopt, ping_interval=3600
+        )
         self._ws_control.close()
         self._ws_control = None
         _LOGGING.debug("Thread SamsungControl terminated")
 
-    def _on_message_control(self, message):
+    def _on_message_control(self, _, message):
         response = self._process_api_response(message)
         _LOGGING.debug(response)
         result = response.get("result")
@@ -455,6 +462,9 @@ class SamsungTVWS:
                 return
             _LOGGING.debug("Message control: received connect")
             self.get_running_app()
+        elif event == "ed.installedApp.get":
+            _LOGGING.debug("Message control: received installedApp")
+            self._handle_installed_app(response)
 
     def _set_running_app(self, response):
         app_id = response.get("id")
@@ -533,17 +543,22 @@ class SamsungTVWS:
         )
         sslopt = {"cert_reqs": ssl.CERT_NONE} if is_ssl else {}
 
+        websocket.setdefaulttimeout(self.timeout)
         self._ws_art = websocket.WebSocketApp(
             url,
             on_message=self._on_message_art,
         )
         _LOGGING.debug("Thread SamsungArt started")
-        self._ws_art.run_forever(sslopt=sslopt)
+        # we set ping interval (1 hour) only to enable multi-threading mode
+        # on socket. TV do not answer to ping but send ping to client
+        self._ws_art.run_forever(
+            sslopt=sslopt, ping_interval=3600
+        )
         self._ws_art.close()
         self._ws_art = None
         _LOGGING.debug("Thread SamsungArt terminated")
 
-    def _on_message_art(self, message):
+    def _on_message_art(self, _, message):
         response = self._process_api_response(message)
         _LOGGING.debug(response)
         event = response.get("event")
@@ -745,16 +760,15 @@ class SamsungTVWS:
         for iteration in range(3):
             response = self._process_api_response(connection.recv())
             _LOGGING.debug(response)
-            if response.get("event", "") == "ms.channel.connect":
-                conn_data = response.get("data")
-                if self._check_conn_id(conn_data):
-                    completed = True
-                    token = conn_data.get("token")
-                    if token:
-                        _LOGGING.debug("Got token %s", token)
-                        self._set_token(token)
-                    break
-            else:
+            event = response.get("event", "-")
+            if event != "ms.channel.connect":
+                break
+            conn_data = response.get("data")
+            if self._check_conn_id(conn_data):
+                completed = True
+                token = conn_data.get("token")
+                if token:
+                    self._set_token(token)
                 break
 
         if not completed:

@@ -24,22 +24,22 @@
     const attributes = {
         main_brush: {
             key: 'main_brush_left',
-            label: 'Main Brush: ',
+            label: 'מברשת ראשית: ',
             unit: ' h',
         },
         side_brush: {
             key: 'side_brush_left',
-            label: 'Side Brush: ',
+            label: 'מברשת צד: ',
             unit: ' h',
         },
         filter: {
             key: 'filter_left',
-            label: 'Filter: ',
+            label: 'פילטר: ',
             unit: ' h',
         },
         sensor: {
             key: 'sensor_dirty_left',
-            label: 'Sensor: ',
+            label: 'סנסורים: ',
             unit: ' h',
         },
     };

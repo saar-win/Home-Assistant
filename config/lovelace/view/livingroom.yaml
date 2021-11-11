@@ -72,7 +72,7 @@ cards:
           show_header_toggle: false
           entities:
             - type: custom:slider-entity-row
-              entity: light.gateway_light_04cf8cf40276
+              entity: light.gateway_light_04cf8c86ce26
             - automation.xiaomi_light_start
             - entity: input_datetime.xiaomi_light_timer_on
             - automation.xiaomi_light_end

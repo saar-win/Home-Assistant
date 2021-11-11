@@ -37,7 +37,7 @@
               #- automation.timer_boiler1_off
               #- automation.boiler_with_timer
               #- input_number.slider_boiler
-              - entity: sensor.switcher_webapi_state_1
+              - entity: sensor.switcher_webapi_state
                 name: מצב הדוד
               - entity: sensor.switcher_webapi_power_consumption
               - entity: sensor.switcher_webapi_electric_current
@@ -130,27 +130,28 @@
                   template: shoulder_blank_card
 
                 - type: custom:decluttering-card
-                  template: boiler
+                  template: boiler_on
                   variables:
                     - image: /local/shower.jpg
                     - entity: switcher_webapi
                     - tap_action: toggle
                     - top: 12%
-                    - left: 50%
+                    - left: 10%
+                    - top2: 20%
+                    - left2: 50%
                     - top1: 60%
                     - left1: 50%
                     - direction: rtl
                     - icon: shower-head
                     - text_size: 20
-                    - icon_size: 40
+                    - icon_size: 10
                     - text_color: white
                     - icon_color: white
                     - name: boiler
 
                 - type: custom:button-card
                   template: shoulder_blank_card
-
-
+                  
             - type: horizontal-stack
               cards:
 

@@ -1,5 +1,5 @@
 - platform: rest
-  resource: !secret switcher_web_api_get_state
+  resource: http://192.168.50.19:8000/switcher/get_state?id=582a5f&ip=192.168.50.179
   name: Switcher WebAPI
   json_attributes:
     - state
@@ -53,10 +53,18 @@
     switcher_webapi_state:
       friendly_name: "State"
       icon_template: mdi:shower
-      value_template: >- 
-        {{ state_attr('sensor.switcher_webapi', 'state') }} 
+      value_template: >-
+          {% if state_attr('sensor.switcher_webapi', 'state') == 'ON' %}
+            on
+          {% else %}
+            off
+          {% endif %}
     switcher_webapi_state_1:
       friendly_name: "State"
       icon_template: mdi:shower
-      value_template: >- 
-        {% if is_state('sensor.switcher_webapi_state', 'on') %} דולק {% else %} כבוי {% endif %}
+      value_template: >-
+          {% if state_attr('sensor.switcher_webapi', 'state') == 'ON' %}
+            דולק
+          {% else %}
+            כבוי
+          {% endif %}

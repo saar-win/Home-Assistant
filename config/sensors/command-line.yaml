@@ -1,6 +1,6 @@
 ############################################################################
-#                                                                          # 
-#                           Security Camera                                #    
+#                                                                          #
+#                           Security Camera                                #
 #                                                                          #
 ############################################################################
 
@@ -8,6 +8,11 @@
   name: latest_backup
   command: "ls -llt /backup | awk 'NR==2 {print $9}'"
   scan_interval: 60
+
+- platform: command_line
+  name: latest_file_in_record_dir
+  command: "ls -llt /backup/records | awk 'NR==2 {print $9}'"
+  scan_interval: 20
 
 - platform: command_line
   name: 2_backup
@@ -48,4 +53,3 @@
 #   #friendly_name: כמות גיגה זמינה
 #   command: "python3 -c "import requests; print(requests.get('https://pypi.python.org/pypi/homeassistant/json').json()['info']['version'])""
 #   scan_interval: 60
- 
